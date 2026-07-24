@@ -1,0 +1,93 @@
+if ((select count(*) from [77.81.228.147].dbmax.dbo.Tyres t) > 3000) begin
+  delete from replicatopruote.dbo.Tyres
+  insert into replicatopruote.dbo.Tyres
+  select t.* from [77.81.228.147].dbmax.dbo.Tyres t
+end
+
+if ((select count(*) from [77.81.228.147].dbmax.dbo.Brands t) > 100) begin
+  delete from replicatopruote.dbo.Brands
+  insert into replicatopruote.dbo.Brands
+  select t.* from [77.81.228.147].dbmax.dbo.Brands t
+end
+
+if ((select count(*) from [77.81.228.147].dbmax.dbo.Accessories t) > 3000) begin
+  delete from replicatopruote.dbo.Accessories
+  insert into replicatopruote.dbo.Accessories
+  select t.* from [77.81.228.147].dbmax.dbo.Accessories t
+end
+
+if ((select count(*) from [77.81.228.147].dbmax.dbo.Wheels t) > 46000) begin
+  delete from replicatopruote.dbo.Wheels
+  insert into replicatopruote.dbo.Wheels
+  select t.* from [77.81.228.147].dbmax.dbo.Wheels t
+end
+
+if ((select count(*) from [77.81.228.147].dbmax.dbo.ProductSupplCodes t) > 54000) begin
+  delete from replicatopruote.dbo.ProductSupplCodes
+  insert into replicatopruote.dbo.ProductSupplCodes
+  select t.* from [77.81.228.147].dbmax.dbo.ProductSupplCodes t
+	left join  [77.81.228.147].dbmax.dbo.Products pr on t.productid=pr.id
+	where pr.producttypeid <> 1
+end
+
+if ((select count(*) from [77.81.228.147].dbmax.dbo.KtypeTpms t) > 150000) begin
+  delete from replicatopruote.dbo.KtypeTpms
+  insert into replicatopruote.dbo.KtypeTpms
+  select t.* from [77.81.228.147].dbmax.dbo.KtypeTpms t 
+end
+
+if ((select count(*) from [77.81.228.147].dbmax.dbo.KtypeSpareWheels t) > 100000) begin
+  delete from replicatopruote.dbo.KtypeSpareWheels
+  insert into replicatopruote.dbo.KtypeSpareWheels
+  select t.* from [77.81.228.147].dbmax.dbo.KtypeSpareWheels t 
+end
+
+exec dbo.SpImportKtypeWheelsV02;
+
+if ((select count(*) from [77.81.228.147].dbmax.dbo.WwKtypeAbeCodes t) > 80000) begin
+  delete from replicatopruote.dbo.WwKtypeAbeCodes
+  insert into replicatopruote.dbo.WwKtypeAbeCodes
+  select t.* from [77.81.228.147].dbmax.dbo.WwKtypeAbeCodes t 
+end
+
+if ((select count(*) from [77.81.228.147].dbmax.dbo.WwKtypeChassisModels t) > 90000) begin
+  delete from replicatopruote.dbo.WwKtypeChassisModels
+  insert into replicatopruote.dbo.WwKtypeChassisModels
+  select t.* from [77.81.228.147].dbmax.dbo.WwKtypeChassisModels t 
+end
+
+if ((select count(*) from [77.81.228.147].dbmax.dbo.WwTecDocManufacturers t) > 300) begin
+  delete from replicatopruote.dbo.WwTecDocManufacturers
+  insert into replicatopruote.dbo.WwTecDocManufacturers
+  select t.* from [77.81.228.147].dbmax.dbo.WwTecDocManufacturers t 
+end
+
+if ((select count(*) from [77.81.228.147].dbmax.dbo.WwTecDocModels t) > 6900) begin
+  delete from replicatopruote.dbo.WwTecDocModels
+  insert into replicatopruote.dbo.WwTecDocModels
+  select t.* from [77.81.228.147].dbmax.dbo.WwTecDocModels t 
+end
+
+if ((select count(*) from [77.81.228.147].dbmax.dbo.WwTecDocVehicles t) > 40000) begin
+  delete from replicatopruote.dbo.WwTecDocVehicles
+  insert into replicatopruote.dbo.WwTecDocVehicles
+  select t.* from [77.81.228.147].dbmax.dbo.WwTecDocVehicles t 
+end
+
+if ((select count(*) from [77.81.228.147].dbmax.dbo.WwTyrefitChassises t) > 9000) begin
+  delete from replicatopruote.dbo.WwTyrefitChassises
+  insert into replicatopruote.dbo.WwTyrefitChassises
+  select t.* from [77.81.228.147].dbmax.dbo.WwTyrefitChassises t 
+end
+
+if ((select count(*) from [77.81.228.147].dbmax.dbo.WwTyrefitModels t) > 98000) begin
+  delete from replicatopruote.dbo.WwTyrefitModels
+  insert into replicatopruote.dbo.WwTyrefitModels
+  select t.* from [77.81.228.147].dbmax.dbo.WwTyrefitModels t 
+end
+
+if ((select count(*) from [77.81.228.147].[WheelSystems].[dbo].[NtsProducts] t) > 10) begin
+  delete from replicatopruote.dbo.NtsProducts
+  insert into replicatopruote.dbo.NtsProducts
+  select t.* from [77.81.228.147].[WheelSystems].[dbo].[NtsProducts] t 
+end

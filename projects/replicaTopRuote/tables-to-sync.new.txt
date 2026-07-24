@@ -1,0 +1,93 @@
+if ((select count(*) from Tyres_Src t) > 3000) begin
+  delete from replicatopruote.dbo.Tyres
+  insert into replicatopruote.dbo.Tyres
+  select t.* from Tyres_Src t
+end
+
+if ((select count(*) from Brands_Src t) > 100) begin
+  delete from replicatopruote.dbo.Brands
+  insert into replicatopruote.dbo.Brands
+  select t.* from Brands_Src t
+end
+
+if ((select count(*) from Accessories_Src t) > 3000) begin
+  delete from replicatopruote.dbo.Accessories
+  insert into replicatopruote.dbo.Accessories
+  select t.* from Accessories_Src t
+end
+
+if ((select count(*) from Wheels_Src t) > 46000) begin
+  delete from replicatopruote.dbo.Wheels
+  insert into replicatopruote.dbo.Wheels
+  select t.* from Wheels_Src t
+end
+
+if ((select count(*) from ProductSupplCodes_Src t) > 54000) begin
+  delete from replicatopruote.dbo.ProductSupplCodes
+  insert into replicatopruote.dbo.ProductSupplCodes
+  select t.* from ProductSupplCodes_Src t
+	left join  Products_Src pr on t.productid=pr.id
+	where pr.producttypeid <> 1
+end
+
+if ((select count(*) from KtypeTpms_Src t) > 150000) begin
+  delete from replicatopruote.dbo.KtypeTpms
+  insert into replicatopruote.dbo.KtypeTpms
+  select t.* from KtypeTpms_Src t
+end
+
+if ((select count(*) from KtypeSpareWheels_Src t) > 100000) begin
+  delete from replicatopruote.dbo.KtypeSpareWheels
+  insert into replicatopruote.dbo.KtypeSpareWheels
+  select t.* from KtypeSpareWheels_Src t
+end
+
+exec dbo.SpImportKtypeWheelsV02;
+
+if ((select count(*) from WwKtypeAbeCodes_Src t) > 80000) begin
+  delete from replicatopruote.dbo.WwKtypeAbeCodes
+  insert into replicatopruote.dbo.WwKtypeAbeCodes
+  select t.* from WwKtypeAbeCodes_Src t
+end
+
+if ((select count(*) from WwKtypeChassisModels_Src t) > 90000) begin
+  delete from replicatopruote.dbo.WwKtypeChassisModels
+  insert into replicatopruote.dbo.WwKtypeChassisModels
+  select t.* from WwKtypeChassisModels_Src t
+end
+
+if ((select count(*) from WwTecDocManufacturers_Src t) > 300) begin
+  delete from replicatopruote.dbo.WwTecDocManufacturers
+  insert into replicatopruote.dbo.WwTecDocManufacturers
+  select t.* from WwTecDocManufacturers_Src t
+end
+
+if ((select count(*) from WwTecDocModels_Src t) > 6900) begin
+  delete from replicatopruote.dbo.WwTecDocModels
+  insert into replicatopruote.dbo.WwTecDocModels
+  select t.* from WwTecDocModels_Src t
+end
+
+if ((select count(*) from WwTecDocVehicles_Src t) > 40000) begin
+  delete from replicatopruote.dbo.WwTecDocVehicles
+  insert into replicatopruote.dbo.WwTecDocVehicles
+  select t.* from WwTecDocVehicles_Src t
+end
+
+if ((select count(*) from WwTyrefitChassises_Src t) > 9000) begin
+  delete from replicatopruote.dbo.WwTyrefitChassises
+  insert into replicatopruote.dbo.WwTyrefitChassises
+  select t.* from WwTyrefitChassises_Src t
+end
+
+if ((select count(*) from WwTyrefitModels_Src t) > 98000) begin
+  delete from replicatopruote.dbo.WwTyrefitModels
+  insert into replicatopruote.dbo.WwTyrefitModels
+  select t.* from WwTyrefitModels_Src t
+end
+
+if ((select count(*) from NtsProducts_Src t) > 10) begin
+  delete from replicatopruote.dbo.NtsProducts
+  insert into replicatopruote.dbo.NtsProducts
+  select t.* from NtsProducts_Src t
+end

@@ -1,0 +1,15 @@
+select * into replicatopruote.dbo.Tyres_202605181135 from replicatopruote.dbo.Tyres
+select * into replicatopruote.dbo.Brands_202605181135 from replicatopruote.dbo.Brands
+select * into replicatopruote.dbo.Accessories_202605181135 from replicatopruote.dbo.Accessories
+select * into replicatopruote.dbo.Wheels_202605181135 from replicatopruote.dbo.Wheels
+select * into replicatopruote.dbo.ProductSupplCodes_202605181135 from replicatopruote.dbo.ProductSupplCodes
+select * into replicatopruote.dbo.KtypeTpms_202605181135 from replicatopruote.dbo.KtypeTpms
+select * into replicatopruote.dbo.KtypeSpareWheels_202605181135 from replicatopruote.dbo.KtypeSpareWheels
+select * into replicatopruote.dbo.WwKtypeAbeCodes_202605181135 from replicatopruote.dbo.WwKtypeAbeCodes
+select * into replicatopruote.dbo.WwKtypeChassisModels_202605181135 from replicatopruote.dbo.WwKtypeChassisModels
+select * into replicatopruote.dbo.WwTecDocManufacturers_202605181135 from replicatopruote.dbo.WwTecDocManufacturers
+select * into replicatopruote.dbo.WwTecDocModels_202605181135 from replicatopruote.dbo.WwTecDocModels
+select * into replicatopruote.dbo.WwTecDocVehicles_202605181135 from replicatopruote.dbo.WwTecDocVehicles
+select * into replicatopruote.dbo.WwTyrefitChassises_202605181135 from replicatopruote.dbo.WwTyrefitChassises
+select * into replicatopruote.dbo.WwTyrefitModels_202605181135 from replicatopruote.dbo.WwTyrefitModels
+select * into replicatopruote.dbo.NtsProducts_202605181135 from replicatopruote.dbo.NtsProducts

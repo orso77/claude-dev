@@ -24,3 +24,15 @@ __pycache__/
 
 # node
 node_modules/
+
+# progetto fitments (file di lavoro / dati locali, fuori da git)
+/projects/fitments/
+/projects/fitments_old/
+
+# export-stocks: script operativi + credenziali server (dati locali, fuori da git)
+/projects/export-stocks/server 192.168.100.52/
+/projects/export-stocks/server 77.81.228.147/
+
+# wheelsystems mapping: dati CSV pesanti (fuori da git)
+/projects/wheelsystems-wheelsnet-wheels-mapping/Products-data.csv
+/projects/wheelsystems-wheelsnet-wheels-mapping/Wheels-data.csv
