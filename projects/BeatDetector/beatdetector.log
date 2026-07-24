@@ -1,0 +1,11 @@
+23:14:49.180 Start()
+23:14:49.212 Visualizer OK
+23:14:54.169 Autocorr: n=96 bestLag=7 bestCorr=0,370 frameInterval=51,8ms → rawBpm=165
+23:14:54.170 Autocorr result: bestLag=7 interp=6,66 rawBpm=174,0 → 174
+23:14:54.172 Quick: onsets=3 onset_bpm=0 autocorr_bpm=174 → 174
+23:14:54.280 DOWNBEAT sync at 1774826094280
+23:15:01.178 Autocorr: n=230 bestLag=13 bestCorr=0,384 frameInterval=53,1ms → rawBpm=86
+23:15:01.179 Autocorr result: bestLag=13 interp=12,99 rawBpm=87,0 → 174
+23:15:01.200 Full: onsets=20 autocorr=174 onset=191 → 174
+23:15:01.699 DOWNBEAT sync at 1774826101699
+23:16:50.130 Stop()

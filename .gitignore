@@ -1,0 +1,26 @@
+# Cartella temporanea condivisa, fuori dai repo: C:\!!claude-temp
+
+# dati di sessione locali
+/.claude/
+
+# media pesanti (>100MB o non adatti a GitHub)
+*.mp4
+*.mp3
+
+# rumore di sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# python
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# secret env (file .env locali, non la cartella secrets/)
+.env
+*.env.local
+
+# node
+node_modules/
