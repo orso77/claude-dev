@@ -553,6 +553,76 @@ L'ensemble media il segnale anziché amplificarlo. Il voting tende a selezionare
 5. Ensemble — 3.43%
 6. Nexus — 3.40%
 
+## InstinctEngine — apprendimento online auto-correttivo (2026-07-28)
+
+Settimo motore, e l'unico **non tarato offline**. Tutti gli altri engine fanno random search su parametri fissi e poi li congelano; qui il sistema cammina nella storia dalla prima estrazione all'ultima e ad ogni passo predice → osserva → **si corregge**.
+
+### Meccanica
+
+1. 16 "istinti" (expert) danno ciascuno un punteggio su tutti i numeri, guardando solo `rows[0..t)`.
+2. Gli istinti vengono z-normalizzati e fusi secondo la fiducia corrente.
+3. Si osserva l'estrazione reale.
+4. Aggiornamento moltiplicativo (Hedge): `w_i *= exp(eta · reward_i)` dove `reward_i = (hit_i − baseline) / numActual`.
+5. Normalizzazione + **fattore di oblio** verso l'uniforme, così il motore può cambiare idea se cambia il regime.
+
+Anti-leakage strutturale: `Memory.Absorb(t)` è chiamato **dopo** la predizione del passo `t`.
+
+### I 16 istinti
+
+| # | Istinto | Idea |
+|---|---------|------|
+| 0 | Ritardo | chi manca da più tempo |
+| 1 | Caldo | densità nelle ultime 30 righe |
+| 2 | Ritmo | gap ≈ gap medio proprio |
+| 3 | Vicino | confinanti sulla ruota (circolare) |
+| 4 | Specchio | il riflesso `k+1−n` |
+| 5 | Decina | famiglia della decina |
+| 6 | CifraFinale | stessa cifra finale |
+| 7 | Compagni | co-occorrenza storica |
+| 8 | Successione | matrice di transizione fra estrazioni consecutive |
+| 9 | Eco | ricordo a `k/2`, `k`, `2k` righe fa |
+| 10 | Aurea | ritardo su Fibonacci + fase aurea |
+| 11 | Contrario | l'esatto opposto del caldo |
+| 12 | Sonnambulo | gap > gap medio proprio |
+| 13 | Diagonale | scia obliqua nel canvas |
+| 14 | Somma | risonanza di somma-cifre |
+| 15 | **Caso** | **termometro dell'onestà** — xorshift puro |
+
+L'istinto #15 è il controllo sperimentale: se il caso puro si piazza in alto nella classifica delle fiducie, gli altri istinti non stanno vedendo nulla.
+
+### Auto-tuning
+
+Griglia 3×3 su `eta ∈ {0.05, 0.15, 0.40}` × `oblio ∈ {0.0, 0.02, 0.08}`, si tiene la combinazione col miglior metric online.
+
+### Risultati (run 2026-07-28, 4226 estrazioni SE / 863 EJ)
+
+| Canvas | Online | Baseline | Edge | Passi | Rank del Caso |
+|--------|--------|----------|------|-------|---------------|
+| SE main (top-6) | 0.416 | 0.400 | +3.9% | 4026 | **7° / 16** |
+| SE SuperStar (top-1) | 0.012 | 0.011 | +9.9% | 3112 | 12° / 16 |
+| EJ main (top-5) | 0.541 | 0.500 | +8.3% | 763 | 14° / 16 |
+| EJ euro (top-2) | 0.336 | 0.333 | +0.8% | 387 | 16° / 16 |
+
+### Il verdetto sta nelle fiducie, non nell'edge
+
+Il risultato più informativo **non** è l'edge ma la **piattezza delle fiducie finali** su SE main: dal 7.8% (Specchio) al 5.4% (CifraFinale), contro il 6.25% dell'uniforme. Dopo 4026 passi di correzione su 4226 estrazioni, il sistema **non è riuscito a distinguere** nessun istinto dagli altri — e il caso puro finisce 7° su 16, in mezzo al gruppo.
+
+Questo è il test più severo mai fatto su Merlino, ed è quello che chiude il discorso: se ci fosse un segnale, 4000 passi di feedback esplicito lo avrebbero trovato. Le fiducie sarebbero divergute. Sono rimaste piatte.
+
+**Eccezione apparente — SE SuperStar**: `Somma` prende il 76.6% della fiducia. Non è un segnale: il target è 1 numero su 90 (hit rate 1.1%), l'aggiornamento moltiplicativo con `eta=0.40` e oblio=0 amplifica sbilanciamenti casuali senza nulla che li riporti verso l'uniforme. È il caso da manuale di collasso della fiducia su rumore, e va letto come artefatto.
+
+**EJ**: gli edge +8.3% (main) e +0.8% (euro) hanno rispettivamente 763 e 387 passi. Con σ ≈ 0.02-0.03 su quei campioni non sono distinguibili da zero.
+
+### Output
+
+`Program.cs` chiude con la sezione `*** LA GIOCATA DELL'ISTINTO ***` che stampa direttamente **6+1** per SE e **5+2** per EJ, con accanto il metric online e la baseline.
+
+### File
+
+| File | Ruolo |
+|------|-------|
+| `InstinctEngine.cs` | 16 istinti + Hedge online + auto-tuning eta/oblio + giocata finale |
+
 ## Limiti noti / TODO
 
 **Fatti**:
