@@ -112,6 +112,18 @@ Verso metà aprile 2026 `superenalotto.com` ha cambiato sia URL sia markup, romp
 - **Data in italiano** (`11 luglio 2026`): aggiunto dizionario `ItalianMonths` per il mapping mese→numero (prima si parsava dall'href numerico).
 - La pagina `estrazioni-{yyyy}` contiene **tutte** le estrazioni dell'anno (gen→oggi), quindi l'update incrementale copre sempre l'intero buco senza rischio di gap.
 
+### Falso allarme 2026-07-28 — storico "fermo" al 11/07
+
+Segnalato storico fermo al **2026-07-11**. Verificato: **fonte e scraper OK**, `superenalotto.com/archivio/estrazioni-2026` risponde 200 con markup invariato (`boxarchiveDate` / `boxArchiveNumber`) e la regex matcha. L'archivio era semplicemente vecchio perché **l'app non era stata lanciata dal 14/07**. Un run ha aggiunto 8 estrazioni → storico al **2026-07-25** (4226 righe).
+
+Per rendere immediatamente visibile se lo scraping è fermo, in `Program.cs` è stata aggiunta una riga in chiaro subito dopo il caricamento storico (sia SE che EJ):
+
+```
+>>> ULTIMA ESTRAZIONE SE IN ARCHIVIO: 25/07/2026 (oggi: 28/07/2026) <<<
+```
+
+Se la data mostrata è molto indietro rispetto a "oggi", lo scraper è rotto; se è allineata all'ultimo concorso, è tutto a posto.
+
 ## Aggiornamento incrementale all'avvio
 
 Ogni volta che l'app parte, `SuperenalottoFetcher.UpdateCurrentYearAsync` fa:
