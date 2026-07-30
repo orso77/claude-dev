@@ -124,6 +124,29 @@ Per rendere immediatamente visibile se lo scraping è fermo, in `Program.cs` è 
 
 Se la data mostrata è molto indietro rispetto a "oggi", lo scraper è rotto; se è allineata all'ultimo concorso, è tutto a posto.
 
+### Binario stantio — causa reale del "non scarica" (2026-07-30)
+
+Segnalato di nuovo "l'exe dice ultima estrazione 25/07 ma l'ultima è del 28/07 → lo scaricamento all'avvio non funziona".
+
+**Verificato: il sorgente era corretto.** Entrambe le fonti rispondono 200 e le regex matchano l'estrazione del 28/07:
+- SE `superenalotto.com/archivio/estrazioni-2026` → 120 match, primo = `28 luglio 2026 → 1,6,9,43,54,62 J=87 S=69`
+- EJ `italia.lottocracked.com/.../estrazioni-2026/` → 60 match, primo = `28 Luglio 2026 → 11,25,40,41,45 E=1,5`
+
+Eseguendo `bin\Release\net10.0\Merlino.exe` (build 28/07) → *"Aggiunte 1 nuove estrazioni"*, archivio a 4227 righe.
+Eseguendo `bin\Debug\net10.0\Merlino.exe` (build **16/04/2026**) → *"Nessuna nuova estrazione"* e nessuna riga `>>> ULTIMA ESTRAZIONE`.
+
+**Root cause: l'utente lancia l'exe dalla cartella `bin\Debug\net10.0`, che conteneva un binario del 16/04** — cioè precedente sia al fix URL/markup del 14/07 sia alla riga diagnostica del 28/07. Il vecchio scraper puntava ancora a `/risultati/{yyyy}` con il markup `ball-24px`: 0 match, 0 righe nuove, nessun errore. Non era un problema di fonte né di codice, ma di **build non rigenerata**.
+
+Fix applicati:
+1. `dotnet build -c Debug` **e** `-c Release` rigenerati (regola pratica: dopo ogni modifica al sorgente ricompilare la configurazione che si lancia davvero).
+2. `SuperenalottoFetcher.cs` / `EurojackpotFetcher.cs`: se la pagina scarica ma il parsing produce **0 estrazioni**, ora stampa
+   `[Fetcher] ATTENZIONE: 0 estrazioni riconosciute in {url} ({n} byte scaricati). Markup della fonte cambiato?`
+   invece di restituire silenziosamente 0. Distingue "nessuna estrazione nuova" da "parser rotto".
+3. `Program.cs`: dopo la riga `>>> ULTIMA ESTRAZIONE …`, se l'archivio è fermo da **più di 5 giorni** stampa
+   `!!! ARCHIVIO SE/EJ FERMO DA {n} GIORNI — scraping probabilmente rotto (oppure stai lanciando un exe vecchio) !!!`
+
+Con questi tre segnali, un binario stantio o un cambio di markup diventano visibili al primo avvio.
+
 ## Aggiornamento incrementale all'avvio
 
 Ogni volta che l'app parte, `SuperenalottoFetcher.UpdateCurrentYearAsync` fa:
@@ -615,7 +638,45 @@ Questo è il test più severo mai fatto su Merlino, ed è quello che chiude il d
 
 ### Output
 
-`Program.cs` chiude con la sezione `*** LA GIOCATA DELL'ISTINTO ***` che stampa direttamente **6+1** per SE e **5+2** per EJ, con accanto il metric online e la baseline.
+`Program.cs` chiude con la sezione `*** LA GIOCATA DELL'ISTINTO ***` che stampa direttamente **6+1** per SE e **5+2** per EJ.
+
+### Output ridotto alla sola giocata (2026-07-30)
+
+Su richiesta esplicita dell'utente ("voglio solo questo", riferito a 6+1 e 5+2), `Program.cs` è stato ridotto a: fetch SE → riga archivio SE → fetch EJ → riga archivio EJ → Istinto → giocata finale. Tutto il resto dell'output è sparito.
+
+- **Non chiamati più** da `Program.cs`: `AnomalyHunter`, `CompressionTest`, `AntiResonanceTest`, `JollyCorrelation`, `PatternMatcher.Sweep/Predict`, `AntiPopular`, `CombinatorialSystems`, retrotest ultime 10, top-12/top-10 con percentuali, "ultime 3 estrazioni".
+- **I file degli engine restano tutti sul disco e compilati**: non è stato cancellato nulla, sono solo call rimosse. Per riattivare una sezione basta rimettere la chiamata.
+- `InstinctEngine.Run` stampa di suo diagnostica (griglia eta/oblio, fiducie dei 16 istinti, rank del Caso). Non è stato modificato: in `Program.cs` l'output viene silenziato con `Console.SetOut(TextWriter.Null)` attorno alle 4 chiamate, ripristinando `stdOut` fra una e l'altra per stampare un puntino di avanzamento. Così `InstinctEngine.cs` resta intatto e la diagnostica si recupera togliendo due righe.
+- Rimossi anche il metric online / baseline accanto alla giocata: restano solo i numeri.
+
+Tempo di esecuzione: ~1 minuto (prima erano molti minuti, dominati dai tuner degli altri engine).
+
+### Probabilità di vincere almeno 10 € — 6+1 vs 7+1 (2026-07-30)
+
+Ipotesi: combinazione 1,00 € + SuperStar 0,50 €/combinazione → 6+1 = 1,50 €, 7+1 integrale (7 combinazioni) = 10,50 €. Quote tipiche punti 2 ≈ 5 €, punti 3 ≈ 25 €; SuperStar a premio fisso (0+SS = 5 €, 1+SS = 10 €, 2+SS = 100 €). SuperStar indipendente dai 6 numeri, P = 1/90.
+
+Distribuzione ipergeometrica dei centri (90 numeri, 6 estratti):
+
+| Centri | 6 numeri | 7 numeri |
+|--------|----------|----------|
+| 0 | 65,286% | 60,623% |
+| 1 | 29,751% | 32,643% |
+| 2 | 4,649% | 6,198% |
+| 3 | 0,3061% | 0,5165% |
+| 4 | 0,0084% | 0,0191% |
+| 5 | 0,00008% | 0,00028% |
+
+**6+1**: il punti 2 (~5 €) non raggiunge la soglia, serve punti 3 (0,3146% cumulato) oppure SuperStar centrato con 1-2 punti (1/90 × 34,40% = 0,3822%) → **0,697%, 1 su 143**.
+
+**7+1**: le 7 combinazioni non sono indipendenti — con `j` centri si hanno `7−j` combinazioni da `j` punti e `j` combinazioni da `j−1` punti. Quindi **2 centri = 5 punti-2 ≈ 25 €**, già sopra soglia. E il SuperStar centrato paga su tutte e 7 le combinazioni (anche con 0 centri: 7 × 5 = 35 €) → **P(j≥2) + 1/90 · P(j≤1) = 6,734% + 1,036% = 7,77%, 1 su 13**.
+
+| | 6+1 | 7+1 |
+|---|-----|-----|
+| Costo | 1,50 € | 10,50 € |
+| P(≥10 €) | 0,70% (1 su 143) | 7,77% (1 su 13) |
+| Per euro speso | 0,46%/€ | 0,74%/€ |
+
+**11× più probabile a 7× il costo**, ma il valore atteso per euro è identico (un sistema da 7 sono 7 giocate singole): cambia solo la forma della distribuzione, che sposta massa sopra la soglia moltiplicando i premi piccoli. Vincere 10 € avendone spesi 10,50 resta comunque una perdita. Il conto sul 7+1 dipende dalla quota del punti 2 (serve ≥ 2 € perché 5 × quota ≥ 10 €): storicamente sta sui 4-8 €, quindi regge.
 
 ### File
 
