@@ -684,6 +684,33 @@ Distribuzione ipergeometrica dei centri (90 numeri, 6 estratti):
 |------|-------|
 | `InstinctEngine.cs` | 16 istinti + Hedge online + auto-tuning eta/oblio + giocata finale |
 
+## Segni / Ombra / Forma / Chronos — costrutti inventati da zero (2026-08-01)
+
+Quattro tentativi nati da una richiesta esplicita: **smettere di usare teorie prese in prestito** (quantum walk, Hopfield, Fourier, cristallografia) e inventare costrutti guardando solo questo oggetto. Analisi completa: [segni-ombra-forma-analisi.md](segni-ombra-forma-analisi.md).
+
+Modalità nuove, attive solo da argomento esplicito (il percorso normale dell'app resta invariato, ~1 minuto):
+
+```
+Merlino.exe forma      Merlino.exe simboli
+Merlino.exe ombra      Merlino.exe chronos
+```
+
+| Costrutto | File | E[centri] top-12 | Baseline |
+|---|---|---|---|
+| Segni (luna, zodiaco, pianeta, Smorfia, trasformazioni) | `SimboliEngine.cs` | **0,8357** (+4,5%) | 0,800 |
+| Chronos (debito, memoria lunga, ciclo) | `ChronosEngine.cs` + `ChronosTuner.cs` | 0,8340 (+4,2%) | 0,800 |
+| Ombra / Testimoni / Muta | `OmbraEngine.cs` | 0,8243 (+3,0%) | 0,800 |
+| Forma (chi² su somma, ampiezza, decine, pari, consecutivi, distanza minima) | `FormaAnalysis.cs` | — | tutti compatibili |
+
+Il numero dei Segni (0,8357) è **nominalmente il migliore mai ottenuto nel progetto**, sopra Nexus (0,833). Ma tutti gli engine nuovi hanno pesi **firmati** e un canale di controllo **"Caso"** di rumore puro, ed è quello a chiudere il discorso:
+
+- I tre canali Caso, rumore per costruzione, sono finiti a **+0,60σ, −0,02σ e −2,13σ**: quella forbice di 2,7σ *è* la banda del rumore su 4.029 punti.
+- Ogni costrutto inventato (luna, zodiaco, smorfia, ombra, testimoni, muta, debito, ciclo) cade **dentro** quella banda: il migliore è lo Zodiaco a +1,15σ, sotto due canali di rumore.
+- I combinati +4,5% / +4,2% coincidono con il massimo atteso del rumore selezionando il meglio fra ~112 configurazioni (≈ +0,034).
+- Su 36 caselle predette dai tre engine, i numeri condivisi da almeno due sono **due** (65 e 77).
+
+`WalkTuner.cs`: tuner walk-forward generico riusabile, così ogni idea futura si misura contro un rumore costruito nello stesso esperimento in poche righe.
+
 ## Limiti noti / TODO
 
 **Fatti**:
