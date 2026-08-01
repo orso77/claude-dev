@@ -711,6 +711,35 @@ Il numero dei Segni (0,8357) è **nominalmente il migliore mai ottenuto nel prog
 
 `WalkTuner.cs`: tuner walk-forward generico riusabile, così ogni idea futura si misura contro un rumore costruito nello stesso esperimento in poche righe.
 
+## ⚠️ Distribuzione nulla del tuning — il metro era sbagliato (2026-08-01)
+
+`RumoreTest.cs` (`Merlino.exe rumore [repliche]`) fa passare **engine completamente finti** (6 canali di puro rumore) per lo **stesso identico protocollo di tuning** degli engine veri: 100 iterazioni di random search + refinement top-12 sui 4.029 punti. 200 repliche.
+
+**Un engine finto segna in mediana 0,8285, cioè +3,6% sopra la baseline.** Non zero.
+
+| Nullo (200 repliche) | E[centri] | scarto |
+|---|---|---|
+| mediana | 0,8285 | **+3,6%** |
+| 95° percentile | 0,8414 | +5,2% |
+| massimo | **0,8503** | **+6,3%** |
+
+Ogni engine mai costruito nel progetto, dentro questa distribuzione:
+
+| Engine | E[centri] | percentile | p-value |
+|---|---|---|---|
+| Segni | 0,8357 | 83,5% | 0,169 |
+| Chronos | 0,8340 | 79,5% | 0,209 |
+| Nexus | 0,8330 | 76,5% | 0,239 |
+| Oracle | 0,8290 | 55,0% | 0,453 |
+| Ombra | 0,8243 | 23,0% | 0,771 |
+| Quantum / Genesis / Mosaic | ≤ 0,806 | 0,0% | 1,000 |
+
+**Nessun engine raggiunge p < 0,05.** Il miglior engine finto (0,8503) batte ogni engine vero mai costruito. La banda "+3-4%" celebrata in tutto questo README — il +3,2% dei risultati onesti, il +4,1% di Nexus, il +3,6% di Oracle — **è il pavimento del rumore**, non un edge.
+
+L'errore non era nei modelli ma nel **metro**: si confrontava con la baseline random 0,800, che è il punteggio di un engine finto *non tarato*. Il confronto corretto è con un engine finto *tarato allo stesso modo*: 0,8285. Corollario: il "piccolo guadagno" storico passando da 150 a 300 iterazioni era **selezione, non apprendimento** (più iterazioni ⇒ nullo più alto).
+
+Da qui in avanti, ogni nuovo engine va misurato contro il nullo, non contro 0,800.
+
 ## Limiti noti / TODO
 
 **Fatti**:

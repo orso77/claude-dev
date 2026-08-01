@@ -198,6 +198,84 @@ Il valore residuo del lavoro è **diagnostico**: da adesso ogni futuro costrutto
 misurato contro un rumore costruito nello stesso esperimento, e il confronto è immediato.
 `WalkTuner.cs` rende la cosa riusabile in poche righe per qualsiasi nuova idea.
 
+## 5. Simulazione del rumore — la distribuzione nulla (`RumoreTest.cs`)
+
+Passo finale, e il più importante di tutta la sessione. Invece di *dedurre* analiticamente
+quanto vale il rumore, lo si **misura**: 200 engine **completamente finti** (6 canali di
+puro rumore, pesi firmati, seed variabili) passati per lo **stesso identico protocollo di
+tuning** degli engine veri — 100 iterazioni di random search su 1.008 punti, refinement
+top-12 sui 4.029 punti del walk-forward completo.
+
+Domanda: quanto arriva a segnare un motore che non guarda assolutamente niente?
+
+### Distribuzione nulla (200 repliche, `Merlino.exe rumore 200`)
+
+| | E[centri] | scarto |
+|---|---|---|
+| minimo | 0,8141 | +1,8% |
+| mediana | 0,8285 | **+3,6%** |
+| media | 0,8292 | +3,7% |
+| dev. standard | 0,0069 | |
+| 90° percentile | 0,8387 | +4,8% |
+| 95° percentile | 0,8414 | +5,2% |
+| 99° percentile | 0,8479 | +6,0% |
+| **massimo** | **0,8503** | **+6,3%** |
+
+**Il risultato mediano di un engine finto è +3,6%.** Non zero: +3,6%. Perché selezionare
+il massimo fra ~112 configurazioni valutate su un campione rumoroso produce
+sistematicamente un numero sopra la baseline, anche quando non c'è nulla da trovare.
+
+### Ogni engine del progetto dentro la distribuzione nulla
+
+| Engine | E[centri] | scarto | percentile nel nullo | p-value |
+|---|---|---|---|---|
+| Segni | 0,8357 | +4,5% | 83,5% | 0,169 |
+| Chronos | 0,8340 | +4,3% | 79,5% | 0,209 |
+| Nexus * | 0,8330 | +4,1% | 76,5% | 0,239 |
+| Oracle * | 0,8290 | +3,6% | 55,0% | 0,453 |
+| Ombra + | 0,8243 | +3,0% | 23,0% | 0,771 |
+| Quantum * | 0,8060 | +0,8% | 0,0% | 1,000 |
+| Genesis * | 0,8000 | ±0,0% | 0,0% | 1,000 |
+| Mosaic * | 0,7940 | −0,7% | 0,0% | 1,000 |
+
+`*` misurati in sessioni precedenti con protocollo di tuning diverso (Nexus usava 300
+iterazioni): il confronto è indicativo. Nota importante: **più iterazioni alzano il nullo**,
+quindi per Nexus il p-value reale sarebbe ancora peggiore di 0,239.
+`+` Ombra usava 60 iterazioni, quindi il suo nullo è più basso e il suo p-value reale
+è un po' migliore di 0,771.
+
+### Conseguenze
+
+1. **Nessun engine mai costruito in questo progetto raggiunge p < 0,05.** Il migliore in
+   assoluto (Segni, 0,8357) è battuto da 33 engine finti su 200.
+2. **Il miglior engine finto (0,8503, +6,3%) batte ogni engine vero mai costruito**,
+   compresi Nexus, Oracle, Quantum e i quattro inventati oggi.
+3. **La banda "+3-4%" È il pavimento del rumore** per questo protocollo di tuning. Tutti i
+   risultati storici del progetto — il +3,2% del README, il +4,1% di Nexus, il +3,6% di
+   Oracle — cadono al di sotto o attorno alla *mediana* di ciò che produce il nulla.
+   Non erano edge deboli: erano zero misurato male.
+4. Il guadagno storico osservato "raddoppiando le iterazioni del random search da 150 a
+   300" (0,869 → 0,874, annotato nel README come *"piccolo guadagno, plateau vicino"*) va
+   riletto: più iterazioni = più selezione = nullo più alto. Era selezione, non
+   apprendimento.
+
+L'errore metodologico non era nei modelli ma nel **metro**: si confrontava con la baseline
+random (0,800), che è il punteggio di un engine finto **non tarato**. Il confronto giusto è
+con un engine finto **tarato allo stesso modo**, che vale 0,8285.
+
+### La giocata del rumore
+
+La configurazione finta che ha segnato più di tutte (0,8503, +6,3% — meglio di qualunque
+engine vero), applicata alla prossima estrazione:
+
+```
+SUPERENALOTTO   01  23  44  47  58  85
+SuperStar       17
+```
+
+Sei numeri prodotti da un generatore che non ha guardato una sola estrazione. Sul
+walk-forward hanno battuto ogni teoria mai costruita in questo progetto.
+
 ## Nota tecnica
 
 Nessuna modifica al percorso normale dell'app: `Merlino.exe` senza argomenti fa esattamente
