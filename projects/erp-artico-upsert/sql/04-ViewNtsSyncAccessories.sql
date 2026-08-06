@@ -69,11 +69,12 @@ SELECT
     ,ar_paeorigv          = CAST('IT' AS VARCHAR(3))
     ,ar_umintra2          = CAST('P' AS VARCHAR(1))
 
-    -- pesi: ar_pesonet / ar_pesolor sono decimal(27,9), quindi valore reale
-    ,ar_pesonet           = CAST(CASE WHEN a.NetWeightKg   > 0 THEN a.NetWeightKg   ELSE d.pesoDefault END AS DECIMAL(27,9))
-    ,ar_pesolor           = CAST(CASE WHEN a.GrossWeightKg > 0 THEN a.GrossWeightKg
-                                      WHEN a.NetWeightKg   > 0 THEN a.NetWeightKg
-                                      ELSE d.pesoDefault END AS DECIMAL(27,9))
+    -- pesi: ar_pesolor = ar_pesonet. In artico i due campi sono identici su
+    -- tutte e 245.075 le righe e SpNtsArticoUpdate li allinea gia' cosi'.
+    -- Per gli accessori la scelta e' comunque neutra: in dbo.Accessories netto
+    -- e lordo coincidono su tutte e 5.698 le righe.
+    ,ar_pesonet           = CAST(p.peso AS DECIMAL(27,9))
+    ,ar_pesolor           = CAST(p.peso AS DECIMAL(27,9))
 
 FROM dbo.Accessories a
 LEFT JOIN dbo.ProductSubTypes pst
@@ -132,5 +133,8 @@ CROSS APPLY (
             ELSE 0.5
         END
 ) d
+CROSS APPLY (
+    SELECT peso = CASE WHEN a.NetWeightKg > 0 THEN a.NetWeightKg ELSE d.pesoDefault END
+) p
 
 WHERE a.ProductTypeId = 16;

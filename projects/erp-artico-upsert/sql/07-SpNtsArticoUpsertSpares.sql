@@ -28,6 +28,13 @@ BEGIN
     DECLARE @now  DATETIME = GETDATE();
     DECLARE @hhmm INT      = DATEPART(HOUR, @now) * 100 + DATEPART(MINUTE, @now);
 
+    -- ar_datini / ar_datfin vanno passati ESPLICITI. I default constraint di
+    -- artico sono letterali varchar ('1900/1/1', '2099/12/31') e la sessione
+    -- del linked server gira con @@LANGUAGE = Italiano (dateformat dmy):
+    -- '2099/12/31' viene letto come mese 31 e produce l'errore 242.
+    DECLARE @datIni DATETIME = '19000101';
+    DECLARE @datFin DATETIME = '20991231';
+
     ----------------------------------------------------------------------
     -- @debug = 1: confronto affiancato, nessuna scrittura
     ----------------------------------------------------------------------
@@ -127,6 +134,8 @@ BEGIN
         ,ar_orins
         ,ar_ultagg
         ,ar_oragg
+        ,ar_datini
+        ,ar_datfin
     )
     SELECT
          codditt       = s.codditt
@@ -163,6 +172,8 @@ BEGIN
         ,ar_orins      = @hhmm
         ,ar_ultagg     = @now
         ,ar_oragg      = @hhmm
+        ,ar_datini     = @datIni
+        ,ar_datfin     = @datFin
     FROM dbo.ViewNtsSyncSpares s
     WHERE s.ar_codart = @id
       AND NOT EXISTS (

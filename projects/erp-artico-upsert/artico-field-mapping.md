@@ -112,6 +112,31 @@ esplicitamente. Tutte le altre (~140) arrivano dai default e coincidono già con
 Le view restituiscono `NULL` in tutti questi casi e le stored usano
 `COALESCE(s.<col>, a.<col>)`, così il valore ERP esistente viene conservato.
 
+## 6-bis. Trappola: `ar_datini` / `ar_datfin` e il dateformat italiano
+
+I default constraint di `artico` su queste due colonne `datetime` sono **letterali varchar**:
+`ar_datini` → `('1900/1/1')`, `ar_datfin` → `('2099/12/31')`.
+
+La connessione aperta dal linked server gira con **`@@LANGUAGE = Italiano`**, quindi `dateformat dmy`.
+Sotto `dmy`, `'2099/12/31'` viene interpretato come anno 2099, giorno 12, **mese 31** → conversione
+fuori intervallo:
+
+```
+Msg 242, Level 16, State 3
+La conversione di un tipo di dati varchar in datetime ha generato un valore
+non compreso nell'intervallo dei valori consentiti.
+```
+
+(`'1900/1/1'` passa per caso, perché giorno e mese sono entrambi 1.)
+
+**Conseguenza**: un `INSERT` su `artico` che *omette* `ar_datini` / `ar_datfin` fallisce sempre,
+perché fa scattare il default. Le stored devono passarli **espliciti**, con letterali ISO base
+(`'19000101'`, `'20991231'`) che sono privi di ambiguità in qualunque dateformat.
+
+Rilevato il 2026-08-06 al primo tentativo di scrittura reale
+(`EXEC dbo.SpNtsArticoUpsertAccessories 'SNSK000BAG006'`). L'istruzione si è interrotta senza
+inserire nulla.
+
 ## 7. Campi senza sorgente in WheelsNet
 
 `ar_cersotgrup` (76.567 righe valorizzate, dominante `'AUTOVETTURA'`) e `ar_cermarcveic1..5`
@@ -132,7 +157,7 @@ INSERT** con il valore dominante; in UPDATE non li toccano.
 | `ar_hhean` | `Ean`, se non vuoto e diverso da `Id` |
 | `ar_famprod` | `BrandId` |
 | `ar_pesonet` | `NetWeightKg`, altrimenti fallback |
-| `ar_pesolor` | `GrossWeightKg`, altrimenti `NetWeightKg`, altrimenti fallback |
+| `ar_pesolor` | **lo stesso valore di `ar_pesonet`** — vedi sotto |
 | `ar_datins` / `ar_orins` | data e HHMM di esecuzione (solo INSERT) |
 | `ar_ultagg` / `ar_oragg` | data-ora e HHMM di esecuzione (INSERT e UPDATE) |
 

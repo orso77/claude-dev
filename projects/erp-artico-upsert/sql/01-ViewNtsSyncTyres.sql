@@ -60,11 +60,11 @@ SELECT
     ,ar_paeorigv          = CAST('IT' AS VARCHAR(3))
     ,ar_umintra2          = CAST('P' AS VARCHAR(1))
 
-    -- pesi
-    ,ar_pesonet           = CAST(CASE WHEN t.NetWeightKg   > 0 THEN t.NetWeightKg   ELSE d.pesoDefault END AS DECIMAL(27,9))
-    ,ar_pesolor           = CAST(CASE WHEN t.GrossWeightKg > 0 THEN t.GrossWeightKg
-                                      WHEN t.NetWeightKg   > 0 THEN t.NetWeightKg
-                                      ELSE d.pesoDefault END AS DECIMAL(27,9))
+    -- pesi: ar_pesolor = ar_pesonet. In artico i due campi sono identici su
+    -- tutte e 245.075 le righe e SpNtsArticoUpdate li allinea gia' cosi'.
+    -- Sono decimal(27,9), quindi il valore va scritto raw.
+    ,ar_pesonet           = CAST(p.peso AS DECIMAL(27,9))
+    ,ar_pesolor           = CAST(p.peso AS DECIMAL(27,9))
 
     -- [SCALA] misure: k.scala vale 100. Vedi il blocco FROM in fondo.
     ,ar_pnmis             = CAST(t.Width    * k.scala AS DECIMAL(18,0))
@@ -119,5 +119,8 @@ CROSS APPLY (
             ELSE 21
         END
 ) d
+CROSS APPLY (
+    SELECT peso = CASE WHEN t.NetWeightKg > 0 THEN t.NetWeightKg ELSE d.pesoDefault END
+) p
 
 WHERE t.ProductTypeId = 2;

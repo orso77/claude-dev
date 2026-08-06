@@ -71,6 +71,28 @@ Il caso `ManufacturerCode = Id` è emerso **durante la validazione**, non in ana
 codice fornitore vero `26001`. Riguarda **1.036 accessori su 5.698** (18%), 6 cerchi e 3 ricambi.
 Stesso trattamento già previsto per `Ean = Id` (8.650 pneumatici, 4.340 accessori).
 
+## 4-bis. `ar_pesolor` = `ar_pesonet`, il lordo non viene propagato
+
+**Errore corretto in corso d'opera.** Le view scrivevano inizialmente
+`ar_pesolor = GrossWeightKg`, dedotto dal nome del campo senza verificare il dato.
+
+La verifica mostra che in `artico` i due campi sono **identici su 245.075 righe su 245.075**, in
+tutte e cinque le classi merceologiche, zero eccezioni. Anche `SpNtsArticoUpdate` li allinea
+(`ar_pesonet = ar_pesolor = WeightKg`). L'ERP non distingue lordo e netto.
+
+In WheelsNet invece differiscono:
+
+| Sorgente | `Gross > Net` |
+|---|---|
+| `Wheels` | 76.795 su 82.413 (93%) |
+| `Spares` | 3.163 su 3.163 (100%) |
+| `Tyres` | 0 |
+| `Accessories` | 0 |
+
+Propagare il lordo avrebbe introdotto su ~80.000 articoli una differenza mai esistita nell'ERP.
+Le view calcolano quindi un unico valore (`CROSS APPLY … peso`) e lo scrivono in entrambe le
+colonne. Se in futuro serve il lordo vero per le spedizioni, si tocca solo quel `CROSS APPLY`.
+
 ## 5. Nessun filtro su `PubblicationTypes`
 
 Se l'`@id` esiste nella tabella sorgente, l'articolo va nell'ERP. Se non esiste: **no-op
