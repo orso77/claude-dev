@@ -22,6 +22,8 @@ Nessuna scrittura è mai stata fatta sull'ERP: tutta l'analisi è avvenuta in so
 - [`artico-field-mapping.md`](artico-field-mapping.md) — mappatura completa campo per campo e tutte
   le evidenze raccolte in produzione (tipi, costanti, conteggi, copertura, trigger).
 - [`decisioni.md`](decisioni.md) — decisioni prese, con il razionale e i numeri a supporto.
+- [`ordine-15137-articoli-nsk-mancanti.md`](ordine-15137-articoli-nsk-mancanti.md) — import connettore
+  fallito sull'ordine R-2026-Y-15137: i 18 ricambi `SNSK*` non esistono in `artico`.
 
 ## Oggetti
 
