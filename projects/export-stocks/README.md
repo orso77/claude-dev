@@ -33,8 +33,17 @@ Piano completo: `C:\Users\Orso\.claude\plans\nuovo-progetto-export-stocks-c-clau
 | `dbo.FnDecimalFormat2` | `sql/FnDecimalFormat2.sql` | Formato `0,00` mantenendo lo zero (l'esistente `FnDecimalFormat` azzera → `''`). |
 | `dbo.SpStock_356V001` | `sql/SpStock_356V001.sql` | Standard, **17 colonne**. Usata da quasi tutti i clienti. |
 | `dbo.SpStock_356NuvolariV001` | `sql/SpStock_356NuvolariV001.sql` | **13 colonne** (senza dimensioni/pesi). Usata da `tagliabue` (53000577). |
+| `dbo.SpStock_356V008_Nsk` | `sql/SpStock_356V008_Nsk.sql` | Variante NSK (`BrandId 1000001`), cliente 53001952. |
 
 Tutti con `CREATE OR ALTER` (re-deployabili).
+
+### 2026-08-07 — campi `Spares` aggiunti in coda (tutte e 3 le SP → 30 colonne)
+
+`Img1..Img5, Width, Diameter, Holes, Pcd1, MadeIn, NetWeightKg, GrossWeightKg, MaxLoad,
+Tyre, BoxSize, Material, TrunkSize` da `WheelsNet.dbo.Spares`, con backup `_202608071330`
+delle 3 SP. Dettaglio criteri, campi esclusi perché già presenti e verifiche:
+[`campi-spares-aggiunti-20260807.md`](campi-spares-aggiunti-20260807.md).
+**Il tracciato dei CSV a valle cambia.**
 
 ## Meccanismo chiave
 

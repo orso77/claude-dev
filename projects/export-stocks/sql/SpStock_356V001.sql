@@ -5,6 +5,10 @@
      ProductId;Ean;Stock1;Stock2;Currency;ListPrice;Price;IncomingStock15days;
      ManufacturerCod;PfuId;PfuEuroNoVat;Brand;ProductDescr;TrunkSizeCm;BoxSizeCm;
      NetWeightKg;GrossWeightKg
+   + 13 colonne aggiunte il 2026-08-07 da WheelsNet.dbo.Spares (tot 30):
+     Img1;Img2;Img3;Img4;Img5;Width;Diameter;Holes;Pcd1;MadeIn;MaxLoad;Tyre;Material
+     (BoxSize/TrunkSize/NetWeightKg/GrossWeightKg gia' presenti come
+      BoxSizeCm/TrunkSizeCm/NetWeightKg/GrossWeightKg: non duplicati)
    Il sottoinsieme prodotti per cliente NON e' un filtro brand fisso: e' dato dai
    prodotti prezzati per il cliente (INNER JOIN sul result set di SpAutPriceSpares
    con @includeZeroNetPrice=0). Il WHERE limita solo all'universo 356 (348/349/380).
@@ -68,6 +72,19 @@ BEGIN
         ,BoxSizeCm           = dbo.FnStringCleaner(spr.BoxSize)
         ,NetWeightKg         = dbo.FnDecimalFormat2(spr.NetWeightKg)
         ,GrossWeightKg       = dbo.FnDecimalFormat2(spr.GrossWeightKg)
+        ,Img1                = CASE WHEN spr.Img1 > '' THEN WheelsNet.dbo.FnUrlImg('356', 'large/' + spr.Img1) ELSE '' END
+        ,Img2                = CASE WHEN spr.Img2 > '' THEN WheelsNet.dbo.FnUrlImg('356', 'large/' + spr.Img2) ELSE '' END
+        ,Img3                = CASE WHEN spr.Img3 > '' THEN WheelsNet.dbo.FnUrlImg('356', 'large/' + spr.Img3) ELSE '' END
+        ,Img4                = CASE WHEN spr.Img4 > '' THEN WheelsNet.dbo.FnUrlImg('356', 'large/' + spr.Img4) ELSE '' END
+        ,Img5                = CASE WHEN spr.Img5 > '' THEN WheelsNet.dbo.FnUrlImg('356', 'large/' + spr.Img5) ELSE '' END
+        ,Width               = dbo.FnDecimalFormat(spr.Width, '0.#', ',')
+        ,Diameter            = dbo.FnDecimalFormat(spr.Diameter, '0.#', ',')
+        ,Holes               = dbo.FnDecimalFormat(spr.Holes, '0', ',')
+        ,Pcd1                = dbo.FnDecimalFormat(spr.Pcd1, '0.#', ',')
+        ,MadeIn              = dbo.FnStringCleaner(spr.MadeIn)
+        ,MaxLoad             = dbo.FnDecimalFormat(spr.MaxLoad, '0.#', ',')
+        ,Tyre                = dbo.FnStringCleaner(spr.Tyre)
+        ,Material            = dbo.FnStringCleaner(spr.Material)
     FROM WheelSystemsAutomotive.dbo.Products p
     INNER JOIN #pp pp
         ON pp.ProductId = p.Id COLLATE Latin1_General_CI_AS                          -- solo prodotti prezzati per il cliente

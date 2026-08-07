@@ -1,28 +1,34 @@
-/* =============================================================================
-   WheelSystemsExport.dbo.SpStock_356NuvolariV001
-   Variante Nuvolari (13 colonne, SENZA dimensioni/pesi) del vecchio
-   View356Stock_Nuvolari. Usata da tagliabue (53000577).
-   Tracciato:
-     ProductId;Ean;Stock1;Stock2;Currency;ListPrice;Price;IncomingStock15days;
-     ManufacturerCod;PfuId;PfuEuroNoVat;Brand;ProductDescr
-   + 17 colonne aggiunte il 2026-08-07 da WheelsNet.dbo.Spares (tot 30):
-     Img1;Img2;Img3;Img4;Img5;Width;Diameter;Holes;Pcd1;MadeIn;NetWeightKg;
-     GrossWeightKg;MaxLoad;Tyre;BoxSize;Material;TrunkSize
-   Stessa logica di SpStock_356V001: il sottoinsieme (per tagliabue = solo NUVOLARI)
-   deriva dai prodotti prezzati per il cliente, non da un filtro brand hardcoded.
+/*
 
-   exec dbo.SpStock_356NuvolariV001 53000577   -- tagliabue
-   ============================================================================= */
+	Export stock/prezzi ruotini NSK per 356automotive.
+	Ricalca [SpStock_356V001] filtrando p.BrandId = 1000001 (NSK).
+
+	Differenze rispetto a V001 (tracciato richiesto da 356 - 356-NSK-stock.csv):
+	- niente TrunkSizeCm / BoxSizeCm / NetWeightKg / GrossWeightKg in coda (13 colonne, fino a ProductDescr)
+	- Price formattato 0.00 come gli altri numerici (V001 usa '0.##')
+
+	+ 17 colonne aggiunte il 2026-08-07 da WheelsNet.dbo.Spares (tot 30):
+	  Img1;Img2;Img3;Img4;Img5;Width;Diameter;Holes;Pcd1;MadeIn;NetWeightKg;
+	  GrossWeightKg;MaxLoad;Tyre;BoxSize;Material;TrunkSize
+
+	Cliente: 53001952 = NO STOP KIT SRL (titolare del brand NSK).
+	CustomerTypeId 409 -> AutPrice08; ha Include=1 su BrandId NSK in AutContactProductExclusions.
+
+	exec [SpStock_356V008_Nsk] @customerId = 53001952;
+
+*/
 USE [WheelSystemsExport];
 GO
 
-CREATE OR ALTER PROCEDURE [dbo].[SpStock_356NuvolariV001]
+CREATE OR ALTER PROCEDURE [dbo].[SpStock_356V008_Nsk]
     @customerId INT,
     @productId  varchar(50) = null
 AS
 BEGIN
     SET NOCOUNT ON;
 
+    -- Prezzi netti / stock per cliente. Result set a 16 colonne:
+    -- come il template revorim (#ProductPricesTemp) + MissingPrice in coda.
     CREATE TABLE #pp
     (
         ProductId           varchar(50),
@@ -56,7 +62,7 @@ BEGIN
         ,Stock2              = dbo.FnDecimalFormat2(CASE WHEN ISNULL(s357.AvailableStock,0) <= 0 THEN 0 WHEN s357.AvailableStock > 40 THEN 40 ELSE s357.AvailableStock END)
         ,Currency            = 'EUR'
         ,ListPrice           = dbo.FnDecimalFormat2(pp.ListPrice)
-        ,Price               = dbo.FnDecimalFormat(pp.NetPrice, '0.##', ',')
+        ,Price               = dbo.FnDecimalFormat2(pp.NetPrice)                     -- 0.00 come gli altri numerici (V001 qui usa '0.##')
         ,IncomingStock15days = dbo.FnDecimalFormat2(ISNULL(s356.OnArriveStock,0) + ISNULL(s357.OnArriveStock,0))
         ,ManufacturerCod     = dbo.FnStringCleaner(p.ManufacturerCod)
         ,PfuId               = dbo.FnStringCleaner(nts.Id)
@@ -82,7 +88,7 @@ BEGIN
         ,TrunkSize           = dbo.FnStringCleaner(spr.TrunkSize)
     FROM WheelSystemsAutomotive.dbo.Products p
     INNER JOIN #pp pp
-        ON pp.ProductId = p.Id COLLATE Latin1_General_CI_AS
+        ON pp.ProductId = p.Id COLLATE Latin1_General_CI_AS                          -- solo prodotti prezzati per il cliente
     INNER JOIN WheelSystemsAutomotive.dbo.Brands b
         ON b.Id = p.BrandId
     LEFT JOIN WheelsNet.dbo.Spares spr
@@ -94,7 +100,7 @@ BEGIN
     LEFT JOIN WheelSystemsAutomotive.dbo.NtsProducts nts
         ON nts.Id = 'PFUGT02'
     WHERE
-        p.BrandId IN (348, 349, 380)
+        p.BrandId IN (1000001)                                                       -- NSK
     ORDER BY p.Id;
 END
 GO
