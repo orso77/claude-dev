@@ -56,7 +56,37 @@ Le altre due SP (`SpStock_356V001`, `SpStock_356NuvolariV001`) hanno lo stesso l
 strutturale, ma il loro `WHERE p.BrandId IN (348,349,380)` non intercetta gli accessori
 356 (brand `356C`), quindi il sintomo lì non si vede.
 
-## Fix proposto (NON applicato)
+## Fix applicato in produzione (2026-08-07 18:0x)
+
+Backup preventivo della versione corrente: `dbo.SpStock_356V008_Nsk_202608071805`
+(script `sql/backup_202608071805.sql`). Il backup `_202608071330` resta la versione
+precedente all'aggiunta dei campi `Spares`.
+
+Modifiche a `SpStock_356V008_Nsk`:
+1. seconda `INSERT INTO #pp EXEC WheelsNet.dbo.SpAutPriceAccessories` (stesso tracciato
+   a 16 colonne, insiemi disgiunti da `Spares` → nessun duplicato);
+2. `LEFT JOIN WheelsNet.dbo.Accessories acc` e `COALESCE(spr.X, acc.X)` su
+   `ProductDescr`, `Img1..Img5`, `NetWeightKg`, `GrossWeightKg`;
+3. i campi cerchio restano su `spr` e quindi vuoti sulle righe accessorio.
+
+Verifica (cliente 53001952): **1133 righe** (1115 ruotini + 18 accessori), 30 colonne,
+riga ruotino di controllo invariata. Esempio riga accessorio:
+
+```
+SNSK000BAG001;8058627820114;0,00;40,00;EUR;18,00;8,10;2000,00;SPAREPART BAG 1;PFUGT02;1,80;NSK;
+SPAREPART NSK BAG 1 - MISURA 58X14;https://images.356automotive.com/large/sacca_ruota_watermark.jpg;
+https://images.356automotive.com/large/bagagliaio_watermark.jpg;;;;;;;;;0,50;0,50;;;;;
+```
+
+### ⚠️ Punto aperto: PFU sugli accessori
+
+Il join del PFU è **incondizionato** (`LEFT JOIN NtsProducts nts ON nts.Id = 'PFUGT02'`,
+nessuna correlazione col prodotto), quindi ogni riga esce con `PfuId=PFUGT02` e
+`PfuEuroNoVat=1,80`. Finché nell'export c'erano solo kit ruotino era corretto; ora lo
+stesso contributo PFU finisce anche su sacche, guanti, gilet, chiavi e compressore.
+Da decidere se azzerarlo sulle righe accessorio (es. `CASE WHEN acc.Id IS NULL THEN ... ELSE '' END`).
+
+## Fix proposto (poi applicato — vedi sopra)
 
 Aggiungere una seconda `INSERT` nella stessa `#pp` — il tracciato è identico, quindi non
 serve altro:

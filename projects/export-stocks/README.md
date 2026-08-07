@@ -45,11 +45,14 @@ delle 3 SP. Dettaglio criteri, campi esclusi perché già presenti e verifiche:
 [`campi-spares-aggiunti-20260807.md`](campi-spares-aggiunti-20260807.md).
 **Il tracciato dei CSV a valle cambia.**
 
-### Aperto — accessori NSK assenti dall'export
+### 2026-08-07 — accessori NSK aggiunti a `SpStock_356V008_Nsk` (1115 → 1133 righe)
 
-`SpStock_356V008_Nsk` non esporta i 18 accessori NSK (sacche/cric/chiavi, es. `SNSK000BAG001`):
-stanno in `WheelsNet.dbo.Accessories`, non in `Spares`, e la SP filtra su `SpAutPriceSpares`.
-Analisi e fix proposto: [`nsk-accessori-mancanti-20260807.md`](nsk-accessori-mancanti-20260807.md).
+I 18 accessori NSK (sacche/cric/chiavi, es. `SNSK000BAG001`) stanno in
+`WheelsNet.dbo.Accessories`, non in `Spares`, quindi `SpAutPriceSpares` non li restituiva e
+l'`INNER JOIN` li escludeva. Risolto con una seconda `INSERT` da `SpAutPriceAccessories` +
+fallback descrittivo su `Accessories`. Backup: `_202608071805`.
+Analisi: [`nsk-accessori-mancanti-20260807.md`](nsk-accessori-mancanti-20260807.md).
+**Aperto**: il PFU (`PFUGT02`, 1,80 €) esce anche sulle righe accessorio.
 
 ## Meccanismo chiave
 

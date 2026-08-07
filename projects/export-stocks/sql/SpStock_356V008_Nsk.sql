@@ -11,6 +11,13 @@
 	  Img1;Img2;Img3;Img4;Img5;Width;Diameter;Holes;Pcd1;MadeIn;NetWeightKg;
 	  GrossWeightKg;MaxLoad;Tyre;BoxSize;Material;TrunkSize
 
+	2026-08-07: aggiunti anche i 18 accessori NSK (sacche/cric/chiavi/gilet/guanti/
+	compressore), che stanno in WheelsNet.dbo.Accessories e non in Spares. Servono
+	una seconda INSERT in #pp da SpAutPriceAccessories e il LEFT JOIN su Accessories
+	per Descr/Img/pesi. I campi specifici del cerchio (Width, Diameter, Holes, Pcd1,
+	MadeIn, MaxLoad, Tyre, BoxSize, Material, TrunkSize) non esistono in Accessories
+	e restano vuoti sulle righe accessorio.
+
 	Cliente: 53001952 = NO STOP KIT SRL (titolare del brand NSK).
 	CustomerTypeId 409 -> AutPrice08; ha Include=1 su BrandId NSK in AutContactProductExclusions.
 
@@ -55,6 +62,15 @@ BEGIN
         ,@productId          = @productId
         ,@includeZeroNetPrice = 0;
 
+    -- Gli accessori NSK (sacche/cric/chiavi/gilet/guanti/compressore) stanno in
+    -- WheelsNet.dbo.Accessories, non in Spares: senza questa seconda INSERT
+    -- l'INNER JOIN su #pp li escluderebbe dall'export. Stesso tracciato a 16 colonne.
+    INSERT INTO #pp
+    EXEC WheelsNet.dbo.SpAutPriceAccessories
+         @contactId          = @customerId
+        ,@productId          = @productId
+        ,@includeZeroNetPrice = 0;
+
     SELECT
          ProductId           = dbo.FnStringCleaner(p.Id)
         ,Ean                 = dbo.FnStringCleaner(p.EanCod)
@@ -68,24 +84,24 @@ BEGIN
         ,PfuId               = dbo.FnStringCleaner(nts.Id)
         ,PfuEuroNoVat        = dbo.FnDecimalFormat2(nts.NetPrice)
         ,Brand               = dbo.FnStringCleaner(b.Descr)
-        ,ProductDescr        = dbo.FnStringCleaner(spr.Descr)
-        ,Img1                = CASE WHEN spr.Img1 > '' THEN WheelsNet.dbo.FnUrlImg('356', 'large/' + spr.Img1) ELSE '' END
-        ,Img2                = CASE WHEN spr.Img2 > '' THEN WheelsNet.dbo.FnUrlImg('356', 'large/' + spr.Img2) ELSE '' END
-        ,Img3                = CASE WHEN spr.Img3 > '' THEN WheelsNet.dbo.FnUrlImg('356', 'large/' + spr.Img3) ELSE '' END
-        ,Img4                = CASE WHEN spr.Img4 > '' THEN WheelsNet.dbo.FnUrlImg('356', 'large/' + spr.Img4) ELSE '' END
-        ,Img5                = CASE WHEN spr.Img5 > '' THEN WheelsNet.dbo.FnUrlImg('356', 'large/' + spr.Img5) ELSE '' END
-        ,Width               = dbo.FnDecimalFormat(spr.Width, '0.#', ',')
-        ,Diameter            = dbo.FnDecimalFormat(spr.Diameter, '0.#', ',')
-        ,Holes               = dbo.FnDecimalFormat(spr.Holes, '0', ',')
-        ,Pcd1                = dbo.FnDecimalFormat(spr.Pcd1, '0.#', ',')
-        ,MadeIn              = dbo.FnStringCleaner(spr.MadeIn)
-        ,NetWeightKg         = dbo.FnDecimalFormat2(spr.NetWeightKg)
-        ,GrossWeightKg       = dbo.FnDecimalFormat2(spr.GrossWeightKg)
-        ,MaxLoad             = dbo.FnDecimalFormat(spr.MaxLoad, '0.#', ',')
-        ,Tyre                = dbo.FnStringCleaner(spr.Tyre)
-        ,BoxSize             = dbo.FnStringCleaner(spr.BoxSize)
-        ,Material            = dbo.FnStringCleaner(spr.Material)
-        ,TrunkSize           = dbo.FnStringCleaner(spr.TrunkSize)
+        ,ProductDescr        = dbo.FnStringCleaner(COALESCE(spr.Descr, acc.Descr))
+        ,Img1                = CASE WHEN COALESCE(spr.Img1, acc.Img1) > '' THEN WheelsNet.dbo.FnUrlImg('356', 'large/' + COALESCE(spr.Img1, acc.Img1)) ELSE '' END
+        ,Img2                = CASE WHEN COALESCE(spr.Img2, acc.Img2) > '' THEN WheelsNet.dbo.FnUrlImg('356', 'large/' + COALESCE(spr.Img2, acc.Img2)) ELSE '' END
+        ,Img3                = CASE WHEN COALESCE(spr.Img3, acc.Img3) > '' THEN WheelsNet.dbo.FnUrlImg('356', 'large/' + COALESCE(spr.Img3, acc.Img3)) ELSE '' END
+        ,Img4                = CASE WHEN COALESCE(spr.Img4, acc.Img4) > '' THEN WheelsNet.dbo.FnUrlImg('356', 'large/' + COALESCE(spr.Img4, acc.Img4)) ELSE '' END
+        ,Img5                = CASE WHEN COALESCE(spr.Img5, acc.Img5) > '' THEN WheelsNet.dbo.FnUrlImg('356', 'large/' + COALESCE(spr.Img5, acc.Img5)) ELSE '' END
+        ,Width               = dbo.FnDecimalFormat(spr.Width, '0.#', ',')                -- solo ruotini: assente in Accessories
+        ,Diameter            = dbo.FnDecimalFormat(spr.Diameter, '0.#', ',')             -- solo ruotini: assente in Accessories
+        ,Holes               = dbo.FnDecimalFormat(spr.Holes, '0', ',')                  -- solo ruotini: assente in Accessories
+        ,Pcd1                = dbo.FnDecimalFormat(spr.Pcd1, '0.#', ',')                 -- solo ruotini: assente in Accessories
+        ,MadeIn              = dbo.FnStringCleaner(spr.MadeIn)                           -- solo ruotini: assente in Accessories
+        ,NetWeightKg         = dbo.FnDecimalFormat2(COALESCE(spr.NetWeightKg, acc.NetWeightKg))
+        ,GrossWeightKg       = dbo.FnDecimalFormat2(COALESCE(spr.GrossWeightKg, acc.GrossWeightKg))
+        ,MaxLoad             = dbo.FnDecimalFormat(spr.MaxLoad, '0.#', ',')              -- solo ruotini: assente in Accessories
+        ,Tyre                = dbo.FnStringCleaner(spr.Tyre)                             -- solo ruotini: assente in Accessories
+        ,BoxSize             = dbo.FnStringCleaner(spr.BoxSize)                          -- solo ruotini: assente in Accessories
+        ,Material            = dbo.FnStringCleaner(spr.Material)                         -- solo ruotini: assente in Accessories
+        ,TrunkSize           = dbo.FnStringCleaner(spr.TrunkSize)                        -- solo ruotini: assente in Accessories
     FROM WheelSystemsAutomotive.dbo.Products p
     INNER JOIN #pp pp
         ON pp.ProductId = p.Id COLLATE Latin1_General_CI_AS                          -- solo prodotti prezzati per il cliente
@@ -93,6 +109,8 @@ BEGIN
         ON b.Id = p.BrandId
     LEFT JOIN WheelsNet.dbo.Spares spr
         ON spr.Id = p.Id COLLATE Latin1_General_CI_AS
+    LEFT JOIN WheelsNet.dbo.Accessories acc
+        ON acc.Id = p.Id COLLATE Latin1_General_CI_AS                                -- anagrafica accessori (sacche/cric/chiavi/...)
     LEFT JOIN WheelSystemsAutomotive.dbo.ProductStocks s356
         ON s356.ProductId = p.Id AND s356.WarehouseId = 356
     LEFT JOIN WheelSystemsAutomotive.dbo.ProductStocks s357
