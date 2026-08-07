@@ -45,6 +45,12 @@ delle 3 SP. Dettaglio criteri, campi esclusi perché già presenti e verifiche:
 [`campi-spares-aggiunti-20260807.md`](campi-spares-aggiunti-20260807.md).
 **Il tracciato dei CSV a valle cambia.**
 
+### Aperto — accessori NSK assenti dall'export
+
+`SpStock_356V008_Nsk` non esporta i 18 accessori NSK (sacche/cric/chiavi, es. `SNSK000BAG001`):
+stanno in `WheelsNet.dbo.Accessories`, non in `Spares`, e la SP filtra su `SpAutPriceSpares`.
+Analisi e fix proposto: [`nsk-accessori-mancanti-20260807.md`](nsk-accessori-mancanti-20260807.md).
+
 ## Meccanismo chiave
 
 Il sottoinsieme prodotti per cliente **non** è un filtro brand fisso: deriva dai prodotti
