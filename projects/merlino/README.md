@@ -790,6 +790,36 @@ Nessuna selezione, campione pieno, errore ±0,0127:
 
 Nessun canale raggiunge 2σ nella direzione giusta; provandone 9 il massimo atteso sotto rumore è ≈ +1,5σ. Il **"Caldo"** — giocare i numeri caldi, pilastro di ogni sistema del lotto mai scritto — è l'unico canale che devia in modo apprezzabile, a **−2,32σ**, e devia *contro*.
 
+### Anti-divisione — l'unico effetto reale del progetto (2026-08-11)
+
+La modalità `bilancia` chiude ora con una sezione che quantifica **quanto si incassa se si vince**, che è cosa diversa dalla probabilità di vincere (quella non cambia mai). Il SuperEnalotto è a totalizzatore: giocare numeri impopolari riduce la probabilità di dividere il montepremi.
+
+Aggiunte a `AntiPopular.cs`: `RelativePopularity`, `PayoutMultiplier` (`E[1/(1+X)]`, `X ~ Poisson(λ)`), `Lambda`.
+
+| Giocata | sei numeri | quanto è giocata |
+|---|---|---|
+| compleanni (riferimento) | 03 07 11 17 23 28 | **22,65x** la media |
+| modello puro | 06 49 62 79 81 83 | 0,19x |
+| 90% impopolare | 79 81 82 83 85 86 | 0,03x |
+
+Premio atteso a parità di vincita (1,00 = non diviso con nessuno):
+
+| Giocata | ordinario (7M) | jackpot alto (25M) | jackpot record (80M) |
+|---|---|---|---|
+| compleanni | 0,883 | 0,657 | **0,325** |
+| modello puro | 0,999 | 0,996 | 0,988 |
+| 90% impopolare | 1,000 | 0,999 | 0,998 |
+
+Su un jackpot record chi gioca compleanni incassa **un terzo** di chi gioca numeri alti, a parità di 6 centrato (**+204%** per il modello). Ma il guadagno *incrementale* dell'anti-popolare sopra Bilancia è minimo (+1,0%): la giocata del modello è già a 0,19x, con quattro numeri sopra il 60. Il vantaggio è già incassato.
+
+Limite dichiarato: il modello di popolarità è comportamentale, non misurato (i biglietti giocati non sono pubblici). È comunque l'unico effetto del progetto mai sopravvissuto a un test — perché non riguarda l'urna, riguarda le persone.
+
+### Perché "predire per esclusione" non funziona
+
+Escludendo **tutte** le 4.234 sestine già uscite + le 85 sequenze di sei consecutivi + le 1.890 tutte-nella-stessa-decina si eliminano **6.164** combinazioni su 622.614.630: lo **0,00099%**. Le probabilità passano da 1 su 622.614.630 a 1 su 622.608.466. Per raddoppiarle servirebbe escluderne 311.307.315.
+
+Il punto decisivo: pescando a caso, la probabilità di finire nell'insieme escluso è 1 su 101.008 — **il filtro resta inerte 100.000 volte su 100.001**. L'errore è scambiare la rarità di una *classe* per l'improbabilità dei suoi *membri*.
+
 ## Limiti noti / TODO
 
 **Fatti**:

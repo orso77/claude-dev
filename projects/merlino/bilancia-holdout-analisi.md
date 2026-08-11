@@ -192,3 +192,98 @@ DODICI NUMERI   01  06  40  49  54  55  62  79  81  83  85  86
 
 Distribuzione dei centri attesa, misurata sul test: 0 centri 41,9% — 1 centro 40,9% —
 2 centri 14,0% — 3 centri 3,1% — 4 centri 0,07%.
+
+## Anti-divisione — l'unico effetto reale trovato nel progetto (2026-08-11)
+
+Nata da un'obiezione dell'utente: *"escludendo le sestine già uscite, le sequenze, le decine
+piene, non dovrebbe essere complicato fare un algoritmo che per esclusione dia una predizione
+sensata"*.
+
+### Perché l'esclusione non funziona (aritmetica esatta sui dati)
+
+| Regola | Combinazioni eliminate |
+|---|---|
+| Tutte le 4.234 sestine già uscite dal 1997 | 4.234 |
+| Sei numeri consecutivi | 85 |
+| Tutti e sei nella stessa decina | 1.890 |
+| **Unione senza doppioni** | **6.164** |
+
+Su 622.614.630 combinazioni: **0,00099%**, una su 101.008.
+
+```
+senza filtro : 1 su 622.614.630
+col filtro   : 1 su 622.608.466
+guadagno     : +0,00099%
+```
+
+Per raddoppiare le probabilità servirebbe escluderne 311.307.315: il filtro ne toglie lo 0,002%
+di quante servirebbero. Il punto decisivo: pescando 6 numeri a caso, la probabilità di finire
+nell'insieme escluso è 1 su 101.008 — **il filtro resta inerte 100.000 volte su 100.001**.
+
+L'errore di ragionamento è scambiare la rarità di una *classe* per l'improbabilità dei suoi
+*membri*: l'ultima sestina estratta ha la stessa probabilità di riuscire di qualunque altra
+(1 su 622.614.630). La classe "sestine già uscite" è rara perché contiene 4.234 elementi.
+
+Controprova: in 4.234 estrazioni, l'attesa di sei consecutivi è `4.234 × 85 / 622.614.630 =
+0,0006`. Non è mai successo, ed è esattamente ciò che l'urna onesta prevede. Coerente con
+`FormaAnalysis.cs` (01/08), che aveva già verificato i sei descrittori di forma: tutti
+compatibili con urna perfetta.
+
+### Dove invece l'intuizione è corretta: non dividere il premio
+
+Il SuperEnalotto è a totalizzatore. Giocare numeri impopolari **non cambia di un centesimo la
+probabilità di vincere**, ma riduce la probabilità di dividere il montepremi con altri vincitori,
+quindi alza il valore atteso dell'incasso. È l'unica asimmetria realmente sfruttabile del gioco,
+e nasce dal comportamento degli altri giocatori, non dall'urna.
+
+Aggiunte a `AntiPopular.cs` (esistente ma non collegato all'output):
+
+- `RelativePopularity(pick, k)` — fattore di sovra/sotto-gioco rispetto a una combinazione media
+- `PayoutMultiplier(lambda)` — `E[1/(1+X)]` con `X ~ Poisson(λ)`, cioè il premio atteso a parità
+  di vincita
+- `Lambda(biglietti, relPop, combinazioni)` — vincitori attesi con la stessa combinazione
+
+### Risultato
+
+| Giocata | sei numeri | quanto è giocata |
+|---|---|---|
+| compleanni (riferimento) | 03 07 11 17 23 28 | **22,65x** la media |
+| modello puro | 06 49 62 79 81 83 | 0,19x |
+| 50% modello 50% impopolare | 62 79 81 83 85 86 | 0,04x |
+| 90% impopolare | 79 81 82 83 85 86 | 0,03x |
+
+Premio atteso a parità di vincita (1,00 = incasso pieno, non diviso):
+
+| Giocata | ordinario (7M biglietti) | jackpot alto (25M) | jackpot record (80M) |
+|---|---|---|---|
+| compleanni | 0,883 | 0,657 | **0,325** |
+| modello puro | 0,999 | 0,996 | 0,988 |
+| 50/50 | 1,000 | 0,999 | 0,997 |
+| 90% impopolare | 1,000 | 0,999 | 0,998 |
+
+| Scenario | vantaggio del modello sulla giocata da compleanni |
+|---|---|
+| concorso ordinario | +13,2% |
+| jackpot alto | +51,7% |
+| jackpot record | **+204,2%** |
+
+### Osservazione importante
+
+Il guadagno **incrementale** dell'anti-divisione sopra la giocata di Bilancia è minimo
+(+0,1% / +1,0%), perché la giocata del modello è **già** impopolare: 0,19x la media, quattro
+numeri su sei sopra il 60, la fascia che il pubblico evita sistematicamente. Il vantaggio è già
+incassato; spingere oltre non aggiunge quasi nulla.
+
+Il vero divario non è fra modello e anti-popolare, ma fra **entrambi** e una giocata da
+compleanni: su un jackpot record, chi gioca 03-07-11-17-23-28 incassa **un terzo** di chi gioca
+numeri alti, a parità di 6 centrato.
+
+### Limite dichiarato
+
+Il modello di popolarità è **comportamentale** (compleanni 1-31, mesi 1-12, il 7 fortunato, il 13
+evitato, avversione per i numeri alti), non una misura: i biglietti effettivamente giocati non
+sono dati pubblici. La direzione dell'effetto è solida e documentata in letteratura sulle
+lotterie; la taglia esatta è una stima. Anche il numero di biglietti per concorso è stimato.
+
+È comunque l'unico effetto di tutto il progetto che **non** sia stato smontato da un test contro
+il rumore — perché non riguarda l'urna, riguarda le persone.
