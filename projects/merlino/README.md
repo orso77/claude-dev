@@ -740,6 +740,56 @@ L'errore non era nei modelli ma nel **metro**: si confrontava con la baseline ra
 
 Da qui in avanti, ogni nuovo engine va misurato contro il nullo, non contro 0,800.
 
+## Bilancia — modello consolidato e prima taratura con hold-out (2026-08-11)
+
+Decimo costrutto, e il primo tarato con un **hold-out reale**. Non inventa un paradigma: prende i nove canali che si erano piazzati meglio fra tutti quelli mai provati (Peso, Caldo, Ritardo, Ritmo, Compagni, Successione, Riflesso, Zodiaco + canale di controllo Caso) e li mette sulla stessa bilancia. La novità è il **protocollo di misura**, che era l'ultimo TODO aperto. Analisi completa: [bilancia-holdout-analisi.md](bilancia-holdout-analisi.md).
+
+```
+Merlino.exe bilancia [repliche]     (default 60; con 40 il run dura ~7 minuti)
+```
+
+Storico tagliato una volta sola: validazione 2.622 punti (dove si scelgono i pesi), **test 1.412 punti mai visti durante la taratura**. In parallelo 40 engine finti passano per lo stesso identico protocollo → distribuzione nulla sul test.
+
+### La taratura non sopravvive al hold-out
+
+| | E[centri] top-12 | scarto |
+|---|---|---|
+| Validazione (dove i pesi sono stati scelti) | 0,8501 | **+6,3%** |
+| **TEST (mai visto)** | **0,7854** | **−1,8%** |
+
+Stesso modello, stessi pesi. Percentile nel nullo **20,0%**, p-value **0,805**: battuto da 4 engine finti su 5. È la dimostrazione diretta, dentro un solo esperimento, di ciò che `RumoreTest.cs` aveva stabilito per via indiretta.
+
+### Più si tara, peggio va
+
+| Variante | parametri liberi | E[centri] sul test | scarto |
+|---|---|---|---|
+| Argmax su 1.500 configurazioni | 9 | 0,7854 | −1,8% |
+| Media dei 25 migliori | 9 (variance-ridotti) | 0,8173 | +2,2% |
+| Pesi uguali, 9 canali | 0 | 0,7989 | −0,1% |
+| **Pesi uguali, 8 canali (senza il Caso)** | **0** | **0,8293** | **+3,7%** |
+
+La variante con **zero** parametri liberi batte di 4,4 punti quella tarata con 1.500 iterazioni. Alla richiesta "taralo il più preciso possibile", la risposta misurata è **non tararlo affatto**. Per questo la giocata stampata esce dalla variante a pesi uguali, non da quella tarata.
+
+Le due varianti piatte, non avendo parametri liberi, possono usare tutti i 4.034 punti (errore ±0,0127): 9 canali 0,8116 (+0,91σ), 8 canali 0,8183 (**+1,44σ**) — il miglior numero non gonfiato del progetto, e comunque non significativo.
+
+### I canali da soli — la misura più sensibile mai fatta
+
+Nessuna selezione, campione pieno, errore ±0,0127:
+
+| Canale | scarto | sigma |
+|---|---|---|
+| Successione (Markov) | +2,3% | +1,46 |
+| Riflesso | +2,3% | +1,44 |
+| Peso (bias palline) | +2,2% | +1,36 |
+| Zodiaco | +2,1% | +1,34 |
+| Compagni | +0,6% | +0,35 |
+| Ritardo | +0,3% | +0,19 |
+| Ritmo | −0,3% | −0,22 |
+| **Caso (controllo)** | **−0,8%** | **−0,49** |
+| Caldo | −3,7% | **−2,32** |
+
+Nessun canale raggiunge 2σ nella direzione giusta; provandone 9 il massimo atteso sotto rumore è ≈ +1,5σ. Il **"Caldo"** — giocare i numeri caldi, pilastro di ogni sistema del lotto mai scritto — è l'unico canale che devia in modo apprezzabile, a **−2,32σ**, e devia *contro*.
+
 ## Limiti noti / TODO
 
 **Fatti**:
@@ -755,8 +805,9 @@ Da qui in avanti, ogni nuovo engine va misurato contro il nullo, non contro 0,80
 - [x] ~~QuantumEngine~~ — QuantumWalk (miglior P(≥3): 3.68%), WaveletMomentum
 - [x] ~~Meta-Ensemble~~ — voting cross-engine parameter-free
 
+- [x] ~~Hold-out split per valutazione onesta~~ — `BilanciaTuner.cs`, validazione 2.622 / test 1.412
+
 **Da fare**:
-- [ ] Hold-out split per valutazione onesta
 - [ ] Cache dei pesi tunati su disco per evitare tuning ad ogni avvio
 - [ ] Top-18 / top-24: testare P(≥3) con più numeri giocati
 - [ ] Sistemi combinatoriali: generare multiple sestine strategiche dal pool predetto
@@ -773,6 +824,7 @@ Da qui in avanti, ogni nuovo engine va misurato contro il nullo, non contro 0,80
 | `MosaicEngine.cs` + `MosaicTuner.cs` | Mosaic | Strutturale/Numerico (Markov, CA, Mod primi, Cristallografia) |
 | `QuantumEngine.cs` + `QuantumTuner.cs` | Quantum | Meccanica quantistica (QuantumWalk, WaveletMomentum) |
 | `Program.cs` (sezione ensemble) | Meta-Ensemble | Wisdom of Crowds (voting cross-engine) |
+| `BilanciaEngine.cs` + `BilanciaTuner.cs` | Bilancia | Consolidato 9 canali, **taratura con hold-out reale** |
 
 ## Storico decisioni
 
@@ -783,6 +835,7 @@ Da qui in avanti, ogni nuovo engine va misurato contro il nullo, non contro 0,80
 - **2026-04-14**: implementato GenesisEngine (Fourier, PPM, vortici, Hopfield). P(≥3)=3.48%.
 - **2026-04-14**: implementato MosaicEngine (Markov, CA, mod primi, cristallografia). P(≥3)=3.45%.
 - **2026-04-14**: implementato QuantumEngine (quantum walk + wavelet). **P(≥3)=3.68% — miglior risultato in assoluto** (+11.5% vs random). La meccanica quantistica simulata trova struttura invisibile agli altri paradigmi.
+- **2026-08-11**: implementato **Bilancia** — primo modello del progetto tarato con hold-out reale. La taratura produce +6,3% in validazione e −1,8% sul test mai visto; la variante a **zero parametri liberi** batte quella tarata di 4,4 punti. Il canale "Caldo" a −2,32σ è la sola deviazione apprezzabile del progetto e va in direzione opposta a ogni sistema del lotto.
 - **2026-04-14**: implementato Meta-Ensemble a voti cross-engine. P(≥3)=3.43% (deludente: il voting media il segnale). Osservazione notevole: il numero 10 appare in 4/5 engine, il 38 in 3/5.
 
 ## Risultati reali vs predetti
