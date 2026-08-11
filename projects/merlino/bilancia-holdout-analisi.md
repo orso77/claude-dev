@@ -287,3 +287,82 @@ lotterie; la taglia esatta è una stima. Anche il numero di biglietti per concor
 
 È comunque l'unico effetto di tutto il progetto che **non** sia stato smontato da un test contro
 il rumore — perché non riguarda l'urna, riguarda le persone.
+
+## Sbilanciamento verso i numeri alti — difetto reale del modello (2026-08-11)
+
+Segnalazione dell'utente su una giocata proposta (`62 73 81 82 85 90`): *"non si è mai visto in
+30 anni che i numeri fossero tutti fra 60 e 90"*.
+
+### La premessa fattuale è falsa: è successo 5 volte
+
+| Data | Estrazione |
+|---|---|
+| 25/02/2004 | 66 72 76 77 81 85 |
+| 24/05/2011 | 65 72 74 79 87 90 |
+| 13/09/2011 | 61 64 74 75 80 87 |
+| 24/01/2017 | 63 67 74 77 83 85 |
+| 10/09/2022 | 62 66 68 70 75 83 |
+
+`C(31,6)/C(90,6) = 0,1183%` → attese in 4.234 estrazioni: **5,01**. Osservate: **5**.
+
+E la fascia dei compleanni (1-31), che ha esattamente la stessa probabilità, si è vista solo
+**3** volte: la fascia "assurda" è uscita **più spesso** di quella che sembra normale.
+
+### Il test sistematico delle classi "che sembrano impossibili"
+
+| Classe | Attese | Osservate |
+|---|---|---|
+| tutti fra 60 e 90 | 5,01 | **5** |
+| tutti fra 1 e 31 | 5,01 | 3 |
+| tutti pari | 55,4 | 58 |
+| tutti dispari | 55,4 | 65 |
+| almeno 3 consecutivi | 61,2 | 57 |
+| ampiezza (max−min) ≤ 15 | 2,25 | 0 |
+| tutti con la stessa cifra finale | 0,01 | 0 |
+
+Ogni classe cade sulla propria attesa. Le uniche che non si vedono mai sono quelle la cui attesa
+è ≈ 0 — non perché i loro membri siano sfavoriti, ma perché di membri ne hanno pochissimi.
+
+La sensazione di "impossibile" segue la **descrivibilità**, non la probabilità: `1 2 3 88 89 90`
+ha una descrizione breve, `13 27 41 58 66 79` no. Le combinazioni descrivibili sono qualche
+centinaio su 622.614.630, ed è per questo che non escono mai.
+
+### Ma il modello ha davvero un difetto
+
+Diagnostica aggiunta (`BilanciaTuner.MediaSopraSoglia`), su tutti i 4.034 punti:
+
+```
+numeri >= 60 fra i 6 scelti  : 3,75   (neutro 2,07)
+numeri >= 60 fra i 12 scelti : 6,93   (neutro 4,13)
+```
+
+Il modello pesca numeri alti a **1,8 volte** il tasso neutro, sistematicamente. Non è il caso di
+una singola estrazione: è un'inclinazione strutturale.
+
+### L'inclinazione non è giustificata
+
+Frequenze storiche per numero (4.234 estrazioni, attese 282,3 per numero, σ = 16,2):
+
+| Fascia | media | scarto | sigma |
+|---|---|---|---|
+| 1-31 | 274,3 | −7,9 | **−2,73 σ** |
+| 32-59 | 282,7 | +0,4 | +0,15 σ |
+| 60-90 | 289,8 | +7,5 | **+2,59 σ** |
+
+Sembra netto. Ma il test globale di uniformità sui 90 numeri dà **chi² = 99,2 con df = 89**,
+cioè p ≈ **0,22**: perfettamente compatibile con un'urna onesta.
+
+Il contrasto fra le due fasce è una fetta scelta *dopo* aver visto il dato. È lo stesso identico
+errore che il progetto ha già commesso otto volte: un pattern convincente nella fetta in cui lo
+si è notato, che evapora appena si tiene conto di quante fette si potevano guardare.
+
+Conseguenza: i canali che incorporano la frequenza lunga (**Peso**, e indirettamente **Zodiaco** e
+**Caldo**) stanno tutti codificando la stessa deviazione non significativa, e sommandosi a pesi
+uguali la amplificano fino a 1,8x. **Il modello sta adattando rumore, e lo fa in modo visibile
+nell'output.**
+
+### TODO aperto
+
+Neutralizzare l'inclinazione: togliere `Peso` (che fitta una deviazione a p = 0,22) e rimisurare
+`MediaSopraSoglia`, verificando che scenda verso 2,07 e che le metriche fuori campione non
+peggiorino. Non ancora fatto.
