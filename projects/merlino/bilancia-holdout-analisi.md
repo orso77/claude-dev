@@ -169,7 +169,19 @@ non da quella tarata; la giocata tarata è mostrata sotto solo per confronto.
 
 Il percorso normale dell'app (`Merlino.exe` senza argomenti) resta invariato.
 
-### Giocata per l'estrazione del 12/08/2026
+### Stima della data bersaglio — difetto corretto
+
+La prima versione stimava la prossima estrazione come *ultima data + intervallo mediano delle
+ultime 20*. Le estrazioni SE sono **martedì, giovedì, venerdì, sabato**: gli intervalli sono
+3-2-1-1 e la loro mediana vale **2**. Partendo da sabato 08/08 il passo fisso di 2 giorni dava
+10/08 → 12/08, **scavalcando martedì 11/08** che era il giorno reale dell'estrazione.
+
+Corretto in `StimaProssimaData`: si raccolgono i giorni della settimana in cui si è estratto
+nelle ultime 30 estrazioni e si cerca la prima data ≥ oggi che cada in uno di quei giorni.
+Nessun effetto sui numeri predetti (11 e 12 agosto sono entrambi Leone, quindi il canale Zodiaco
+non cambia), ma la data mostrata era sbagliata.
+
+### Giocata per l'estrazione dell'11/08/2026
 
 ```
 SEI NUMERI      06  49  62  79  81  83
