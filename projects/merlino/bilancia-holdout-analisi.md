@@ -361,8 +361,27 @@ Conseguenza: i canali che incorporano la frequenza lunga (**Peso**, e indirettam
 uguali la amplificano fino a 1,8x. **Il modello sta adattando rumore, e lo fa in modo visibile
 nell'output.**
 
-### TODO aperto
+### Fix applicato — canale `Peso` rimosso dalla variante piatta
 
-Neutralizzare l'inclinazione: togliere `Peso` (che fitta una deviazione a p = 0,22) e rimisurare
-`MediaSopraSoglia`, verificando che scenda verso 2,07 e che le metriche fuori campione non
-peggiorino. Non ancora fatto.
+`PesiPiatti()` ora esclude sia `Caso` sia `Peso`: la variante di riferimento passa da 8 a 7
+canali. Esito:
+
+| | prima (8 canali) | dopo (7 canali) |
+|---|---|---|
+| numeri >= 60 nei 6 scelti | 3,75 | **3,25** (neutro 2,07) |
+| numeri >= 60 nei 12 scelti | 6,93 | **6,09** (neutro 4,13) |
+| E[centri] sul test | 0,8293 (+3,7%) | 0,8286 (+3,6%) |
+| E[centri] su tutti i punti | 0,8183 (+1,44 sigma) | 0,8071 (+0,56 sigma) |
+
+Due letture, entrambe importanti:
+
+1. **Fuori campione non cambia nulla** (0,8293 -> 0,8286): il canale `Peso` non portava
+   informazione, come previsto da chi2 p = 0,22. Rimuoverlo non costa niente.
+2. **Sul campione pieno il punteggio scende** (+1,44 sigma -> +0,56 sigma): quel guadagno era
+   proprio l'inclinazione verso i numeri alti, cioe' l'adattamento al rumore. Sparito il
+   canale, sparisce il guadagno apparente. Conferma che era artefatto.
+
+**Inclinazione residua**: 3,25 contro 2,07 neutri. Non e' rientrata del tutto perche' anche
+`Zodiaco` (frequenza per segno) e `Caldo` (densita' recente) incorporano la stessa deviazione di
+fondo. Per azzerarla servirebbe centrare ogni canale sulla frequenza marginale, non solo
+z-normalizzarlo sui 90 numeri. TODO aperto.
