@@ -11,10 +11,13 @@
 
 ## Il modello
 
-La schedina è una **griglia di 10 colonne per 9 righe**. Il numero `n` occupa la cella
-`riga = (n-1)/10`, `colonna = (n-1)%10`. Ogni estrazione accende sei celle e **disegna una figura**.
-Il modello guarda le figure disegnate dal 1997 a oggi e ne disegna una nuova per la prossima
-estrazione.
+I numeri stanno su una **tela** (`GrigliaLayout`): può essere un rettangolo di qualsiasi formato, ma
+anche un triangolo, una piramide, un rombo, un esagono, un cerchio, una croce, una spirale o una
+curva di Hilbert. Ogni estrazione accende le sue celle e **disegna una figura**. Il modello guarda le
+figure disegnate dal 1997 a oggi e ne disegna una nuova per la prossima estrazione.
+
+La disposizione usata per la giocata è la **schedina 9×10** — non perché sia la migliore (nessuna lo
+è, vedi sotto) ma perché è quella che si ha sotto gli occhi giocando.
 
 **Zero matematica, zero statistica**: nessuna frequenza, nessun ritardo, nessuna probabilità,
 nessuna calibrazione, nessun peso tarato, nessun parametro libero. Ogni canale è un'operazione di
@@ -72,15 +75,62 @@ Va segnalato che la prima versione — senza il ritaglio al mezzo tono — *semb
 non voleva dire niente. È lo stesso errore già commesso otto volte in questo progetto, in forma
 grafica anziché numerica: un criterio che non può fallire non è una verifica.
 
+## Il confronto di tutte le forme (17/08/2026)
+
+**177 disposizioni provate** — 103 per il SuperEnalotto, 74 per l'EuroJackpot: tutti i formati di
+rettangolo (per righe, a serpentina, per colonne), triangoli, piramidi, rombo, esagoni, cerchi,
+croci, spirali, diagonali, mattoni, scacchiere, curva di Hilbert, curva Z, **e 30 permutazioni
+completamente casuali** come paragone.
+
+Criterio: **COLPI** (numeri usciti caduti dentro una macchia) diviso **MACCHIA** (quanta tela il
+disegno tiene calda) = **GUADAGNO**. 1,00 = le macchie prendono esattamente quello che prenderebbero
+per la loro sola estensione, cioè zero informazione. Blocco di scelta 1.900 estrazioni, blocco di
+conferma le 1.900 più recenti, mai usate per scegliere.
+
+**Prima lo strumento è stato tarato** su storici finti a segnale grafico noto (`Merlino.exe prova`):
+
+| Palline a caso su 6 | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
+|---|---|---|---|---|---|---|---|
+| Guadagno | 13,79 | 6,53 | 5,20 | 4,29 | 2,92 | 2,02 | 1,02 |
+
+Basta **una sola pallina su sei** che segua una regola grafica perché il guadagno raddoppi. Lo
+strumento vede benissimo.
+
+### Esito: la forma non conta
+
+| | SuperEnalotto | EuroJackpot |
+|---|---|---|
+| Miglior forma costruita | Scacchiera larga **1,037** → conferma 0,996 | Scacchiera rada **1,063** → conferma 0,947 |
+| **Miglior disposizione a caso** | **A CASO #5 1,050** → conferma 1,016 | **A CASO #1 1,129** → conferma 0,914 |
+| Mediana costruite / a caso | 0,991 / 0,993 | 0,988 / 1,018 |
+| Costruite sopra la migliore a caso | **0 su 73** | **0 su 44** |
+
+In entrambi i giochi **la disposizione migliore è una permutazione casuale**, nessuna forma
+costruita la supera, e le mediane coincidono. Tutte le 177 disposizioni stanno attorno a 1,00.
+
+Triangolo, piramide, rombo, esagono, cerchio, croce, spirale, Hilbert, scacchiera, serpentina, ogni
+formato di rettangolo, la schedina classica e una permutazione a caso: **tutte uguali, tutte a zero
+informazione**. Con lo strumento che segna 2,02 per una sola pallina su sei, nelle estrazioni reali
+**non c'è nemmeno un sesto di pallina di segnale grafico, in nessuna disposizione**.
+
+La posizione di un numero su una griglia è una convenzione tipografica, non una proprietà dell'urna.
+
 ## File del modello
 
 | File | Ruolo |
 |------|-------|
-| `GrigliaEngine.cs` | La griglia, i sei canali, il ritaglio, la sovrapposizione, il disegno a schermo |
+| `GrigliaLayout.cs` | Le disposizioni: rettangoli, triangoli, piramidi, rombo, esagoni, cerchi, croci, spirali, Hilbert, curva Z, mattoni, scacchiere, casuali |
+| `GrigliaEngine.cs` | I sei canali, il ritaglio al mezzo tono, la sovrapposizione, il disegno a schermo |
 | `GrigliaVerifica.cs` | L'unica verifica: macchie calde contro numeri realmente usciti |
+| `GrigliaConfronto.cs` | Confronto di tutte le disposizioni, con blocco di scelta e blocco di conferma |
+| `GrigliaProva.cs` | Taratura dello strumento su storici finti a segnale noto |
 | `Program.cs` | Scaricamento → figure → verifica → giocata |
 
-Le griglie usate: SuperEnalotto 10×9, SuperStar 10×9, EuroJackpot 10×5, Euro numeri 6×2.
+```
+Merlino.exe            la giocata, con la disposizione gia' scelta
+Merlino.exe forme      confronta TUTTE le disposizioni
+Merlino.exe prova      tara lo strumento su storici finti a segnale noto
+```
 
 ## Path
 

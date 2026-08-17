@@ -140,20 +140,165 @@ funziona» da «questa volta è andata male». Ma il criterio richiesto era prop
 all'indietro su 12 estrazioni dà lo stesso quadro. Se si volesse una risposta più netta servirebbe
 tornare a contare — cioè al metro di misura che è stato esplicitamente deprecato.
 
-## Strade grafiche non ancora provate
+---
 
-Se si vuole insistere sulla via grafica, queste restano aperte e sono tutte disegno puro:
+# Il confronto di tutte le forme (17/08/2026)
 
-- **Altre disposizioni della griglia.** 10×9 è la schedina. Ma 9×10, 6×15, 15×6, o una spirale
-  disegnano figure completamente diverse dagli stessi numeri. Se esistesse una struttura grafica,
-  potrebbe vivere in un'altra disposizione.
-- **Toro anziché rettangolo.** Ora le figure che escono dal bordo vengono tagliate. Facendo
-  ricongiungere i lati (destra con sinistra, alto con basso) nessuna figura si perde e le traslazioni
-  diventano complete.
-- **Sagome parziali.** L'Eco di forma cerca la sagoma delle sei celle. Cercare le sagome di
-  sottoinsiemi di tre o quattro celle darebbe molte più corrispondenze, ognuna più debole.
-- **Contorno anziché celle.** Trattare la figura come poligono (il suo perimetro, la sua area, i suoi
-  angoli) invece che come insieme di punti.
+Richiesta dell'utente: *«proviamo tutte le disposizioni della griglia possibili, comprese forme
+diverse dal quadrato (ad esempio partiamo dal triangolo dove 1 sta all'apice) — scegli la forma
+migliore per ottenere dei pattern predittivi efficienti»*.
+
+La disposizione è l'unica leva davvero grafica del modello: gli stessi identici numeri, messi in
+posizioni diverse, disegnano figure completamente diverse. Se una struttura grafica esiste, deve
+vivere in **qualche** disposizione.
+
+## Come è stato generalizzato il motore
+
+`GrigliaLayout.cs`: la tela è un rettangolo `Righe × Colonne` ma **non tutte le celle portano un
+numero**. Le altre restano vuote, non si accendono mai e vengono spente prima di ogni
+normalizzazione (`Pulisci`). Così una forma qualsiasi vive dentro una tela rettangolare, e i canali
+del modello restano identici.
+
+Le maschere di sagoma sono passate da 2 a 4 parole da 64 bit: la tela può arrivare a 256 celle.
+
+## Le disposizioni provate
+
+**103 per il SuperEnalotto, 74 per l'EuroJackpot.** Famiglie:
+
+| Famiglia | Varianti |
+|---|---|
+| Rettangoli | tutti i formati `righe × colonne` con `righe × colonne = 90` (1×90, 2×45, 3×30, 5×18, 6×15, 9×10, 10×9, 15×6, 18×5, 30×3, 45×2, 90×1), ciascuno riempito per righe, a serpentina, e per colonne |
+| Triangoli | apice in alto, apice in basso, a serpentina |
+| Piramidi centrate | apice in alto, apice in basso, a serpentina |
+| Forme chiuse | rombo, esagoni di lato 4…9, cerchi pieni di lato 9…13, croci di braccio 1…4 |
+| Curve | spirale dal centro, spirali rettangolari, diagonali, curva di **Hilbert** (16 e 32), curva **Z** di Morton |
+| Trame | mattoni (righe sfalsate), scacchiere rade |
+| **A caso** | **30 permutazioni completamente casuali dei 90 numeri sulla tela** |
+
+Le 30 disposizioni **a caso** sono il pezzo decisivo. Scegliendo il massimo fra cento disposizioni
+si trova sempre qualcosa che spicca, anche quando non c'è niente: una forma costruita vale solo se
+batte le disposizioni casuali, non se batte 1,00.
+
+## Il criterio
+
+L'unico ammesso — macchie calde contro numeri realmente usciti — applicato a ogni disposizione e
+ripetuto su un blocco di estrazioni:
+
+- **COLPI** — quanti numeri usciti cadono dentro una macchia
+- **MACCHIA** — quanta parte della tela il disegno tiene calda
+- **GUADAGNO** — il rapporto fra i due
+
+Contano solo insieme: una disposizione che tinge mezza tela prende molti colpi senza aver previsto
+niente. **Guadagno 1,00 significa che le macchie prendono esattamente quello che prenderebbero per
+la loro sola estensione**, cioè che il disegno non porta nessuna informazione.
+
+Blocco di **scelta** 1.900 estrazioni, blocco di **conferma** le 1.900 più recenti, mai usate per
+scegliere.
+
+## La taratura dello strumento — il passaggio che mancava
+
+Prima di credere a un esito negativo bisogna sapere se lo strumento saprebbe vedere un segnale
+quando c'è. `GrigliaProva.cs` (`Merlino.exe prova`) costruisce storici **finti** dove ogni
+estrazione è la precedente **spostata di una cella in diagonale**, tranne un certo numero di palline
+rimpiazzate a caso, e ci passa la stessa identica misura.
+
+| Palline a caso su 6 | Colpi | Macchia | **Guadagno** |
+|---|---|---|---|
+| 0 (segnale pieno) | 80,0% | 5,8% | **13,79** |
+| 1 | 52,7% | 8,1% | **6,53** |
+| 2 | 44,3% | 8,5% | **5,20** |
+| 3 | 34,9% | 8,1% | **4,29** |
+| 4 | 28,0% | 9,6% | **2,92** |
+| 5 | 21,1% | 10,5% | **2,02** |
+| 6 (nessun segnale) | 13,1% | 12,8% | **1,02** |
+
+Lo strumento è **molto** sensibile: basta **una sola pallina su sei** che segua una regola grafica
+perché il guadagno raddoppi. E su rumore puro segna 1,02, come deve.
+
+Questo chiude la scappatoia: se sui dati veri il guadagno è 1,00, non è la misura a essere cieca.
+
+## Esito
+
+### SuperEnalotto — 103 disposizioni
+
+| | Disposizione | Scelta | Conferma |
+|---|---|---|---|
+| Miglior forma costruita | Scacchiera larga | 1,037 | 0,996 |
+| **Miglior disposizione a caso** | **A CASO #5 (15×6)** | **1,050** | **1,016** |
+
+- Le 30 disposizioni **a caso**: da 0,934 a 1,050, **mediana 0,993**
+- Le 73 forme **costruite**: da 0,955 a 1,037, **mediana 0,991**
+- **Forme costruite sopra la migliore a caso: 0 su 73**
+- La forma scelta, sul blocco di conferma, si piazza **42ª su 103**
+
+### EuroJackpot — 74 disposizioni
+
+| | Disposizione | Scelta | Conferma |
+|---|---|---|---|
+| Miglior forma costruita | Scacchiera rada | 1,063 | 0,947 |
+| **Miglior disposizione a caso** | **A CASO #1 (5×10)** | **1,129** | **0,914** |
+
+- A caso: mediana 1,018. Costruite: mediana 0,988. **0 su 44** sopra la migliore a caso.
+- La forma scelta si piazza **63ª su 74** in conferma.
+
+## Conclusione: la forma non conta
+
+In entrambi i giochi la disposizione migliore è una **permutazione casuale**, nessuna delle forme
+costruite la supera, e le mediane delle costruite e delle casuali coincidono. Tutte le 177
+disposizioni provate stanno fra 0,90 e 1,13, cioè attorno a 1,00.
+
+Triangolo, piramide, rombo, esagono, cerchio, croce, spirale, curva di Hilbert, scacchiera,
+serpentina, tutti i formati di rettangolo, la schedina classica e una permutazione a caso: **tutte
+uguali, tutte a zero informazione**.
+
+Con lo strumento tarato a 2,02 per una sola pallina su sei che segua una regola grafica, il verdetto
+è quantitativo: nelle estrazioni reali **non c'è nemmeno un sesto di pallina di segnale grafico**, in
+nessuna delle 177 disposizioni.
+
+L'interpretazione è la più semplice possibile: la posizione di un numero su una griglia è una
+convenzione tipografica, non una proprietà dell'urna. Le sei palline non sanno dove il numero è
+stampato sul foglio — e cambiando foglio, come si è visto, non cambia niente.
+
+## Perché la giocata usa comunque la schedina 9×10
+
+Siccome nessuna disposizione è migliore, la scelta si fa su un altro criterio: la **leggibilità**.
+La griglia 9×10 è quella stampata sulla schedina, quindi i disegni che il programma stampa
+corrispondono a quello che si ha sotto gli occhi giocando. Le costanti stanno in
+`GrigliaLayout.SceltaSe / SceltaSs / SceltaEj / SceltaEuro`.
+
+Scegliere invece la «Scacchiera larga» perché ha segnato 1,037 sarebbe stato esattamente l'errore
+che questo confronto è servito a smascherare.
+
+## Un bug che vale la pena ricordare
+
+Il primo giro del confronto ha prodotto una classifica in cui **mancava tutta la famiglia dei
+rettangoli riempiti per righe**, schedina 9×10 compresa: al loro posto compariva solo «Rett 1x90».
+
+Causa: l'impronta usata per scartare i duplicati era la sola mappa `numero → indice piatto di cella`.
+Ma quella mappa è **identica** per ogni rettangolo riempito per righe — 9×10, 6×15, 3×30 mandano
+tutti il numero `n` sulla cella `n-1` — mentre la geometria, e quindi ogni figura disegnata, è
+completamente diversa. Il deduplicatore le considerava la stessa disposizione e ne teneva una sola.
+
+Effetto collaterale: anche `PerNome("Rett 9x10")` cadeva sul ripiego, e il percorso normale del
+programma stava girando su una tela **1×90**, cioè una singola riga di 90 celle.
+
+Corretto includendo la geometria nell'impronta (`Righe x Colonne` + mappa). Da lì il confronto è
+salito da 92 a 103 disposizioni per il SuperEnalotto.
+
+## Strade grafiche ancora non provate
+
+Restano aperte, tutte disegno puro:
+
+- **Toro anziché rettangolo.** Ora le figure che escono dal bordo vengono tagliate. Ricongiungendo i
+  lati (destra con sinistra, alto con basso) nessuna figura si perde e le traslazioni diventano
+  complete. È l'unica modifica strutturale ai canali, non alla disposizione.
+- **Sagome parziali.** L'Eco di forma cerca la sagoma di tutte e sei le celle. Cercare le sagome di
+  sottoinsiemi di tre o quattro darebbe molte più corrispondenze, ognuna più debole.
+- **Contorno anziché celle.** Trattare la figura come poligono — perimetro, area, angoli — invece che
+  come insieme di punti.
+
+Va detto con chiarezza: dopo 177 disposizioni tutte a 1,00, con uno strumento che vede mezzo segnale
+su sei palline, l'attesa ragionevole per queste strade è la stessa.
 
 ## File
 
