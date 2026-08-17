@@ -24,7 +24,7 @@ nessuna calibrazione, nessun peso tarato, nessun parametro libero. Ogni canale �
 **disegno** e restituisce un'**immagine** della griglia. Le immagini si sovrappongono come lucidi;
 le celle più luminose sono la giocata.
 
-### I sei canali
+### I dieci canali
 
 | Canale | Operazione grafica |
 |---|---|
@@ -34,6 +34,15 @@ le celle più luminose sono la giocata.
 | **Specchio** | La griglia ha tre simmetrie che la mandano in sé stessa (sinistra-destra, alto-basso, mezzo giro). Ogni cella accesa di recente accende i propri riflessi. |
 | **Crescita** | La figura si allarga sul bordo: attorno a ogni cella accesa si accendono le confinanti, più forte quelle di lato che quelle in diagonale. |
 | **Retta** | Due celle allineate (riga, colonna o diagonale a 45°) individuano un tratto. Il tratto si prolunga oltre l'estremo. |
+| **Analogia** | *A sta a B come C sta a X.* Trovata una figura A somigliante, guarda **come** A si trasformò in B — di quanto si mosse ogni punto — e applica quello stesso cambiamento alla figura di adesso. Non copia il risultato di allora: copia il gesto che lo produsse. |
+| **Gesto** | Il disegno come **scrittura a mano**: la penna passa per le celle in un ordine canonico e la sequenza dei tratti è la sua *grafia*. Si ritrova la grafia nello storico e si continua a scrivere dal punto in cui la penna si è fermata. |
+| **Piega** | Il foglio come **lenzuolo elastico**: i sei spostamenti fra le ultime due figure sono i campioni di una piega interpolata su tutta la tela, e l'intero quadro scivola nel verso in cui già stava scivolando. |
+| **Contorno** | Il disegno come **area** e non come punti: il guscio convesso riempito. Due estrazioni possono avere zero celle in comune e occupare la stessa area con la stessa forma. |
+
+I primi sei sono i costrutti iniziali; gli ultimi quattro sono stati inventati il 17/08/2026 su
+richiesta esplicita («crea tu un algoritmo grafico»). Sono i migliori mai costruiti — alzano la
+sensibilità dello strumento su tutta la scala del segnale finto — e sui dati veri segnano 1,00 come
+tutti gli altri.
 
 **Anti-leakage**: per disegnare l'estrazione `t` si guardano solo le righe `[0, t)`. Le somiglianze
 storiche si fermano a `t-2`, così il loro seguito è al massimo `t-1`.
@@ -147,13 +156,38 @@ pallina su sei** perché la ricerca la trovasse a 4,65 e la confermasse a 6,31.
 Le due strade che restavano aperte sono state provate e non portano niente: **tela a toro** 0,975 e
 **sagome parziali** 0,989, contro 0,980 di partenza.
 
+### Con i quattro costrutti nuovi (10 canali, 1023 combinazioni)
+
+La taratura dello strumento migliora su tutta la scala:
+
+| Palline a caso su 6 | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
+|---|---|---|---|---|---|---|---|
+| 6 canali | 13,79 | 6,53 | 5,20 | 4,29 | 2,92 | 2,02 | 1,02 |
+| **10 canali** | **14,44** | **7,35** | **5,54** | **4,58** | **3,30** | **2,07** | 1,03 |
+
+Il **Gesto** è il miglior canale singolo mai ottenuto: **1,081**. E l'**Analogia** da sola si piazza
+terza su 1023 nel riconoscere un segnale grafico di una pallina su sei (4,045). Ma sui dati veri:
+
+| | Valore |
+|---|---|
+| Gesto sul blocco di conferma | 1,022 — **164ª su 1023** |
+| Gesto su numeri messi **a caso** sulla tela | 0,798 .. **1,112** |
+| Gesto con l'ordine del tempo **rimescolato** | 0,874 .. **1,113** |
+| **Ancora**: 1 pallina su 6 con regola grafica | **4,651**, **1ª su 1023** anche in conferma |
+
+Lo stesso Gesto, girato su numeri messi a caso o su una storia col tempo mescolato, arriva **più in
+alto** di quanto faccia sui dati veri.
+
+**Non è il disegnatore a essere cieco: è il foglio a essere bianco.**
+
 ### Il sistema scelto
 
-**Tutti e sei i canali, parametri di partenza, schedina 9×10.**
+**Tutti e dieci i canali, parametri di partenza, schedina 9×10.**
 
-1. Nessuna configurazione batte misurabilmente le altre: la scelta non si può fare sulla prestazione.
-2. Scegliere «solo Specchio» perché ha segnato 1,045 sarebbe l'errore che il banco serve a evitare —
-   il suo controllo arriva a 1,048 e 1,069, cioè lo batte.
+1. Nessuna configurazione esce dalle proprie bande di controllo: la scelta non si può fare sulla
+   prestazione, perché non c'è prestazione da confrontare.
+2. Scegliere «solo Gesto» per quel 1,081 sarebbe l'errore che il banco serve a evitare — il suo
+   stesso controllo arriva a 1,113, cioè lo batte.
 3. A parità di tutto si tiene la configurazione più ricca e leggibile.
 
 ### Una scoperta sull'architettura

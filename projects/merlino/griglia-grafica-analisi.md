@@ -398,14 +398,128 @@ c'è niente da vedere.
 
 Detto in una riga: il sistema migliore è quello che non pretende di essere migliore.
 
-## Cosa resta davvero non provato
+---
 
-- **Contorno anziché celle.** Trattare la figura come poligono — perimetro, area, angoli — invece che
-  come insieme di punti. È l'unica idea grafica del ventaglio iniziale non ancora messa a banco.
+# Quattro costrutti grafici nuovi (17/08/2026)
 
-Va detto con chiarezza: 177 disposizioni, 63 combinazioni di canali, 17 varianti strutturali, due
-famiglie di controlli e due ancore convergono tutte sullo stesso punto. L'attesa ragionevole per
-quest'ultima strada è la stessa.
+Richiesta dell'utente: *«crea tu un pattern grafico, un algoritmo grafico che riesca a predire i
+pattern grafici futuri in base a quelli passati. In fondo si tratta di vedere le estrazioni come
+disegni e predire quale sarà il prossimo disegno in base ai disegni del passato»*.
+
+Non più misurare quello che c'è: inventarne di nuovi. Quattro costrutti, portati da 6 a 10 canali.
+
+## Analogia — «A sta a B come C sta a X»
+
+L'**Eco di forma**, trovata una figura A somigliante a quella di adesso, ridisegna il seguito B così
+com'era. L'**Analogia** fa un'altra cosa: guarda **come** A si è trasformata in B — di quanto e in
+che verso si è mosso ognuno dei suoi punti — e applica **quello stesso cambiamento** alla figura di
+adesso. Non copia il risultato di allora: copia il gesto che lo produsse.
+
+La differenza si vede quando A somiglia a C solo in parte: l'Eco disegna comunque B intera,
+l'Analogia disegna C deformata come lo fu A. È il classico ragionamento per analogia, applicato a
+figure.
+
+## Gesto — il disegno come scrittura a mano
+
+La penna entra dalla cella più in alto a sinistra e passa ogni volta alla più vicina non ancora
+toccata: ne esce un **tracciato**, e la sequenza dei tratti è la *grafia* di quel disegno.
+
+Si cercano nello storico le figure scritte con la **stessa grafia** — non nella stessa posizione,
+proprio con gli stessi tratti — e si continua a scrivere: il gesto che allora venne dopo, ripreso dal
+punto in cui la penna si è fermata adesso.
+
+È l'unico canale che tratta il disegno come **sequenza** invece che come insieme.
+
+## Piega — il foglio come lenzuolo elastico
+
+Fra le ultime due estrazioni ogni cella si è spostata. Quei pochi spostamenti sono i **campioni di
+una piega che interessa tutto il foglio**: nei punti in mezzo la piega si indovina per vicinanza
+(interpolazione inversa alla distanza). Ottenuta la piega, la si applica una seconda volta — non alle
+sei celle, ma all'**intero quadro** delle ultime estrazioni, che scivola sul foglio nel verso in cui
+già stava scivolando.
+
+Differenza dalla Scia: la Scia muove sei punti, la Piega deforma tutta l'immagine.
+
+## Contorno — il disegno come area, non come punti
+
+Sei celle sparse individuano una macchia: il loro **guscio convesso riempito**. Due estrazioni
+possono avere **zero celle in comune** e nondimeno occupare la stessa area con la stessa forma.
+
+Si confrontano i gusci — quanta area si sovrappone portandoli uno sopra l'altro — e si ridisegna il
+guscio che allora venne dopo, nella posizione di adesso.
+
+## I nuovi canali sono migliori dei vecchi — sul segnale vero
+
+La taratura su storici finti, rifatta con dieci canali, migliora su tutta la scala:
+
+| Palline a caso su 6 | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
+|---|---|---|---|---|---|---|---|
+| **6 canali** | 13,79 | 6,53 | 5,20 | 4,29 | 2,92 | 2,02 | 1,02 |
+| **10 canali** | **14,44** | **7,35** | **5,54** | **4,58** | **3,30** | **2,07** | 1,03 |
+
+E nella batteria delle ancore, l'**Analogia da sola** si piazza terza su 1023 combinazioni nel
+riconoscere un segnale grafico di una pallina su sei (4,045), subito dietro l'Eco di forma. Il
+costrutto funziona: sa vedere una regola grafica quando c'è.
+
+## Esito sui dati veri
+
+### SuperEnalotto — i dieci canali singoli, 1.900 + 1.900 estrazioni
+
+| Canale | Macchia | Scelta | Conferma |
+|---|---|---|---|
+| **Gesto** | 2,1% | **1,081** | 1,022 |
+| Specchio | 5,8% | 1,045 | 1,022 |
+| Retta | 3,2% | 1,043 | 1,045 |
+| *tutti e dieci* | 12,6% | 1,017 | 0,995 |
+| **Analogia** | 4,0% | 1,016 | 1,018 |
+| **Contorno** | 18,5% | 1,015 | 1,001 |
+| Crescita | 5,5% | 1,000 | 0,945 |
+| Scia | 3,4% | 0,990 | 0,998 |
+| **Piega** | 3,6% | 0,980 | 1,010 |
+| Calco | 5,5% | 0,972 | 0,920 |
+| Eco di forma | 5,6% | 0,949 | 1,047 |
+
+Il **Gesto** è il miglior canale singolo mai ottenuto nel progetto: 1,081. Ma:
+
+| | Valore |
+|---|---|
+| Gesto sul blocco di conferma | 1,022 — **164ª su 1023** |
+| Gesto su numeri messi **a caso** sulla tela | 0,798 .. **1,112** |
+| Gesto con l'ordine del tempo **rimescolato** | 0,874 .. **1,113** |
+| **Ancora**: 1 pallina su 6 con regola grafica | **4,651**, **1ª su 1023** anche in conferma |
+
+**1,081 sta dentro entrambe le bande di controllo.** Lo stesso Gesto, girato su numeri messi a caso
+sulla tela o su una storia col tempo mescolato, arriva a 1,11 — più in alto di quanto faccia sui dati
+veri. L'EuroJackpot dice lo stesso (Calco 1,096, tetto dei controlli 1,112).
+
+Nemmeno le varianti strutturali si muovono: fra 0,996 e 1,025 tutte e dodici.
+
+## La conclusione che conta
+
+Il punto non è che i costrutti nuovi siano deboli. **Sono i migliori mai costruiti nel progetto**, e
+lo si può dimostrare: alzano la sensibilità dello strumento su tutta la scala del segnale finto, e
+l'Analogia da sola riconosce una regola grafica su una pallina su sei con un guadagno di 4,0.
+
+Il punto è che quando gli stessi identici costrutti guardano le estrazioni vere, segnano 1,00 —
+esattamente come segnano su numeri messi a caso sulla tela e su una storia col tempo mescolato.
+
+**Non è il disegnatore a essere cieco. È il foglio a essere bianco.**
+
+## Nota di ingegneria: la cache dei lucidi
+
+Con dieci canali le combinazioni diventano 1023, e ricalcolare i lucidi per ognuna faceva durare il
+banco **oltre dieci minuti**. I dieci lucidi di ogni estrazione ora si calcolano **una volta sola**
+(`GrigliaEngine.LucidiRitagliati`) e poi si combinano (`Componi`): stesso risultato, **10 secondi**.
+Il caso da manuale in cui la struttura del calcolo, non il calcolo, è il collo di bottiglia.
+
+## Il sistema finale
+
+**Tutti e dieci i canali, parametri di partenza, schedina 9×10.**
+
+Nessuna configurazione esce dalle proprie bande di controllo, quindi la scelta resta non-prestazionale:
+si tiene la più ricca e leggibile. I dieci lucidi danno il quadro più informativo da guardare, e non
+sono misurabilmente peggiori di nessuna alternativa (1,017 contro 0,980 dei soli sei vecchi canali —
+differenza dentro il rumore).
 
 ## File
 
