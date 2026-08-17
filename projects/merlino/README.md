@@ -285,6 +285,39 @@ predire niente, e la probabilità di vincere non cambia di un capello. Quello ch
 è più **storto**. Un modello inutile ma onesto è meglio di uno inutile e storto — il secondo fa
 credere di vedere qualcosa.
 
+## La mano del giocatore — il caos in cui una regola c'è (17/08/2026)
+
+**Perché nessun modello grafico può prevedere l'estrazione**: le palline non hanno memoria, la
+macchina viene azzerata a ogni concorso, quindi non esiste nessun canale fisico che porti
+informazione da un'estrazione alla successiva. Il posto dove cercare la regola è vuoto **per
+costruzione**. E lo strumento non è cieco: vedrebbe un sesto di pallina di segnale a 4,65x.
+
+**Ma c'è un altro caos.** Il gioco è a totalizzatore: se vinci dividi con chi ha giocato i tuoi
+stessi numeri. E le persone **non riempiono la schedina a caso — la disegnano**: righe intere,
+colonne, croci, diagonali, blocchetti compatti, la zona dei compleanni, il 7, il 13 (che in Italia
+porta bene), mai il 17, mai l'ultima riga. **Quelle forme sono prevedibili.**
+
+`GrigliaMano.cs` le descrive e cerca, fra le celle calde del modello, la figura che nessuna mano
+disegnerebbe. Popolarità normalizzata contro un riferimento **misurato** su 200.000 combinazioni
+casuali (1,00 = combinazione qualunque):
+
+| giocata | numeri | quanto è giocata | incasso su jackpot record |
+|---|---|---|---|
+| compleanni | 03 07 11 17 23 28 | **3,58x** | 0,808 |
+| giocata del modello | 01 09 18 19 22 90 | 1,89x | 0,892 |
+| **meno disegnata fra le calde** | 32 33 58 79 89 90 | **0,12x** | **0,993** |
+
+**+23%** sui compleanni a parità di sei centrato, su un jackpot record.
+
+- **NON cambia la probabilità di vincere.** Sei numeri valgono sei numeri.
+- **CAMBIA quanto incassi** se vinci, perché dividi con meno gente.
+
+**Limite, e la strada per toglierlo**: i biglietti giocati non sono pubblici, quindi i pesi sono
+stime. Ma il **numero di vincitori per categoria di ogni concorso è pubblicato da Sisal**: sapendo
+quanti hanno fatto punti su una combinazione si deduce quanto era popolare, e con 4.237 estrazioni la
+mano del giocatore si potrebbe **tarare sui dati veri**. Verificato che la fonte attuale non li
+riporta — serve una fonte diversa. È il TODO con il miglior rapporto valore/sforzo del progetto.
+
 ## File del modello
 
 | File | Ruolo |

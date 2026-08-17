@@ -759,6 +759,87 @@ Quello che è cambiato è che il modello non è più **storto**: non pesca più 
 onesto è meglio di un modello inutile e storto — se non altro perché il secondo fa credere di vedere
 qualcosa.
 
+---
+
+# La mano del giocatore — il caos in cui una regola c'è (17/08/2026)
+
+Richiesta: *«ma possibile che non riesci a creare un modello grafico? una regola nel caos?
+inventiamo qualcosa di nuovo che funzioni»*.
+
+## Perché nessun modello grafico può prevedere l'estrazione
+
+Non è mancanza di idee. **Le palline non hanno memoria**: la macchina viene azzerata a ogni
+concorso, quindi non esiste nessun canale fisico che porti informazione dall'estrazione di ieri a
+quella di domani. Cercare una regola che leghi il disegno `t` al disegno `t-1` è cercare in un posto
+che è vuoto **per costruzione**, non per caso.
+
+E lo strumento non è cieco: tarato, vedrebbe *un sesto di pallina* di segnale a 4,65x. Ha guardato
+177 disposizioni della tela, 1023 combinazioni di canali, 17 varianti strutturali. Sempre 1,00.
+
+## Ma c'è un altro caos, e lì la regola c'è
+
+Il SuperEnalotto è a **totalizzatore**: se vinci, dividi il montepremi con chi ha giocato i tuoi
+stessi numeri. E le persone **non riempiono la schedina a caso — la disegnano**.
+
+Fanno righe intere, colonne, croci, diagonali col righello, blocchetti compatti. Stanno sulla zona
+dei compleanni (1-31) e sui mesi (1-12). Scelgono il 7, tengono il 13 (che in Italia porta bene) ed
+evitano il 17. Trascurano l'ultima riga della schedina.
+
+**Quelle forme sono prevedibili.** È un modello grafico che funziona — non sull'urna, sulle mani.
+
+## `GrigliaMano.cs`
+
+Descrive la mano umana come insieme di preferenze **grafiche** sulla schedina, e poi cerca, fra le
+celle che il modello grafico tiene calde, la figura che **nessuna mano disegnerebbe**.
+
+Il moltiplicatore di popolarità è normalizzato contro un riferimento **misurato**: la popolarità
+grezza media di 200.000 combinazioni estratte a caso. 1,00 = una combinazione qualunque.
+
+| giocata | numeri | quanto è giocata |
+|---|---|---|
+| compleanni (riferimento) | 03 07 11 17 23 28 | **3,58x** |
+| giocata del modello | 01 09 18 19 22 90 | 1,89x |
+| **meno disegnata fra le calde** | 32 33 58 79 89 90 | **0,12x** |
+
+Quanto si incassa se si vince (1,00 = premio pieno, non diviso):
+
+| giocata | concorso normale | jackpot alto | jackpot record |
+|---|---|---|---|
+| compleanni | 0,980 | 0,933 | **0,808** |
+| giocata del modello | 0,989 | 0,964 | 0,892 |
+| meno disegnata | 0,999 | 0,998 | **0,993** |
+
+Su un jackpot record la figura meno disegnata incassa il **23% in più** dei compleanni, a parità di
+sei centrato.
+
+## Cosa cambia e cosa no
+
+- **NON cambia la probabilità di vincere.** Sei numeri qualsiasi valgono sei numeri qualsiasi.
+- **CAMBIA quanto si incassa** se si vince, perché si divide con meno gente.
+
+Il vincolo «fra le celle calde» non aggiunge né toglie niente in termini di probabilità — il modello
+grafico non predice nulla, quindi restringere il ventaglio alle sue celle calde è gratuito. Serve
+solo a tenere l'uscita dell'app coerente con il modello che la produce.
+
+## Limite dichiarato, e la strada per toglierlo
+
+I biglietti giocati **non sono un dato pubblico**. I pesi in `GrigliaMano` descrivono comportamenti
+documentati ma sono **stime**, non misure. La direzione dell'effetto è solida, la taglia esatta no.
+
+Nota: questa stima è più **conservativa** della precedente versione numerica deprecata, che dava i
+compleanni a 22,65x e un vantaggio del 204% sul jackpot record. Qui il riferimento è misurato su
+200.000 combinazioni casuali invece che assunto, e il risultato ne esce ridimensionato.
+
+**La strada per rendere questo misurato invece che stimato esiste ed è concreta**: il numero di
+vincitori per categoria (6, 5+1, 5, 4, 3, 2) di ogni concorso è **pubblicato da Sisal**. Sapendo
+quanti hanno fatto punti su una data combinazione, si **deduce quanto era popolare quella
+combinazione**; con 4.237 estrazioni si potrebbe *tarare la mano del giocatore sui dati veri*.
+
+Verificato il 17/08/2026: la fonte attualmente usata (`superenalotto.com/archivio/estrazioni-{anno}`)
+**non** riporta i conteggi per categoria, e non espone pagine per singolo concorso. Serve una fonte
+diversa. È il TODO con il rapporto valore/sforzo più alto rimasto nel progetto: trasformerebbe
+l'unico meccanismo funzionante da stima a misura.
+
 ## L'occhio gira a ogni avvio
 
 `GrigliaOcchio.Guarda` è chiamato in coda al percorso normale: commenta la giocata appena prodotta,
