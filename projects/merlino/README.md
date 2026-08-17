@@ -238,6 +238,53 @@ somma non cambia se si rimescolano le etichette della tela. È invariante per pe
 la sua banda di controllo su 24 disposizioni casuali è un punto solo (1,096 .. 1,096). Lavora sugli
 insiemi di numeri, non sulle figure. Per lui l'unico controllo valido è il rimescolamento temporale.
 
+## L'Occhio — il ragionamento dell'utente dentro l'algoritmo (17/08/2026)
+
+Il ragionamento che ha trovato due difetti veri ha due tempi, e **solo il secondo vale**:
+
+1. si nota qualcosa — *«tutti e sei sotto il 30…»*
+2. si conclude *«mi sembra improbabile»* ← **questo sbaglia quasi sempre**, la sensazione di
+   impossibilità segue la *descrivibilità*, non la probabilità
+
+Ma qui non si guarda un'estrazione: si guarda **l'output di un modello**. La domanda giusta è
+**«il modello lo fa più spesso di quanto capiti davvero?»** — ed è formalizzabile.
+
+`GrigliaOcchio.cs` guarda dieci tratti (tutti nello stesso terzo, ampiezza stretta, consecutivi,
+celle che si toccano, allineamenti, parità…) e per ognuno riporta: se la giocata ce l'ha, quanto
+capita nelle estrazioni vere, quanto il modello lo produce. Gira **a ogni avvio**.
+
+### Cosa ha trovato, e la correzione
+
+| tratto | vere | modello prima | modello dopo |
+|---|---|---|---|
+| tutti nello stesso terzo | 0,2% | **1,5%** (6,4x) | 0,3% (1,4x) |
+| ampiezza stretta | 1,5% | **7,7%** (5,0x) | 1,7% (1,1x) |
+| tre o più consecutivi | 1,3% | **5,2%** (3,9x) | 1,3% (1,0x) |
+| tre celle che si toccano | 16,2% | **43,4%** (2,7x) | ~1,0x |
+
+Il modello disegna **macchie**, e prendere le sei celle più luminose vuol dire prendere sei punti
+dello stesso fianco della stessa collina. Le estrazioni vere sono sei punti sparsi.
+
+**Correzione — le vette**: soppressione dei non-massimi. Si prende la vetta, si abbassa il fianco
+della collina, si prende la vetta successiva. Prima sovracorrezione (vietare le confinanti) presa
+dall'occhio stesso: i consecutivi crollavano a 0,0% mentre un'estrazione su tre ne ha. Quindi
+**attenuare, non vietare**: fattore 0,85, scelto con `Merlino.exe vette` che misura lo scostamento
+di forma fra giocate del modello ed estrazioni vere (curva a U con minimo netto).
+
+Non è taratura di resa — è taratura di **forma**: un modello di estrazioni deve produrre cose che
+somigliano a estrazioni.
+
+**Campo piatto**: `TaraCampo` misura quanta luce ogni cella riceve in media e ci divide ogni disegno,
+come si corregge la vignettatura di un obiettivo. La riga centrale scende da 13,8% a 10,8% (neutro
+11,1%). Sotto i 200 campioni non si applica: con pochi campioni il campo *è* rumore.
+
+### Cosa questo NON cambia
+
+**Niente di tutto questo migliora la resa.** Il modello continua a segnare 1,00, continua a non
+predire niente, e la probabilità di vincere non cambia di un capello. Quello che è cambiato è che non
+è più **storto**. Un modello inutile ma onesto è meglio di uno inutile e storto — il secondo fa
+credere di vedere qualcosa.
+
 ## File del modello
 
 | File | Ruolo |

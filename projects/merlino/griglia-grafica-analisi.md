@@ -629,6 +629,143 @@ Serviva una diagnostica diversa, ed è nata solo perché qualcuno ha guardato l'
 «questo mi sembra strano». Vale la pena tenerlo a mente: **l'occhio su un singolo risultato ha
 trovato due difetti che migliaia di misure automatiche non avevano visto.**
 
+---
+
+# L'Occhio — il ragionamento dell'utente dentro l'algoritmo (17/08/2026)
+
+Richiesta: *«sviluppa tu un occhio come il mio basandoti sulle mie osservazioni, ragiona come me»* e
+*«implementa il ragionamento nell'algoritmo dell'app»*.
+
+## Il ragionamento, smontato
+
+Il ragionamento dell'utente ha due tempi, e **solo il secondo è quello che vale**:
+
+1. si nota qualcosa che salta all'occhio — *«tutti e sei sotto il 30…»*
+2. si conclude *«mi sembra improbabile»*
+
+Il passo 2, da solo, **sbaglia quasi sempre**: la sensazione di impossibilità segue la
+*descrivibilità*, non la probabilità. «Tutti fra 60 e 90» sembra assurdo ed è uscito 5 volte in
+4.234 estrazioni, esattamente le 5,01 attese.
+
+Ma qui non si guarda un'estrazione: si guarda **l'output di un modello**. E allora la domanda
+giusta non è *«quanto è raro?»* ma:
+
+> **Il modello lo fa più spesso di quanto capiti davvero?**
+
+Questa è la domanda che ha trovato due difetti veri. È formalizzabile, e `GrigliaOcchio.cs` la
+formalizza: per ogni tratto notabile riporta tre numeri — se la giocata di adesso ce l'ha, quanto
+capita nelle estrazioni vere, quanto il modello lo produce ricamminando la storia.
+
+## I dieci tratti che l'occhio guarda
+
+Tutti e sei nello stesso terzo · almeno cinque nella stessa metà · ampiezza stretta · tre sulla
+stessa riga · tre sulla stessa colonna · una coppia di consecutivi · tre consecutivi di fila · tre
+celle che si toccano sulla griglia · tre allineate · tutti pari o tutti dispari.
+
+## Cosa ha trovato subito
+
+| tratto | vere | modello | scarto |
+|---|---|---|---|
+| tutti nello stesso terzo | 0,2% | 1,5% | **6,4x** |
+| ampiezza stretta | 1,5% | 7,7% | **5,0x** |
+| tre o più consecutivi | 1,3% | 5,2% | **3,9x** |
+| tre celle che si toccano | 16,2% | 43,4% | **2,7x** |
+
+**Il modello disegna macchie, e prendere le sei celle più luminose significa prendere sei punti dello
+stesso fianco della stessa collina.** Le estrazioni vere sono sei punti sparsi. L'osservazione
+originale dell'utente («tutti sotto il 30») era il caso particolare di questo.
+
+## La correzione: le vette, non le cime
+
+Operazione grafica classica, la **soppressione dei non-massimi**: si prende la vetta, poi si abbassa
+il fianco della collina, poi si prende la vetta successiva. Si raccolgono le *vette*, una per collina
+— come si contano le stelle su una lastra.
+
+### Prima sovracorrezione, presa dall'occhio stesso
+
+Vietare del tutto le celle confinanti ha portato *«almeno una coppia di consecutivi»* da 33,8% (vero)
+a **0,0%** nel modello. Ma un'estrazione su tre ha numeri consecutivi: renderli impossibili è
+l'errore opposto, altrettanto grave.
+
+La correzione giusta è **attenuare**, non vietare: le confinanti perdono luce, quelle a due passi la
+perdono a metà, ma se una cella accanto resta comunque la più chiara viene presa lo stesso.
+
+### Quanto attenuare — taratura di forma, non di resa
+
+`Merlino.exe vette` prova tutta la scala e misura lo scostamento medio fra la forma delle giocate del
+modello e quella delle estrazioni vere:
+
+| attenuazione | 0,00 | 0,35 | 0,50 | 0,65 | **0,80** | **0,90** | 1,00 |
+|---|---|---|---|---|---|---|---|
+| SuperEnalotto | 2,426 | 1,988 | 1,700 | 1,151 | **0,241** | 0,293 | 0,808 |
+| EuroJackpot | 3,023 | 2,327 | 1,412 | 0,743 | 0,326 | **0,157** | 0,415 |
+
+Curva a U con minimo netto in entrambi i giochi. Scelto **0,85**, un solo valore per entrambi — non
+uno per gioco, che sarebbe stato adattamento.
+
+**Nota importante**: questa *non* è taratura di resa, che il progetto ha imparato a caro prezzo a non
+fare. È taratura di **forma**: un modello di estrazioni deve produrre cose che somigliano a
+estrazioni. L'obiettivo è misurabile, non ha nulla a che vedere con l'indovinare, e non può gonfiare
+nessuna metrica di prestazione.
+
+## Esito
+
+| tratto | vere | modello | scarto |
+|---|---|---|---|
+| tutti nello stesso terzo | 0,2% | 0,3% | 1,4x |
+| almeno tre sulla stessa colonna | 12,3% | 15,5% | 1,3x |
+| almeno tre sulla stessa riga | 14,8% | 17,4% | 1,2x |
+| ampiezza stretta | 1,5% | 1,7% | 1,1x |
+| tre allineate | 46,1% | 49,7% | 1,1x |
+| tutti pari o tutti dispari | 2,9% | 2,9% | 1,0x |
+| tre o più consecutivi | 1,3% | 1,3% | 1,0x |
+
+Da scarti fino a 6,4x a **tutto fra 0,5x e 1,8x**, quasi tutto fra 0,8 e 1,3.
+
+## Il campo piatto — la vignettatura dell'obiettivo
+
+Correzione entrata nell'algoritmo insieme all'occhio. Un obiettivo fotografico illumina il centro del
+fotogramma più dei bordi, e non si corregge a occhio: si fotografa una superficie uniforme, si misura
+quanta luce arriva a ogni punto, e si divide ogni scatto per quella misura.
+
+`GrigliaEngine.TaraCampo` fa esattamente questo: misura quanta luce ogni cella riceve **in media** su
+un pezzo di storia, e da lì in avanti divide ogni disegno per quella misura. Una cella non è più
+calda in assoluto — è calda **rispetto a quanto è solita essere**.
+
+Tarato su estrazioni tutte precedenti a quelle previste (nessuna fuga). Esito sul SuperEnalotto: la
+riga centrale scende da 13,8% a 10,8%, contro l'11,1% neutro.
+
+**Trappola trovata**: con pochi campioni il campo *è* rumore, e dividere per rumore aggiunge storture
+invece di toglierne — su EuroJackpot con 35 campioni lo squilibrio peggiorava da 1,21x a 1,99x. Ora
+sotto i 200 campioni la correzione non si applica affatto.
+
+## Distribuzione finale
+
+| riga | 1-10 | 11-20 | 21-30 | 31-40 | 41-50 | 51-60 | 61-70 | 71-80 | 81-90 |
+|---|---|---|---|---|---|---|---|---|---|
+| modello | 10,7% | 11,1% | 12,6% | 12,0% | 10,8% | 12,0% | 10,6% | 10,7% | 9,4% |
+| estrazioni vere | 11,0% | 10,8% | 10,6% | 11,0% | 11,1% | 11,1% | 11,2% | 11,4% | 11,8% |
+
+Squilibrio 1,33x sul SuperEnalotto e 1,17x sull'EuroJackpot, contro l'1,11x delle estrazioni vere.
+
+## Cosa questo NON cambia
+
+Va detto senza ambiguità: **niente di tutto questo migliora la resa**. Il modello continua a segnare
+1,00 sul banco di prova, continua a non predire niente, e la probabilità di vincere non è cambiata di
+un capello — sei numeri qualsiasi valgono sei numeri qualsiasi.
+
+Quello che è cambiato è che il modello non è più **storto**: non pesca più il 46 sedici volte più del
+10, e non propone più giocate ammassate che nessuna estrazione vera somiglia. Un modello inutile ma
+onesto è meglio di un modello inutile e storto — se non altro perché il secondo fa credere di vedere
+qualcosa.
+
+## L'occhio gira a ogni avvio
+
+`GrigliaOcchio.Guarda` è chiamato in coda al percorso normale: commenta la giocata appena prodotta,
+segnala i tratti che saltano all'occhio e — soprattutto — quelli su cui il modello sta esagerando
+anche se non compaiono in questa giocata. È la sentinella permanente contro il prossimo difetto di
+questo tipo.
+
 ## File
 
 | File | Ruolo |
