@@ -1,54 +1,86 @@
 # Merlino
 
-Motore predittivo basato su analisi "grafica" dello storico estrazioni. **Un'unica app** che predice in sequenza:
-1. **SuperEnalotto** (6 numeri da 1-90 + SuperStar 1-90)
-2. **EuroJackpot** (5 numeri da 1-50 + 2 Euro numeri da 1-12)
+> **Ripartenza da zero — 17/08/2026.** Tutti gli algoritmi costruiti fino a questa data sono
+> **deprecati** (non funzionano) e con essi **tutto il metro di misura** che li accompagnava
+> (distribuzione nulla, p-value, sigma, hold-out, walk-forward metrico, canali di controllo a
+> rumore). Restano sul disco e compilano, ma sono fuori dal percorso dell'applicazione.
+> Tutto ciò che in questo file sta sotto la riga «ARCHIVIO STORICO» descrive lavoro deprecato.
 
-Codice separato per i due giochi (file dedicati), stesso approccio algoritmico: **pattern matching grafico** — zero feature scalari, zero matematica stocastica. Il modello cerca le finestre storiche graficamente più simili alla situazione attuale e predice i numeri che sono usciti dopo quelle finestre.
+**Un solo modello attivo: la griglia grafica.** Analisi completa:
+[griglia-grafica-analisi.md](griglia-grafica-analisi.md).
 
-## Algoritmo (pattern matching puro)
+## Il modello
 
-1. Ogni estrazione è una **riga binaria** nel canvas (pixel acceso = numero estratto).
-2. Per predire l'estrazione `t`, si prende la "foto" delle ultime `W` estrazioni come **query pattern**.
-3. Si scorre tutto lo storico `[0..t-W-Depth]` cercando le finestre di altezza `W` graficamente più simili (distanza Hamming o Jaccard su bitmap, opzionalmente pesata per righe recenti).
-4. I top-`K` vicini contribuiscono al punteggio dei numeri secondo cosa è uscito **subito dopo** la loro finestra (con `SuccessorDepth` righe di lookahead e peso per similarità).
-5. Opzionalmente si applica un anti-repeat penalizzando numeri usciti nelle ultime righe.
-6. Opzionalmente si combinano più finestre (`MultiWindow`: W=3, 7, 15 simultanee).
+La schedina è una **griglia di 10 colonne per 9 righe**. Il numero `n` occupa la cella
+`riga = (n-1)/10`, `colonna = (n-1)%10`. Ogni estrazione accende sei celle e **disegna una figura**.
+Il modello guarda le figure disegnate dal 1997 a oggi e ne disegna una nuova per la prossima
+estrazione.
 
-**Anti-leakage garantito**: il vincolo `candEnd ≤ queryStart - depth` assicura che il successor del vicino sia sempre PRIMA del query pattern. Nessuna riga del query può essere usata come successor.
+**Zero matematica, zero statistica**: nessuna frequenza, nessun ritardo, nessuna probabilità,
+nessuna calibrazione, nessun peso tarato, nessun parametro libero. Ogni canale è un'operazione di
+**disegno** e restituisce un'**immagine** della griglia. Le immagini si sovrappongono come lucidi;
+le celle più luminose sono la giocata.
 
-## Tuning: random search + refinement full walk-forward
+### I sei canali
 
-Due fasi per ogni canvas:
-1. **Random search** (60 iter) sul fast test set (step=4 dalla 300-esima estrazione in poi). Genera 10 candidati top.
-2. **Refinement**: rivaluta i 10 migliori sul **full walk-forward** (step=1, dalla 200-esima a oggi, circa 3965 test points SE, 3051 SS, 733 EJ main, 357 EJ euro). Il best finale è chi vince sul full.
+| Canale | Operazione grafica |
+|---|---|
+| **Eco di forma** | La figura di adesso ha una sagoma. Si cercano nello storico le figure con la stessa sagoma — anche riflessa o capovolta — e si **ridisegna il loro seguito**, traslato quanto serve per portare la sagoma di allora sopra quella di adesso. |
+| **Scia** | Da un'estrazione all'altra le celle si spostano. Ogni cella si aggancia alla più vicina della precedente: quello è il suo passo. La scia prosegue di un altro passo. |
+| **Calco** | Le ultime 5 estrazioni sovrapposte formano un quadro. Si fa scorrere lo stesso quadro su tutto lo storico, si tengono i momenti in cui il disegno si somigliava di più, e si ridisegna l'estrazione che venne subito dopo. |
+| **Specchio** | La griglia ha tre simmetrie che la mandano in sé stessa (sinistra-destra, alto-basso, mezzo giro). Ogni cella accesa di recente accende i propri riflessi. |
+| **Crescita** | La figura si allarga sul bordo: attorno a ogni cella accesa si accendono le confinanti, più forte quelle di lato che quelle in diagonale. |
+| **Retta** | Due celle allineate (riga, colonna o diagonale a 45°) individuano un tratto. Il tratto si prolunga oltre l'estremo. |
 
-Questo elimina l'overfitting al campione ridotto che gonfiava le metriche.
+**Anti-leakage**: per disegnare l'estrazione `t` si guardano solo le righe `[0, t)`. Le somiglianze
+storiche si fermano a `t-2`, così il loro seguito è al massimo `t-1`.
 
-## Risultati onesti (full walk-forward, step=1, 10-04-2026)
+### Ritaglio al mezzo tono
 
-| Metrica | Merlino | Baseline random | Edge |
-|---------|---------|-----------------|------|
-| SE top-12 main (3965 test points) | **0.826** | 0.800 | +3.2% |
-| SE top-3 SuperStar (3051 test points) | **0.040** | 0.033 | +21.2% |
-| EJ top-10 main (733 test points) | **1.061** | 1.000 | +6.1% |
-| EJ top-6 euro (357 test points) | **1.014** | 1.000 | +1.4% |
+Prima di sovrapporre, ogni lucido viene **ritagliato alla propria macchia**: sotto il mezzo tono si
+cancella. Senza questo passaggio ogni canale contribuisce anche con la propria sfumatura di fondo,
+la sovrapposizione tinge mezza griglia e diventa impossibile dire se una macchia è finita su un
+numero per davvero. È la differenza fra 14 celle calde su 90 e più di 40.
 
-**Distribuzione hit top-12 SE** (full walk-forward, 3965 estrazioni):
-```
- 0 hit: 39.8%
- 1 hit: 41.5%   ← caso più probabile
- 2 hit: 15.3%
- 3 hit:  3.1%
- 4 hit:  0.3%
- 5+ hit: 0.0%
-```
+## L'unica verifica ammessa
 
-Un hit su 12 numeri giocati è **il risultato statisticamente più probabile** del modello. Zero hit è il secondo. Due hit è già nel 15%. Questo va tenuto bene a mente prima di valutare un singolo esito.
+Il modello vede tutto lo storico **tranne l'ultima estrazione**, disegna le macchie calde, e sopra
+il disegno si scrivono i numeri **realmente usciti**. Se le macchie ci cadono sopra, funziona.
 
-## Nota di onestà intellettuale
+Nessuna metrica, nessuna media, nessuna baseline, nessun p-value, nessun confronto col rumore: si
+guarda il disegno. La stessa verifica viene ripetuta all'indietro sulle ultime 12 estrazioni, ognuna
+prevista da tutto ciò che la precede.
 
-L'edge è **reale ma modesto** (+3.2% su top-12). Con 3965 test point lo stddev naturale è ~0.014, quindi +0.026 sopra baseline è ~1.9σ, marginalmente significativo. Non abbastanza per battere il banco: il SuperEnalotto paga il 6 e con +3% di edge su top-12 (che non corrisponde a top-6) non si compensa il margine del banco. Il modello è uno **strumento di compagnia** per chi vuole giocare numeri "con un segnale" invece che random, non un metodo profittevole.
+## Esito della verifica (run 17/08/2026)
+
+Estrazione del **14/08/2026** (`09 18 20 25 53 90`), modello costruito sulle prime 4.236 estrazioni:
+
+| Numero uscito | Cella dove è caduto |
+|---|---|
+| 25 | tiepida |
+| 09 | appena tiepida |
+| 18, 20, 53, 90 | **spente** |
+
+Il disegno teneva calde **14 celle su 90**. Quattro numeri su sei sono caduti nel vuoto.
+Sulle 12 estrazioni all'indietro il quadro è lo stesso: la maggior parte dei numeri usciti cade su
+celle spente, e i pochi centri su macchia calda non si distinguono da coincidenze.
+
+**Il modello grafico, misurato col criterio richiesto, non mette le macchie dove escono i numeri.**
+
+Va segnalato che la prima versione — senza il ritaglio al mezzo tono — *sembrava* funzionare
+(`o : : O : .` sui sei numeri): ma teneva calda quasi metà griglia, quindi cadere dentro una macchia
+non voleva dire niente. È lo stesso errore già commesso otto volte in questo progetto, in forma
+grafica anziché numerica: un criterio che non può fallire non è una verifica.
+
+## File del modello
+
+| File | Ruolo |
+|------|-------|
+| `GrigliaEngine.cs` | La griglia, i sei canali, il ritaglio, la sovrapposizione, il disegno a schermo |
+| `GrigliaVerifica.cs` | L'unica verifica: macchie calde contro numeri realmente usciti |
+| `Program.cs` | Scaricamento → figure → verifica → giocata |
+
+Le griglie usate: SuperEnalotto 10×9, SuperStar 10×9, EuroJackpot 10×5, Euro numeri 6×2.
 
 ## Path
 
@@ -159,6 +191,23 @@ Ogni volta che l'app parte, `SuperenalottoFetcher.UpdateCurrentYearAsync` fa:
 6. Stampa in console quante estrazioni sono state aggiunte.
 
 Questo viene eseguito **prima** di qualsiasi logica predittiva. Idempotente: un secondo avvio immediato stampa "Nessuna nuova estrazione da aggiungere".
+
+---
+
+# ARCHIVIO STORICO — TUTTO DEPRECATO (17/08/2026)
+
+> Da qui in avanti il contenuto descrive **algoritmi deprecati che non funzionano** e il metro di
+> misura con cui erano valutati, anch'esso deprecato. È conservato solo come registro di cosa è
+> stato provato, per non riprovarlo. Nessuno di questi file è chiamato dall'applicazione: ognuno
+> porta in testa un banner `// DEPRECATO`.
+>
+> Deprecati anche i due documenti di analisi collegati:
+> [segni-ombra-forma-analisi.md](segni-ombra-forma-analisi.md) e
+> [bilancia-holdout-analisi.md](bilancia-holdout-analisi.md).
+>
+> Restano validi e in uso soltanto: lo **scaricamento** (`SuperenalottoFetcher`,
+> `EurojackpotFetcher`), il **caricamento storico** (`HistoryLoader`, `DataStore`, `EuroDataStore`)
+> e il **formato dati** — tutti documentati nelle sezioni qui sopra.
 
 ## Componenti
 
