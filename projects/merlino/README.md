@@ -9,6 +9,11 @@
 **Un solo modello attivo: la griglia grafica.** Analisi completa:
 [griglia-grafica-analisi.md](griglia-grafica-analisi.md).
 
+**Motto del progetto (17/08/2026): «trovare la legge del caos e predirlo».** Da lì è nato lo sciame
+di osservatori — un impianto che non cerca una legge valida *sempre* ma una struttura che tenga
+*adesso*. Costruito, misurato, e con il difetto di forma corretto dagli osservatori stessi:
+[legge-del-caos.md](legge-del-caos.md).
+
 ## Il modello
 
 I numeri stanno su una **tela** (`GrigliaLayout`): può essere un rettangolo di qualsiasi formato, ma
