@@ -180,15 +180,56 @@ alto** di quanto faccia sui dati veri.
 
 **Non è il disegnatore a essere cieco: è il foglio a essere bianco.**
 
+## Il difetto trovato guardando l'output (17/08/2026)
+
+Segnalazione dell'utente su `18 19 20 22 27 29`: *«tutti e 6 sotto a 30, mi sembra molto
+improbabile»*. Seconda volta che un'intuizione così scova un difetto vero.
+
+`Merlino.exe scelte` non misura se il modello indovina, misura **dove guarda**. Risultato:
+
+| riga | scelti dal modello | usciti davvero | neutro |
+|---|---|---|---|
+| 1-10 | **3,8%** | 11,0% | 11,1% |
+| **41-50** | **20,8%** | 11,1% | 11,1% |
+| 81-90 | **6,4%** | 11,8% | 11,1% |
+
+Il **46** scelto nel 22,5% delle estrazioni, il **10** nell'1,4%: sedici volte tanto, fra numeri
+equiprobabili. Il modello non preferiva i numeri bassi — **preferiva il centro del foglio**.
+
+**Due cause, entrambe geometriche:**
+
+1. **Perdita dei bordi.** I canali che traslano e prolungano buttavano via tutto ciò che finiva oltre
+   il margine: una cella centrale riceve tratti da ogni direzione, una d'angolo solo da dentro.
+   → **tela a toro accesa di default**: i bordi si ricongiungono, nessun tratto si perde.
+2. **Il Contorno.** Il guscio convesso di sei punti sparsi sta addosso al centro molto più che ai
+   margini (84,7% delle sue scelte nella fascia centrale contro 33,3% neutro). Non è raddrizzabile:
+   usare il bordo invece dell'area piena dimezza il vizio ma su EJ resta al 97,6%.
+   → **Contorno rimosso dalla configurazione di default.**
+
+Siccome nessuna combinazione esce dalle bande di controllo, la scelta si è fatta sull'**equità**
+(riga più servita ÷ riga meno servita; le estrazioni vere stanno a 1,11x):
+
+| Combinazione | squilibrio |
+|---|---|
+| **senza Contorno** | **1,35x** |
+| i sei originali | 1,42x |
+| tutti e dieci | 2,49x |
+| solo i quattro nuovi | 5,35x |
+
+**Lezione**: un modello può essere inutile e storto insieme, e le due cose si misurano separatamente.
+Il banco diceva 1,00 — «non predice niente», ed era giusto — ma un criterio che normalizza per
+l'estensione della macchia è cieco a *dove* la macchia sta.
+
 ### Il sistema scelto
 
-**Tutti e dieci i canali, parametri di partenza, schedina 9×10.**
+**Nove canali — tutti tranne il Contorno — tela a toro, schedina 9×10.**
 
 1. Nessuna configurazione esce dalle proprie bande di controllo: la scelta non si può fare sulla
    prestazione, perché non c'è prestazione da confrontare.
 2. Scegliere «solo Gesto» per quel 1,081 sarebbe l'errore che il banco serve a evitare — il suo
    stesso controllo arriva a 1,113, cioè lo batte.
-3. A parità di tutto si tiene la configurazione più ricca e leggibile.
+3. A parità di resa si sceglie sull'equità geometrica: distribuzione risultante 10,2%–13,8% contro
+   11,1% neutro, contro il 6,8%–16,8% di prima.
 
 ### Una scoperta sull'architettura
 

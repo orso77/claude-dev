@@ -512,14 +512,122 @@ banco **oltre dieci minuti**. I dieci lucidi di ogni estrazione ora si calcolano
 (`GrigliaEngine.LucidiRitagliati`) e poi si combinano (`Componi`): stesso risultato, **10 secondi**.
 Il caso da manuale in cui la struttura del calcolo, non il calcolo, è il collo di bottiglia.
 
+---
+
+# Il modello guardava il centro della tela — difetto reale e correzione (17/08/2026)
+
+Segnalazione dell'utente su una giocata proposta (`18 19 20 22 27 29`): *«tutti e 6 i numeri sono
+sotto a 30, mi sembra molto improbabile»*.
+
+È la **seconda volta** che un'intuizione di questo tipo scova un difetto vero (la prima fu
+l'inclinazione verso i numeri alti di Bilancia, agosto 2026). La direzione indovinata era sbagliata,
+il difetto sotto c'era eccome — ed era peggiore.
+
+## La diagnostica
+
+`GrigliaScelte.cs` (`Merlino.exe scelte`) non misura se il modello indovina: misura **dove guarda**.
+Ricamminando 2.000 estrazioni annota quali celle il modello sceglie e confronta la distribuzione con
+quella delle estrazioni vere.
+
+| riga | scelti dal modello | usciti davvero | neutro |
+|---|---|---|---|
+| 1-10 | **3,8%** | 11,0% | 11,1% |
+| 11-20 | 6,2% | 10,8% | 11,1% |
+| 21-30 | 10,9% | 10,6% | 11,1% |
+| 31-40 | 15,0% | 11,0% | 11,1% |
+| **41-50** | **20,8%** | 11,1% | 11,1% |
+| 51-60 | 15,9% | 11,1% | 11,1% |
+| 61-70 | 12,5% | 11,2% | 11,1% |
+| 71-80 | 8,5% | 11,4% | 11,1% |
+| 81-90 | **6,4%** | 11,8% | 11,1% |
+
+Il **46** veniva scelto nel **22,5%** delle estrazioni, il **10** nell'**1,4%**: sedici volte tanto,
+fra numeri che escono con la stessa frequenza. Il 45 e il 46 sono esattamente le celle centrali della
+griglia 9×10. Le estrazioni vere sono piatte.
+
+Il modello non preferiva i numeri bassi: **preferiva il centro del foglio**, e quella giocata era
+solo il caso particolare di un difetto generale.
+
+## Prima causa: la perdita dei bordi
+
+Crescita, Retta, Scia, Eco, Analogia, Gesto e Contorno traslano e prolungano figure, e **tutto ciò
+che finisce oltre il margine veniva buttato via**. Una cella centrale riceve tratti da ogni
+direzione, una cella d'angolo solo da dentro. Non era una preferenza del modello: era una perdita.
+
+Correzione: **tela a toro accesa di default** (`GrigliaConfig.Toro = true`). I bordi si ricongiungono,
+nessun tratto si perde, ogni cella vale quanto le altre. Era già implementata e misurata nel banco —
+dove risultava indifferente sulla resa (1,012 contro 1,017) — ma il suo valore vero non è la resa: è
+l'equità geometrica.
+
+Esito: riga 1-10 da 3,8% a 8,0%. Migliorata, non risolta.
+
+## Seconda causa: il Contorno, e non è raddrizzabile
+
+L'inclinazione misurata canale per canale (quota delle scelte nella fascia centrale, neutro 33,3%):
+
+| Canale | Fascia centrale |
+|---|---|
+| **Contorno** | **84,7%** |
+| **Analogia** | 45,4% |
+| Specchio | 39,3% |
+| Eco di forma | 33,2% |
+| Calco | 32,8% |
+| Crescita | 30,4% |
+| Gesto | 28,4% |
+| Scia | 25,4% |
+| Piega | 25,1% |
+| Retta | 20,6% |
+
+Il **Contorno** — costrutto inventato poche ore prima — è il guastafeste. La causa è geometrica e
+non ha niente a che vedere con le estrazioni: il **guscio convesso di sei punti sparsi sta addosso al
+centro della tela molto più che ai margini**, perché il centro sta "in mezzo" a più coppie di punti
+di quanto ci stia un angolo. Il toro non lo corregge, perché il guscio si calcola nel piano.
+
+Primo tentativo: usare il **bordo** del guscio invece dell'area piena — che è anche ciò che la parola
+*contorno* vuol dire. Il vizio si dimezza (84,7% → 51,9%) ma resta; sulla griglia EuroJackpot a 5
+righe è ancora al 97,6% contro un neutro del 60%. Il difetto è nella natura del guscio, non nel suo
+riempimento.
+
+## La scelta: equità, visto che sulla resa sono tutte uguali
+
+Nessuna combinazione esce dalle bande di controllo, quindi il criterio di scelta non può essere la
+resa. Diventa lo **squilibrio**: riga più servita diviso riga meno servita.
+
+| Combinazione | riga min | riga max | squilibrio |
+|---|---|---|---|
+| **senza Contorno** | 10,2% | 13,8% | **1,35x** |
+| senza Contorno, Analogia, Specchio | 9,9% | 13,4% | 1,35x |
+| senza Contorno e Analogia | 9,7% | 13,4% | 1,39x |
+| i sei originali | 9,6% | 13,6% | 1,42x |
+| tutti e dieci | 6,8% | 16,8% | 2,49x |
+| solo i quattro nuovi | 3,2% | 17,0% | **5,35x** |
+| *estrazioni vere* | | | *1,11x* |
+
+Togliere l'Analogia peggiora leggermente le cose, quindi resta. Il colpevole è uno solo.
+
 ## Il sistema finale
 
-**Tutti e dieci i canali, parametri di partenza, schedina 9×10.**
+**Nove canali — tutti tranne il Contorno — tela a toro, schedina 9×10.**
 
-Nessuna configurazione esce dalle proprie bande di controllo, quindi la scelta resta non-prestazionale:
-si tiene la più ricca e leggibile. I dieci lucidi danno il quadro più informativo da guardare, e non
-sono misurabilmente peggiori di nessuna alternativa (1,017 contro 0,980 dei soli sei vecchi canali —
-differenza dentro il rumore).
+Distribuzione risultante, contro 11,1% neutro:
+
+| riga | 1-10 | 11-20 | 21-30 | 31-40 | 41-50 | 51-60 | 61-70 | 71-80 | 81-90 |
+|---|---|---|---|---|---|---|---|---|---|
+| modello | 11,6% | 10,5% | 10,5% | 10,6% | 13,8% | 10,7% | 10,9% | 10,2% | 11,2% |
+| estrazioni vere | 11,0% | 10,8% | 10,6% | 11,0% | 11,1% | 11,1% | 11,2% | 11,4% | 11,8% |
+
+Piatta. La giocata è passata da `18 19 20 22 27 29` a `01 09 18 19 20 90`.
+
+## La lezione
+
+Un modello può essere **inutile e storto insieme**, e le due cose si misurano separatamente. Tutto il
+banco di prova diceva 1,00 — cioè "non predice niente" — e quel giudizio era corretto; ma non diceva
+nulla sul fatto che le scelte fossero distribuite in modo assurdo. Un criterio che normalizza per
+l'estensione della macchia è cieco a *dove* la macchia sta.
+
+Serviva una diagnostica diversa, ed è nata solo perché qualcuno ha guardato l'output e ha detto
+«questo mi sembra strano». Vale la pena tenerlo a mente: **l'occhio su un singolo risultato ha
+trovato due difetti che migliaia di misure automatiche non avevano visto.**
 
 ## File
 
