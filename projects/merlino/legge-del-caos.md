@@ -346,6 +346,49 @@ Con il conteggio corretto (`sopra + (uguali + 1) / 2`): **45,23–45,81 contro 4
 **Nona occorrenza della stessa forma di errore in questo progetto — la prima trovata prima di
 annunciare il risultato invece che dopo.**
 
+### La forma nel tempo — `Merlino.exe forma` (18/08/2026)
+
+**Il ragionamento**: all'urna abbiamo sempre fatto la domanda più difficile che esista — *quali sei
+numeri* — che ha 29 bit di incertezza e ci affoga dentro qualunque segnale debole. La forma invece
+è una domanda molto più piccola: *quante decine occuperà* è un valore fra 2 e 6, meno di due bit. Se
+il processo ha una memoria qualsiasi, si manifesta lì **quindici volte più visibilmente**.
+
+E non era mai stato chiesto: la forma è stata misurata, giudicata e corretta tutto il giorno, ma
+sempre come *descrizione*, mai come *cosa da prevedere*.
+
+12 tratti × 5 distanze (−1, −2, −3, −5, −10) + 144 coppie incrociate, con soglia presa sul
+**massimo di 40 copie della storia col tempo mescolato**.
+
+| | |
+|---|---|
+| caselle sopra soglia, attese per puro caso | ~1,5 (60 caselle, soglia = max di 40 copie → 1/41 ciascuna) |
+| caselle sopra soglia, osservate | **3**, a distanze scoordinate (−10, −2, −10) |
+| coppie incrociate sopra soglia su 144 | **0** |
+
+**La forma di ieri non dice niente sulla forma di oggi.**
+
+### I ritorni — il test più diretto di memoria che esista
+
+Se la macchina avesse una memoria qualunque — palline non rimescolate del tutto, un residuo — si
+vedrebbe qui prima che altrove: **quanti numeri tornano** da un'estrazione alla successiva. Non è un
+modello, è il contatto fisico diretto fra due estrazioni, e l'attesa è esatta (ipergeometrica).
+
+| distanza | ritorni medi | atteso | scarto in errori |
+|---|---|---|---|
+| −1 | 0,3918 | 0,4000 | **−0,90** |
+| −2 | 0,3940 | 0,4000 | −0,66 |
+| −3 | 0,3946 | 0,4000 | −0,60 |
+| −5 | 0,3914 | 0,4000 | −0,94 |
+| −10 | 0,4061 | 0,4000 | +0,67 |
+| −20 | 0,4018 | 0,4000 | +0,20 |
+
+Tutto entro un errore tipico. Su EuroJackpot la distanza −5 segna 2,49 errori, ma su 12 prove
+complessive è atteso.
+
+**Questo è il risultato più forte della giornata, e va letto per quello che è**: non «non abbiamo
+trovato la memoria», ma **«la memoria dell'urna, se c'è, è più piccola di 0,008 palline su sei»**.
+È la conversione di un fallimento in una misura.
+
 ### Il limite del righello (da tenere presente)
 
 Il criterio «quanti dei 6 usciti stanno fra i 6 scelti» ha una **risoluzione dell'8%**: media attesa
