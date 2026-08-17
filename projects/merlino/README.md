@@ -312,11 +312,48 @@ casuali (1,00 = combinazione qualunque):
 - **NON cambia la probabilità di vincere.** Sei numeri valgono sei numeri.
 - **CAMBIA quanto incassi** se vinci, perché dividi con meno gente.
 
-**Limite, e la strada per toglierlo**: i biglietti giocati non sono pubblici, quindi i pesi sono
-stime. Ma il **numero di vincitori per categoria di ogni concorso è pubblicato da Sisal**: sapendo
-quanti hanno fatto punti su una combinazione si deduce quanto era popolare, e con 4.237 estrazioni la
-mano del giocatore si potrebbe **tarare sui dati veri**. Verificato che la fonte attuale non li
-riporta — serve una fonte diversa. È il TODO con il miglior rapporto valore/sforzo del progetto.
+### ✅ MISURATA, non più stimata (`Merlino.exe quote`)
+
+I biglietti giocati non sono pubblici, **ma non servono**: il numero di vincitori di due categorie
+dello *stesso* concorso dipende dallo stesso numero di biglietti, che si semplifica.
+
+```
+indice = (V4 / V3) / (p4 / p3)        p4/p3 = C(6,4)C(84,2) / C(6,3)C(84,3) = 0,027439
+```
+
+`QuoteFetcher.cs` scarica i vincitori per categoria di **3.005 concorsi** (1997-2026) da
+`superenalottooggi.com/archivio/{anno}`. `GrigliaPopolarita.cs` ne ricava quanto ogni numero è
+effettivamente giocato.
+
+**Quanto è giocato ogni numero** — 08 → **1,33** · 09 → 1,33 · 11 → 1,28 ‖ 60 → **0,76** · 61 → 0,77
+
+**Per riga della schedina** — il calo è monotono e il gradino cade **esattamente sul 31**, il massimo
+giorno del mese:
+
+| 1-10 | 11-20 | 21-30 | 31-40 | 41-50 | 51-60 | 61-70 | 71-80 | 81-90 |
+|---|---|---|---|---|---|---|---|---|
+| **1,032** | **1,019** | **1,008** | 0,988 | 0,993 | 0,993 | 0,989 | 0,990 | 0,991 |
+
+**Le figure** — «almeno quattro sotto il 32» **1,146x** · ampiezza stretta 1,077x · contiene il 7
+1,030x ‖ «almeno quattro sopra il 59» **0,960x** · coppia di consecutivi 0,970x
+
+**Le mie stime precedenti erano sbagliate di un ordine di grandezza**: avevo ipotizzato «tre sulla
+stessa riga» ×2,4, misura **1,02x**. I moltiplicatori di figura inventati sono stati rimossi.
+
+**Correzione di scala**: l'indice è la *media* di `f` sui sei numeri usciti, quindi `f = 1 + 6·(indice−1)`.
+Controprova indipendente: «quattro sotto il 32» a 1,146 implica numeri bassi giocati ~27% in più —
+esattamente ciò che dà la formula sui singoli numeri.
+
+**È il primo risultato non-nullo del progetto.** Ogni modello predittivo ha segnato 1,00; qui
+l'effetto c'è, ha il segno giusto, cade dove la teoria del comportamento diceva, e due strade
+indipendenti danno la stessa taglia.
+
+**Difetto scoperto da questa misura**: la giocata del modello grafico è **più popolare dei
+compleanni** (2,40x contro 2,32x) — le sue celle calde sono arbitrarie e capita siano numeri bassi.
+Siccome non predice nulla, non c'è ragione di lasciargli scegliere numeri popolari. TODO aperto.
+
+**Limiti residui**: la fonte copre 3.005 concorsi su 4.237; il passaggio dall'indice al singolo numero
+assume che i biglietti si scompongano numero per numero.
 
 ## File del modello
 

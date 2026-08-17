@@ -840,6 +840,138 @@ Verificato il 17/08/2026: la fonte attualmente usata (`superenalotto.com/archivi
 diversa. È il TODO con il rapporto valore/sforzo più alto rimasto nel progetto: trasformerebbe
 l'unico meccanismo funzionante da stima a misura.
 
+---
+
+# La popolarità MISURATA — il primo risultato non-nullo del progetto (17/08/2026)
+
+Il TODO indicato poche ore prima è stato chiuso: **la mano del giocatore non è più stimata, è
+misurata.**
+
+## L'identità che rende superflui i biglietti
+
+I biglietti giocati non sono un dato pubblico. **Ma non servono.** Il numero di vincitori di due
+categorie dello *stesso* concorso dipende dallo stesso numero di biglietti, che quindi si semplifica:
+
+```
+indice = (V4 / V3) / (p4 / p3)        con  p4/p3 = C(6,4)C(84,2) / C(6,3)C(84,3) = 0,027439
+```
+
+Con schedine compilate a caso l'indice vale **1,00**. Se i giocatori sono addensati sui numeri
+usciti, i quattro punti crescono più dei tre e l'indice sale. **È la popolarità di quella
+combinazione, misurata sul comportamento reale di milioni di giocatori.**
+
+## La fonte
+
+`superenalottooggi.com/archivio/{anno}` — una pagina per anno con, per ogni concorso, il blocco
+«Quote del concorso» contenente i vincitori di ogni categoria. Struttura verificata identica dal 1998
+al 2026. `QuoteFetcher.cs` la scarica in `data/quote/{anno}.txt`.
+
+**3.005 concorsi** dal 10/12/1997 al 14/08/2026.
+
+Verificate e scartate: `superenalotto.com` (nessun conteggio per categoria, nessuna pagina per
+concorso), `lottologia.com` (404), `superenalotto.it` (WAF Akamai).
+
+## Due bug presi durante la costruzione
+
+1. **Delimitatori sovrapposti.** La regex `\|(\d{1,2})\|` per i numeri riparte *dopo* la barra di
+   chiusura, quindi leggeva un numero sì e uno no: `|9|18|20|` dava `9, 20`. Quasi tutte le righe
+   finivano scartate e quelle superstiti avevano numeri sbagliati — con «almeno quattro sotto il 32»
+   al 53% invece dell'8% atteso, che è stato il campanello. Fix: lookahead `\|(\d{1,2})(?=\|)`.
+2. **Fonte incompleta, non parser rotto.** Restano 3.005 concorsi su 4.237. Verificato che
+   `03/01/1998` **non è sulla pagina**: le assenze sono strutturali, non selezionate per esito,
+   quindi non introducono distorsione nei confronti fra figure.
+
+## Il risultato
+
+### Quanto è giocato ogni numero
+
+| più giocati | | meno giocati | |
+|---|---|---|---|
+| **08** | 1,335 | **60** | 0,765 |
+| **09** | 1,333 | 61 | 0,775 |
+| 11 | 1,275 | 76 | 0,794 |
+| 05 | 1,228 | 62 | 0,808 |
+| 12 | 1,218 | 30 | 0,811 |
+
+### Per riga della schedina — il calo cade esattamente sul confine dei compleanni
+
+| riga | 1-10 | 11-20 | 21-30 | 31-40 | 41-50 | 51-60 | 61-70 | 71-80 | 81-90 |
+|---|---|---|---|---|---|---|---|---|---|
+| indice | **1,032** | **1,019** | **1,008** | 0,988 | 0,993 | 0,993 | 0,989 | 0,990 | 0,991 |
+
+Decrescita monotona fino al 30, poi un gradino e un pianoro piatto. **Il confine è il 31**, cioè il
+massimo giorno del mese. Non è una teoria: è il dato.
+
+### Le figure
+
+| figura | indice | concorsi |
+|---|---|---|
+| **almeno quattro sotto il 32** | **1,146x** | 275 |
+| ampiezza stretta (max−min ≤ 30) | 1,077x | 46 |
+| contiene il 7 | 1,030x | 187 |
+| almeno tre sulla stessa riga | 1,024x | 469 |
+| contiene il 17 | 1,024x | 198 |
+| **almeno quattro sopra il 59** | **0,960x** | 359 |
+| almeno una coppia di consecutivi | 0,970x | 878 |
+
+## Le stime precedenti erano sbagliate di un ordine di grandezza
+
+I moltiplicatori di figura che avevo ipotizzato poche ore prima — «tre sulla stessa riga» ×2,4,
+«blocchetto compatto» ×2,6 — misurano **1,02x** e poco più. Erano gonfiati di oltre dieci volte.
+
+Con i pesi misurati quei moltiplicatori inventati sono stati **rimossi**: sommarli non aggiungerebbe
+informazione, la distruggerebbe, e in parte sarebbero doppio conteggio (la zona compleanni e
+l'ampiezza stretta stanno già dentro i pesi per numero).
+
+## La correzione di scala
+
+L'indice di un concorso è la **media** di `f` sui sei numeri usciti, quindi la deviazione del singolo
+numero vi entra diluita di un sesto:
+
+```
+f = 1 + 6 * (indice - 1)
+```
+
+Controprova indipendente: «almeno quattro sotto il 32» misura 1,146 di indice; con quattro numeri
+bassi su sei quella media implica numeri bassi giocati circa il **27% in più**, ed è esattamente ciò
+che si ottiene applicando la formula ai singoli numeri (08 → 1,33; 11 → 1,28). Le due strade
+convergono.
+
+## L'esito finale
+
+| giocata | numeri | quanto è giocata | incasso su jackpot record |
+|---|---|---|---|
+| compleanni | 03 07 11 17 23 28 | **2,32x** | 0,869 |
+| **giocata del modello grafico** | 01 09 18 19 22 90 | **2,40x** | 0,865 |
+| meno disegnata fra le calde | 32 33 61 79 82 89 | **0,52x** | **0,969** |
+
+**+11%** sul jackpot record rispetto ai compleanni.
+
+### Un difetto scoperto proprio da questa misura
+
+**La giocata del modello grafico è più popolare dei compleanni** (2,40x contro 2,32x). Non è un caso:
+il modello non ha potere predittivo, quindi le sue celle calde sono arbitrarie — e capita che siano
+numeri bassi, che sono proprio i più giocati. Siccome il modello non predice nulla, **non c'è nessuna
+ragione per lasciargli scegliere numeri popolari**: la giocata dovrebbe partire dalla figura meno
+disegnata, non dalle celle calde. TODO aperto.
+
+## Limiti residui
+
+- La fonte copre 3.005 concorsi su 4.237.
+- Il passaggio dall'indice alla popolarità del singolo numero assume che i biglietti si scompongano
+  numero per numero (`q_S ≈ ∏ f_n`). È un modello, non un'identità.
+- La direzione è **misurata**; la taglia è una stima **ancorata a un dato reale**, non più un peso
+  deciso a tavolino.
+
+## Perché questo conta
+
+È il **primo risultato non-nullo di tutto il progetto**. Ogni modello predittivo mai costruito ha
+segnato 1,00; qui l'effetto c'è, si vede, ha il segno giusto, cade esattamente dove la teoria del
+comportamento diceva (il confine dei compleanni al 31), e due strade indipendenti danno la stessa
+taglia.
+
+Non riguarda l'urna. Riguarda le persone — ed è per questo che si misura.
+
 ## L'occhio gira a ogni avvio
 
 `GrigliaOcchio.Guarda` è chiamato in coda al percorso normale: commenta la giocata appena prodotta,
