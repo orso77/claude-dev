@@ -115,20 +115,71 @@ informazione**. Con lo strumento che segna 2,02 per una sola pallina su sei, nel
 
 La posizione di un numero su una griglia è una convenzione tipografica, non una proprietà dell'urna.
 
+## Il banco di prova — scelta del sistema (17/08/2026)
+
+`Merlino.exe test`. Ogni configurazione **ricammina tutta la storia** predicendo ogni estrazione da
+ciò che la precede. Blocco di scelta 1.900 estrazioni, blocco di conferma le 1.900 più recenti.
+
+Provate: i **6 canali singoli**, tutte le **63 combinazioni** di canali, **17 varianti strutturali**
+(tela a toro, sagome parziali/strette/identiche, finestra 2→15, somiglianze 4→200, taglio 0,30→0,85).
+Più due famiglie di **controlli** e due **ancore** a segnale noto.
+
+### Verdetto
+
+| SuperEnalotto | |
+|---|---|
+| Miglior configurazione sui dati veri | **Specchio 1,045** → conferma 1,022 (11ª su 63) |
+| la stessa su numeri messi **a caso** sulla tela | 0,914 .. **1,048** |
+| la stessa con l'ordine del tempo **rimescolato** | 0,920 .. **1,069** |
+| **Ancora**: 1 pallina su 6 con regola grafica | **4,651** → conferma **6,313**, **1ª su 63** |
+
+| EuroJackpot | |
+|---|---|
+| Miglior configurazione sui dati veri | **Calco 1,096** → conferma 1,022 |
+| la stessa con l'ordine del tempo **rimescolato** | 0,864 .. **1,112** |
+| **Ancora**: 1 pallina su 5 con regola grafica | **3,078** → conferma **3,540**, **1ª su 63** |
+
+**La configurazione migliore cade dentro le proprie bande di controllo.** Lo stesso modello, girato
+su numeri messi a caso o su una storia con il tempo mescolato, arriva altrettanto in alto: non legge
+nulla nei dati veri che non legga nel disordine. Le ancore chiudono dall'altro lato — bastava **una
+pallina su sei** perché la ricerca la trovasse a 4,65 e la confermasse a 6,31.
+
+Le due strade che restavano aperte sono state provate e non portano niente: **tela a toro** 0,975 e
+**sagome parziali** 0,989, contro 0,980 di partenza.
+
+### Il sistema scelto
+
+**Tutti e sei i canali, parametri di partenza, schedina 9×10.**
+
+1. Nessuna configurazione batte misurabilmente le altre: la scelta non si può fare sulla prestazione.
+2. Scegliere «solo Specchio» perché ha segnato 1,045 sarebbe l'errore che il banco serve a evitare —
+   il suo controllo arriva a 1,048 e 1,069, cioè lo batte.
+3. A parità di tutto si tiene la configurazione più ricca e leggibile.
+
+### Una scoperta sull'architettura
+
+Il **Calco non è un canale grafico**: confronta i quadri con un prodotto cella per cella, e quella
+somma non cambia se si rimescolano le etichette della tela. È invariante per permutazione — infatti
+la sua banda di controllo su 24 disposizioni casuali è un punto solo (1,096 .. 1,096). Lavora sugli
+insiemi di numeri, non sulle figure. Per lui l'unico controllo valido è il rimescolamento temporale.
+
 ## File del modello
 
 | File | Ruolo |
 |------|-------|
 | `GrigliaLayout.cs` | Le disposizioni: rettangoli, triangoli, piramidi, rombo, esagoni, cerchi, croci, spirali, Hilbert, curva Z, mattoni, scacchiere, casuali |
+| `GrigliaConfig.cs` | Le manopole di disegno: finestra, somiglianze, soglia sagoma, taglio, tela a toro, canali accesi |
 | `GrigliaEngine.cs` | I sei canali, il ritaglio al mezzo tono, la sovrapposizione, il disegno a schermo |
 | `GrigliaVerifica.cs` | L'unica verifica: macchie calde contro numeri realmente usciti |
 | `GrigliaConfronto.cs` | Confronto di tutte le disposizioni, con blocco di scelta e blocco di conferma |
-| `GrigliaProva.cs` | Taratura dello strumento su storici finti a segnale noto |
+| `GrigliaProva.cs` | Storici finti a segnale noto + taratura dello strumento |
+| `GrigliaTest.cs` | Il banco di prova: canali, combinazioni, varianti, controlli, ancore |
 | `Program.cs` | Scaricamento → figure → verifica → giocata |
 
 ```
-Merlino.exe            la giocata, con la disposizione gia' scelta
-Merlino.exe forme      confronta TUTTE le disposizioni
+Merlino.exe            la giocata, con il sistema scelto
+Merlino.exe test       il banco di prova completo (canali, combinazioni, varianti, controlli)
+Merlino.exe forme      confronta TUTTE le disposizioni della tela
 Merlino.exe prova      tara lo strumento su storici finti a segnale noto
 ```
 

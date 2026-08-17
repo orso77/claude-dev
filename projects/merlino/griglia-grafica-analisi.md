@@ -285,20 +285,127 @@ programma stava girando su una tela **1×90**, cioè una singola riga di 90 cell
 Corretto includendo la geometria nell'impronta (`Righe x Colonne` + mappa). Da lì il confronto è
 salito da 92 a 103 disposizioni per il SuperEnalotto.
 
-## Strade grafiche ancora non provate
+---
 
-Restano aperte, tutte disegno puro:
+# Il banco di prova — scelta del sistema migliore (17/08/2026)
 
-- **Toro anziché rettangolo.** Ora le figure che escono dal bordo vengono tagliate. Ricongiungendo i
-  lati (destra con sinistra, alto con basso) nessuna figura si perde e le traslazioni diventano
-  complete. È l'unica modifica strutturale ai canali, non alla disposizione.
-- **Sagome parziali.** L'Eco di forma cerca la sagoma di tutte e sei le celle. Cercare le sagome di
-  sottoinsiemi di tre o quattro darebbe molte più corrispondenze, ognuna più debole.
+Richiesta dell'utente: *«fai tutti i test che ritieni opportuni e scegli il sistema migliore»*, con
+la precisazione *«tanto lo puoi evincere simulando le estrazioni storiche»* — che è esattamente il
+metodo: ogni configurazione **ricammina tutta la storia** e predice ogni estrazione usando solo ciò
+che la precede.
+
+`GrigliaConfig.cs` rende configurabili tutte le manopole di disegno (finestra, somiglianze, soglia
+sagoma, taglio, tela a toro, quali canali accendere); `GrigliaTest.cs` (`Merlino.exe test`) le misura
+tutte con l'unico criterio ammesso, su un blocco di **scelta** (1.900 estrazioni) e uno di
+**conferma** (le 1.900 più recenti, mai usate per scegliere).
+
+## Le cinque batterie
+
+| | Cosa |
+|---|---|
+| **A** | I sei canali presi uno alla volta |
+| **B** | Tutte le 63 combinazioni di canali |
+| **C** | 17 varianti strutturali: tela a toro, sagome parziali/strette/identiche, finestra 2→15, somiglianze 4→200, taglio 0,30→0,85 |
+| **D** | Le bande di controllo: stessa configurazione su numeri messi **a caso** sulla tela, e su storia con l'**ordine del tempo rimescolato** |
+| **E** | Le ancore: la stessa ricerca su storici **finti** dove 1 o 2 palline seguono una regola grafica nota |
+
+## A — i canali singoli (SuperEnalotto)
+
+| Canale | Macchia | Scelta | Conferma |
+|---|---|---|---|
+| solo Specchio | 5,8% | 1,045 | 1,022 |
+| solo Retta | 3,2% | 1,043 | 1,045 |
+| solo Crescita | 5,5% | 1,000 | 0,945 |
+| solo Scia | 3,4% | 0,990 | 0,998 |
+| **tutti e sei (di partenza)** | 13,5% | 0,980 | 0,984 |
+| solo Calco | 5,5% | 0,972 | 0,920 |
+| solo Eco di forma | 5,6% | 0,949 | 1,047 |
+
+## C — le varianti strutturali: nessuna aiuta
+
+Le tre strade che erano rimaste aperte sono state provate e non portano niente:
+
+| Variante | Scelta | Conferma |
+|---|---|---|
+| **Tela a toro** (i bordi si ricongiungono) | 0,975 | 0,973 |
+| **Sagome parziali** (soglia 2 invece di 3) | 0,989 | 0,976 |
+| toro + soglia 2 + finestra 9 | 0,973 | 0,988 |
+| di partenza | 0,980 | 0,984 |
+
+Tutte le 17 varianti stanno fra 0,973 e 1,029 in scelta. Finestra, somiglianze e taglio sono
+altrettanto inerti.
+
+## Una scoperta sull'architettura: il Calco non è un canale grafico
+
+Nella batteria D è saltato fuori che la banda di controllo di «Calco» su 24 disposizioni casuali è
+**1,096 .. 1,096** — identica su tutte. Non è un bug.
+
+Il Calco confronta due quadri facendo il prodotto cella per cella e ne somma i valori. Quella somma
+**non cambia se si rimescolano le etichette delle celle**: è invariante per permutazione della tela.
+Il Calco quindi non usa affatto la geometria — lavora sugli insiemi di numeri, non sulle figure.
+
+Conseguenze:
+1. Spiega in parte perché il confronto delle 177 forme non riusciva a smuovere niente: uno dei sei
+   canali ignora la forma per costruzione.
+2. Per lui il controllo «disposizione a caso» è inerte, e serve l'altro — **rimescolare l'ordine
+   temporale** delle estrazioni: gli stessi disegni, la stessa tela, ma senza più il filo del tempo.
+
+Gli altri cinque canali (Eco di forma, Scia, Specchio, Crescita, Retta) usano davvero la geometria e
+la loro banda di controllo varia regolarmente.
+
+## Il verdetto
+
+### SuperEnalotto — 1.900 + 1.900 estrazioni
+
+| | Valore |
+|---|---|
+| Miglior configurazione sui dati veri | **Specchio 1,045** |
+| la stessa sul blocco di conferma | 1,022 — **11ª su 63** |
+| la stessa su numeri messi **a caso** sulla tela | **0,914 .. 1,048** |
+| la stessa con l'ordine del tempo **rimescolato** | **0,920 .. 1,069** |
+| **Ancora**: 1 pallina su 6 con regola grafica | **4,651** → conferma **6,313**, **1ª su 63** |
+
+### EuroJackpot — 309 + 309 estrazioni
+
+| | Valore |
+|---|---|
+| Miglior configurazione sui dati veri | **Calco 1,096** |
+| la stessa sul blocco di conferma | 1,022 — 7ª su 63 |
+| la stessa con l'ordine del tempo **rimescolato** | **0,864 .. 1,112** |
+| **Ancora**: 1 pallina su 5 con regola grafica | **3,078** → conferma **3,540**, **1ª su 63** |
+
+**In entrambi i giochi la configurazione migliore cade dentro le proprie bande di controllo.** Lo
+stesso identico modello, girato su numeri messi a caso sulla tela o su una storia con il tempo
+mescolato, arriva altrettanto in alto. Non c'è nulla che il modello stia leggendo nei dati veri e non
+legga nel disordine.
+
+Le ancore chiudono il discorso dall'altro lato: bastava che **una pallina su sei** seguisse una
+regola grafica perché la ricerca la trovasse a 4,65, la confermasse a 6,31 e la piazzasse **prima su
+63** anche nel blocco mai usato per sceglierla. Il banco di prova vede benissimo. Nei dati veri non
+c'è niente da vedere.
+
+## Il sistema scelto
+
+**Tutti e sei i canali, parametri di partenza, schedina 9×10.** Le ragioni sono queste, in ordine:
+
+1. **Nessuna configurazione batte misurabilmente le altre.** La scelta non si può fare sulla
+   prestazione, perché non c'è prestazione da confrontare.
+2. **Scegliere «solo Specchio» perché ha segnato 1,045 sarebbe l'errore che il banco serve a
+   evitare**: la sua banda di controllo arriva a 1,048 mettendo i numeri a caso e a 1,069
+   rimescolando il tempo. Il vincitore è battuto dal proprio controllo.
+3. **A parità di tutto, si tiene la configurazione più ricca e leggibile**: sei lucidi disegnano un
+   quadro più informativo da guardare di un canale solo, e la 9×10 è la schedina che si ha in mano.
+
+Detto in una riga: il sistema migliore è quello che non pretende di essere migliore.
+
+## Cosa resta davvero non provato
+
 - **Contorno anziché celle.** Trattare la figura come poligono — perimetro, area, angoli — invece che
-  come insieme di punti.
+  come insieme di punti. È l'unica idea grafica del ventaglio iniziale non ancora messa a banco.
 
-Va detto con chiarezza: dopo 177 disposizioni tutte a 1,00, con uno strumento che vede mezzo segnale
-su sei palline, l'attesa ragionevole per queste strade è la stessa.
+Va detto con chiarezza: 177 disposizioni, 63 combinazioni di canali, 17 varianti strutturali, due
+famiglie di controlli e due ancore convergono tutte sullo stesso punto. L'attesa ragionevole per
+quest'ultima strada è la stessa.
 
 ## File
 
