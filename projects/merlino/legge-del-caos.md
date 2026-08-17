@@ -213,14 +213,166 @@ due righe). I testimoni l'hanno scartata da soli.
 sciame resta a 0,997x. Un modello inutile ma onesto è meglio di uno inutile e storto, perché il
 secondo fa credere di vedere qualcosa.
 
+## La riprogettazione delle dimensioni (17/08/2026, sera)
+
+Il difetto di forma è tornato **sei volte** in una giornata — `53 57 60 61 62 63`, `08 33 81 83 87
+89`, `79 81 83 85 87 89`, `07 79 81 83 85 89` — sempre segnalato dall'utente a occhio nudo. Diagnosi
+sua, ed è quella giusta:
+
+> «È un modo di osservare errato e quindi di predire errato. La predizione è errata perché
+> l'osservazione è insufficiente.»
+
+**Causa strutturale**: tutte le dimensioni chiedevano *«che cosa so di questo numero?»*. Nessuna
+chiedeva *«che cosa è questa figura?»*. Ma dall'urna escono sei numeri **insieme**: un apparato che
+osserva solo numeri singoli produce sei numeri singoli ottimi che formano una figura impossibile.
+L'oggetto da prevedere non era mai stato osservato.
+
+### Due famiglie invece di una
+
+**A — del numero** (11): ritardo, frequenza, **ritmo** (il ritardo di adesso contro quello abituale
+*di quel numero*), compagnia, vicini, decina, riga, colonna, vicinanza sulla tela, parità, popolarità.
+
+**B — della figura** (12): quante decine occupa, massimo in una decina, massimo in due decine
+attaccate, ampiezza, ampiezza tolto il più staccato, irregolarità dei passi, coppie di consecutivi,
+quanti pari, somma, dove cade il minimo, dove cade il massimo, celle attaccate.
+
+**Rimosse**: *dirimpettaio sulla tela* (simmetria inventata), *dove sta sulla schedina*, *vicinanza al
+minimo/massimo* — queste ultime erano proprietà della figura travestite da proprietà del numero.
+
+### La costruzione rovesciata
+
+Non più «ordina i 90 e prendi i primi sei»: si cerca la sestina che sta in alto secondo A **ed è
+fatta come le estrazioni vere** secondo B, con ricerca a scambi su **tutti e 90** invece che dentro
+un ventaglio di 18 — quel ventaglio era ritagliato dalla collina, quindi nessuna scelta lì dentro
+poteva essere sparsa.
+
+Il giudizio di forma è la **media geometrica** delle dodici risposte: una figura che sbaglia *una*
+cosa in modo grave sprofonda invece di diluirsi. Due versioni precedenti erano sbagliate ed è utile
+ricordarle: il *minimo* sui tratti bocciava perfino le estrazioni vere (tutto a 0,00%); la *frazione
+di tratti già visti* era troppo indulgente (un difetto mortale costava 1/42, e `07 79 81 83 85 89`
+passava al 96,9%).
+
+### La catena legge l'errore
+
+Ogni anello riceve la predizione del precedente, calcola **mancati** (usciti non predetti) e
+**falsi** (predetti non usciti), e si chiede su quali assi si era fatto ingannare: la correzione
+spinge nella direzione che avrebbe alzato i mancati e abbassato i falsi. Prima il criterio era una
+classifica generale (`suUsciti − suTutti`); adesso è l'errore della giocata effettivamente fatta,
+attribuito a chi l'ha causato.
+
+### Il difetto della pesatura, trovato dall'utente a occhio nudo
+
+```
+Stima = Stima * oblio + incremento              ← sbagliato
+Stima = Stima * oblio + (1 - oblio) * incremento ← corretto
+```
+
+Mancava `(1 − oblio)`. Con memoria di 4.000 estrazioni l'oblio vale 0,99975: ogni incremento restava
+dentro per quattromila giri e si sommava, quindi non pesava chi teneva ma **chi aveva camminato a
+caso più in alto**. Sintomo visibile: «pari o dispari» a **472.977** contro 5,91 di un altro asse, e
+una previsione fatta di sei numeri tutti dispari. Dopo il fix gli stessi pesi stanno fra −0,76 e 0,06.
+
+### Esito — la forma è risolta
+
+Previsione: **`13 27 29 68 79 86`** — cinque decine diverse, mai più di due nella stessa, ampiezza 73.
+Ogni tratto cade dove cadono le estrazioni vere. La convergenza nuda dava `13 27 28 29 79 86`
+(forma 17,2%), i testimoni hanno scambiato il 28 con il 68 → **forma 36,0%**.
+
+Giudizio sulle figure segnalate dall'utente, con il tratto che le affonda **individuato dal sistema**:
+
+| figura | riscontro | tratto che l'affonda |
+|---|---|---|
+| `01 02 03 04 05 06` | **0,09%** | occupa 1 decina — mai visto in 29 anni |
+| `01 03 05 07 09 11` | **0,48%** | somma in quella fascia — mai vista |
+| `02 04 06 08 10 12` | **0,47%** | idem |
+| `05 10 15 20 25 30` | **6,38%** | il più alto cade nella 3ª decina — 0,05% |
+| `81 83 85 87 88 90` | **0,36%** | occupa 1 decina — mai visto |
+| `01 18 30 47 62 85` (qualunque) | 25,25% | — |
+| `18 24 69 71 73 82` (ultima vera) | **29,03%** | — |
+
+`05 10 15 20 25 30` prima passava al 94%: il sistema ha trovato da solo che il suo difetto non è il
+passo regolare ma il massimo troppo basso.
+
+### Esito — la resa non è risolta
+
+| cammino | guadagno |
+|---|---|
+| **storia vera** | **1,066x** |
+| tempo mescolato | 1,091x · 1,056x · 1,003x |
+
+Dentro le acque del disordine, come tutto il resto.
+
+### Il riscontro storico — 800 estrazioni ripredette una per una
+
+| centrati | volte | quota | atteso a caso |
+|---|---|---|---|
+| 0 | 511 | 63,88% | 65,29% |
+| 1 | 240 | 30,00% | 29,75% |
+| 2 | 46 | **5,75%** | 4,65% |
+| 3 | 3 | 0,38% | 0,31% |
+| 4, 5, 6 | **0** | — | 0,03% |
+
+L'unico scostamento visibile è sui «due centrati»: 46 contro i 37,2 attesi, cioè **1,5 volte
+l'errore tipico** (5,96). Non è niente. Quattro centrati mai, in 800 tentativi.
+
+### La taratura delle dimensioni (`Merlino.exe taratura`)
+
+Spento un asse per volta, blocco di scelta e blocco di conferma separati, e le stesse dodici
+varianti in parallelo su una storia col tempo mescolato.
+
+| | scelta | conferma |
+|---|---|---|
+| migliore sulla **storia vera** | 1,026x | 1,129x |
+| migliore sul **tempo mescolato** | **1,072x** | **1,139x** |
+
+La classifica si **ribalta** fra i due blocchi: `tutte le dimensioni` è la peggiore in scelta
+(0,940x) e la migliore in conferma (1,129x); `senza colonna` fa l'opposto. È la firma del rumore.
+E la migliore fra dodici varianti spicca **di più** sul disordine che sulla storia vera: il guadagno
+apparente è tutto effetto dell'aver scelto il massimo fra dodici.
+
+**Conclusione**: nessuna configurazione da preferire. Si tengono tutte le dimensioni accese — che è
+anche l'unica scelta che non richiede di aver scelto.
+
+### Falso positivo evitato — i pari merito nella posizione media (18/08/2026)
+
+Al primo giro il righello fine dava **posizione media 41,92 contro un neutro di 45,50**: nove volte
+l'errore tipico, cioè una scoperta. Era un difetto di conteggio: i numeri con forza identica —
+tipicamente zero, perché nessun osservatore che pesa li accende — venivano messi tutti in cima al
+loro gruppo invece che a metà. I numeri usciti cadono quasi sempre in quel mucchio, quindi la media
+scendeva da sola.
+
+Con il conteggio corretto (`sopra + (uguali + 1) / 2`): **45,23–45,81 contro 45,50**, cioè nulla.
+
+**Nona occorrenza della stessa forma di errore in questo progetto — la prima trovata prima di
+annunciare il risultato invece che dopo.**
+
+### Il limite del righello (da tenere presente)
+
+Il criterio «quanti dei 6 usciti stanno fra i 6 scelti» ha una **risoluzione dell'8%**: media attesa
+0,400 con scarto 0,594, su 1.500 estrazioni l'errore sulla media è 0,0153 → 3,8% in rapporto, due
+scarti 7,7%. I controlli col tempo mescolato si sparpagliano esattamente di quell'ampiezza
+(1,003–1,091), che è la conferma. Dire «dentro le bande» significa solo **«niente più grande
+dell'8%»**, mentre un effetto reale in una lotteria sarebbe dell'1–3%.
+
+**TODO aperto**: affiancare la *posizione media in classifica* dei 6 usciti fra tutti e 90 (attesa
+45,5, errore 0,27 su 1.500 estrazioni) — da tre a cinque volte più sensibile, sugli stessi dati.
+
+### Strade chiuse, da non riproporre
+
+- **Sbilanciamento fisico dell'urna**: già provato, `bilancia-holdout-analisi.md` → chi² = 99,2 con
+  df = 89, **p ≈ 0,22**, compatibile con un'urna onesta. Il canale `Peso` che lo codificava è stato
+  rimosso perché adattava rumore (fuori campione 0,8293 → 0,8286: nessuna perdita).
+- **Popolarità come criterio di scelta**: esclusa dall'utente. Resta come *dimensione* da verificare,
+  e si è guadagnata peso **0,02** — praticamente nulla. Risposta empirica, non decisa a tavolino.
+
 ## Tempi — vincolo dell'utente: max 60 secondi per avvio
 
 Rispettato e **cronometrato**, non promesso:
 
 | | primo cammino (una volta) | avvio incrementale |
 |---|---|---|
-| SuperEnalotto | 25,8 minuti | **2,6 secondi** |
-| EuroJackpot | incluso | **0,1 secondi** |
+| SuperEnalotto | 15,7 minuti | **0,8 secondi** |
+| EuroJackpot + SuperStar + Euro numeri | inclusi | < 1 secondo |
 
 Lo sciame si salva in `data/caos/sfera-{gioco}.txt` (1,6 MB per SE: 4.235 osservatori con stime,
 peso e memoria ereditata). Al lancio successivo riprende e attraversa **solo le estrazioni nuove**:
