@@ -9,6 +9,14 @@
 **Un solo modello attivo: la griglia grafica.** Analisi completa:
 [griglia-grafica-analisi.md](griglia-grafica-analisi.md).
 
+> **Bersaglio spostato — 18/08/2026.** Lo spazio informativo del SuperEnalotto (25.422 interi
+> **ordinati crescenti**) è **chiuso**: frequenze, ritardi, forme, ritorni — ogni «occhio nuovo» ne è
+> una riparametrizzazione, e nove impianti hanno segnato nove volte 1,00. Il lavoro si è spostato sul
+> **Lotto**: dieci urne con un nome e una città, **ordine di estrazione conservato**, 382.745 numeri
+> dal 1939. Ricostruzione della provenienza fisica collaudata 1.425 su 1.425, e un conto di potenza
+> che chiude la strada dello squilibrio fisico (servirebbero ×36 i dati esistenti):
+> [le-dieci-urne.md](le-dieci-urne.md).
+
 **Motto del progetto (17/08/2026): «trovare la legge del caos e predirlo».** Da lì è nato lo sciame
 di osservatori — un impianto che non cerca una legge valida *sempre* ma una struttura che tenga
 *adesso*. Costruito, misurato, e con il difetto di forma corretto dagli osservatori stessi:
