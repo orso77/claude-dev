@@ -84,20 +84,67 @@ struttura (stesse date, stesse ruote, cinque numeri senza ripetizione da 90).
 
 | domanda | osservato | tipico se nulla | soglia |
 |---|---|---|---|
-| bilancio, storia intera | 3,17 | 3,16 | 3,74 |
-| **posizione di uscita** (mai chiedibile prima) | 3,24 | 3,22 | 4,26 |
-| bilancio, finestre da 300 | 4,62 | 4,37 | 4,87 |
-| chi² per urna (df 89) | 107,54 | 99,57 | 113,65 |
+| bilancio, storia intera | 3,17 | 3,41 | 5,29 |
+| **posizione di uscita** (mai chiedibile prima) | 3,24 | 3,35 | 5,33 |
+| bilancio, finestre da 300 | 4,62 | 4,62 | 6,89 |
+| chi² per urna (df 89) | 107,54 | 105,83 | 145,42 |
 
 **Niente supera la soglia.** Le dieci urne sono oneste entro la risoluzione dei dati.
 
 ### Il falso positivo intercettato — decima occorrenza, seconda presa in tempo
 
-Con **200** copie la soglia del chi² era 106,64 e **Bari a 107,54 la superava**: p nominale < 0,005,
-cioè "scoperta". Con **2.000** copie la soglia sale a **113,65** e Bari ci sta comodamente sotto.
+Con **200** copie la soglia del chi² risultava 106,64 e **Bari a 107,54 la superava**: p nominale
+< 0,005, cioè "scoperta". Non era vero due volte: con più copie la soglia sale, e soprattutto le
+copie stesse erano difettose (vedi sotto). La soglia vera è **145,42**: Bari non è nemmeno vicina.
 
-Con poche copie la coda è stimata male. Annunciare quel 107,54 sarebbe stato l'errore di sempre,
-in veste nuova.
+### Il bug del seme — perché le soglie erano tutte sbagliate
+
+Trovato lavorando su `mescola`, dove ha prodotto uno scarto di **−151 errori**: un valore così
+grande da essere impossibile come fisica, ed è quello che lo ha smascherato.
+
+Le storie finte erano seminate con `base + i · 0x9E3779B97F4A7C15`. Ma **splitmix64 avanza il
+proprio stato esattamente di quella costante a ogni passo**: la copia `i+1` non era una storia
+indipendente, era *la stessa sequenza sfasata di un passo*, con ogni estrazione finta che
+condivideva quattro valori su cinque con la copia vicina.
+
+Effetto: le 400 copie erano quasi una copia sola, la loro dispersione risultava ~40 volte troppo
+piccola, e **qualunque nulla sembrava una scoperta**. Correzione: mescolare l'indice invece di
+sommarlo.
+
+**Sentinella permanente**: `mescola` ora confronta l'errore stimato dal Monte Carlo con quello
+calcolabile a mano (`22/√N` per la distanza media) e stampa il rapporto. Era **0,03**, ora è
+**1,06**. Se torna fuori scala, il modulo lo dichiara e invalida i propri numeri da solo.
+
+## La domanda che finalmente ha potenza — `Merlino.exe mescola`
+
+Il difetto di tutti i test sopra è che **spezzano** i dati in 900 caselle da ~400 osservazioni. Una
+domanda *strutturale* li **mette insieme**: una sola grandezza su 306.196 coppie.
+
+**La fisica**: le palline non stanno nell'urna in ordine casuale, ci vengono *caricate*, tipicamente
+in ordine numerico. Il mescolamento serve a distruggere quell'ordine. Se lo distrugge male, numeri
+vicini di **valore** escono vicini nel **tempo**, perché erano vicini nello **spazio**. È l'unica
+domanda del progetto rivolta al *meccanismo* invece che al risultato — e richiede l'ordine di
+estrazione, quindi era impossibile da porre prima.
+
+| misura | osservato | atteso | errore | scarto |
+|---|---|---|---|---|
+| distanza fra estratti vicini | 30,3511 | 30,3341 | 0,0422 | +0,40 |
+| distanza circolare | 22,6982 | 22,7520 | 0,0230 | −2,34 |
+| ritorni fra estrazioni della ruota | 0,2761 | 0,2779 | 0,0019 | −0,99 |
+| persistenza della posizione | 0,0050 | −0,0001 | 0,0070 | +0,73 |
+
+Massimo osservato **2,34** contro soglia **3,25**: niente.
+
+**Ma qui il nullo pesa davvero**, ed è il punto:
+
+| | risoluzione |
+|---|---|
+| test per singolo numero (`urne`) | 18% |
+| **test di mescolamento (`mescola`)** | **0,42%** |
+
+È la **prima misura di questo progetto con risoluzione sotto l'1%** — cioè la prima capace di
+escludere qualcosa di *fisicamente plausibile* (un difetto reale sta all'1-3%) invece che soltanto
+l'assurdo. Gli stessi identici dati: è la domanda a essere messa insieme invece che spezzata.
 
 ## Il risultato vero: perché la strada è chiusa
 
@@ -150,11 +197,13 @@ che lo localizzerebbe, ha risoluzione 116% ed è inservibile. Le due cose insiem
 | `LottoStorico.cs` | Scaricamento e lettura dell'archivio Lotto, ordine di uscita conservato |
 | `LottoOrigine.cs` | Ricostruzione SE 1997-2009 dalle sei ruote + collaudo dell'archivio |
 | `LottoUrne.cs` | Le quattro domande, molteplicità via Monte Carlo, potenza dichiarata |
+| `LottoMescolamento.cs` | Il test di mescolamento + autodiagnosi permanente del Monte Carlo |
 | `CaosApprende.cs` | L'ablazione dell'apprendimento della catena |
 
 ```
 Merlino.exe lotto        scarica l'archivio Lotto (1939 a oggi, tutte le ruote)
 Merlino.exe origine      ricostruisce la provenienza fisica + collaudo
 Merlino.exe urne [n]     le quattro domande, n storie finte (default 200, usarne 2000)
+Merlino.exe mescola [n]  il test di mescolamento: risoluzione 0,42%
 Merlino.exe apprende [n] l'ablazione dell'apprendimento
 ```
