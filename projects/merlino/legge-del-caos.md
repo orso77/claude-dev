@@ -436,3 +436,47 @@ serve ricamminare. È voluto: meglio ricamminare che ereditare una memoria sbagl
 Merlino.exe caos [n]   il primo cammino, n sciami indipendenti (una volta sola)
 Merlino.exe            fra il resto, riprende lo sciame e dà la previsione verticale
 ```
+
+### La regola di apprendimento derivata — e l'alibi che toglie (18/08/2026)
+
+`Merlino.exe apprende` aveva mostrato che la catena **non apprende**: stime sorteggiate e congelate
+valgono quelle corrette per migliaia di passi. Restava però un alibi: la regola di correzione era
+un'**euristica scritta a mano** (*media della vista sui mancati meno media sui falsi*), che non
+discende da niente e confronta due medie su due manciate di numeri buttando via gli altri ottanta.
+Il nullo poteva essere colpa sua.
+
+L'alibi è stato tolto costruendo la regola che una derivazione ce l'ha (`Modo.Gradiente`). Il modello
+dichiara: `P(n) ∝ exp(L(n))` con `L(n) = Σ_d w_d·v_d(n)`. La derivata della verosimiglianza dei sei
+numeri **realmente usciti** rispetto al peso `w_d` è
+
+```
+grad_d = Σ_{usciti} v_d(u)  −  6 · E_P[v_d]
+```
+
+cioè «quanto quella dimensione era alta sui numeri veri, meno quanto se lo aspettava il modello».
+Si sale lungo il gradiente, con passo `1/(memoria+1)` e dimensioni standardizzate. Usa **tutti e
+novanta** i numeri, ognuno pesato per quanta probabilità il modello gli dava.
+
+| braccio | posizione media | contro «viva», in errori |
+|---|---|---|
+| **gradiente (regola derivata)** | **45,19** | +0,08 |
+| viva (euristica) | 45,23 | — |
+| peso uniforme | 45,28 | −0,08 |
+| stime uniformi (non impara) | 45,41 | −0,35 |
+| stime a caso, congelate | 45,99 | −1,41 |
+
+La regola derivata è **indistinguibile** da quella inventata (0,08 errori) e da quella che non impara
+affatto (0,44). Sul tempo mescolato fa 45,98, peggio del neutro: non è un braccio che luccica sul
+rumore.
+
+**Cosa cambia**: non è più «la regola di apprendimento è scadente», è **«non c'è niente da
+imparare»**. Il nullo non ha più un colpevole a cui essere attribuito.
+
+### Ruote del Lotto indipendenti fra loro (18/08/2026)
+
+Osservando le estrazioni si è notato che le **dieci ruote escono lo stesso giorno** e nessuno aveva
+mai chiesto se fossero indipendenti — domanda legittima, visto che in questo gioco le derivazioni fra
+estrazioni esistono davvero (il SuperEnalotto ne era una).
+
+Numeri in comune fra due ruote della stessa data, su **362.608 confronti**: osservato **0,2768**
+contro **0,2778** atteso, scarto **−0,85**. Le ruote sono indipendenti. Chiuso.
