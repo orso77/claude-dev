@@ -17,6 +17,11 @@
 > che chiude la strada dello squilibrio fisico (servirebbero ×36 i dati esistenti):
 > [le-dieci-urne.md](le-dieci-urne.md).
 
+**L'Osservatore (19/08/2026)** — la teoria di osservazione richiesta dall'utente:
+`Merlino.exe osserva` giudica se una sestina ha la forma di un'estrazione vera e dice **per quali
+tratti** non ce l'ha, con ogni soglia misurata e nessuna inventata. Prende il difetto che l'occhio
+nudo aveva trovato: [osservatore.md](osservatore.md).
+
 **Motto del progetto (17/08/2026): «trovare la legge del caos e predirlo».** Da lì è nato lo sciame
 di osservatori — un impianto che non cerca una legge valida *sempre* ma una struttura che tenga
 *adesso*. Costruito, misurato, e con il difetto di forma corretto dagli osservatori stessi:
