@@ -124,3 +124,93 @@ avevano trovato nessuno. Ora quel giudizio è automatico, quantificato e ripetib
 Merlino.exe osserva                       il catalogo + la taratura dello strumento
 Merlino.exe osserva 18 19 20 22 27 29     il giudizio su una sestina, tratto per tratto
 ```
+
+---
+
+# Le 41 dimensioni, e le giocate che l'osservazione non respinge (19/08/2026)
+
+## La correzione di rotta
+
+L'utente ha dovuto ripeterlo per tre giorni:
+
+> *«è forse colpa mia? non ti dico le cose nel modo giusto?»* — no, non lo era.
+> *«non solo, ti ho detto di trovare ALTRE dimensioni»*
+> *«l'osservazione è proprio questo: osservare una predizione e dire non è possibile»*
+
+L'errore ripetuto: *«aggiungi X come modo di vedere»* veniva inteso come *«verifica se X predice»*.
+Sono due richieste diverse. Regola scritta nel nucleo comune come
+**Direttiva #0-ter** (`claude-common/ai/00_README_CLAUDE_CLI.md`), valida per tutti i profili e
+tutte le sessioni.
+
+## Le dimensioni indicate dall'utente — erano indispensabili
+
+Ritardi e frequenze come **predittori** non funzionano, ed è stato misurato con buona risoluzione
+(vede scostamenti dell'1,8%):
+
+| | differenza | scarto |
+|---|---|---|
+| i sei usciti erano più in ritardo della media? | +0,075 estrazioni | +0,85 errori |
+| i sei usciti erano più frequenti della media? | +0,081 uscite | +1,03 errori |
+
+Ma come **osservazione** erano il pezzo mancante. Prova decisiva — la giocata classica dei sei
+ritardatari (`05 41 42 48 50 77`):
+
+```
+quanti ritardatari      6      0,00%   MAI VISTO
+ritardo tipico         11      0,05%   rarissimo
+→ 99,6%  STRONZATA
+```
+
+**Tutti i 24 tratti di pura forma la dichiaravano «normale».** Senza le dimensioni indicate
+dall'utente lo strumento l'avrebbe fatta passare.
+
+## Le dieci dimensioni cercate autonomamente
+
+Famiglie non coperte: il rapporto con l'estrazione **precedente**, la **griglia fisica** della
+schedina (34 e 44 sono lontani come numeri e attaccati come caselle), la **struttura** della
+sequenza dei salti, la **storia delle coppie**.
+
+isole · ripetuti dall'ultima · vicini dell'ultima · celle attaccate · riga più affollata ·
+progressioni aritmetiche · salti ripetuti · quanti centrali · coppie mai viste · oltre il proprio record
+
+Le tre più taglienti:
+
+| dimensione | il fatto misurato |
+|---|---|
+| **coppie mai viste** | l'83,4% delle vere non ha *nessuna* coppia inedita |
+| **oltre il proprio record** | il 94,1% non ha numeri oltre il proprio massimo ritardo storico |
+| **ripetuti dall'ultima** | il 66,4% non ripete nulla; tre ripetuti = 0,35% |
+
+**Risultato diretto sull'obiezione originale dell'utente** — proporre la sestina dell'ultima
+estrazione:
+
+| | con 14 dimensioni | **con 41** |
+|---|---|---|
+| l'ultima estrazione, ripetuta | 47,3% — passava | **95,9% — sospetta** |
+
+## Le giocate che l'osservazione non può respingere
+
+```
+11  25  32  43  51  79     stranezza al 50,0% delle vere
+08  25  31  34  47  49     stranezza al 49,9%
+19  22  33  47  63  82     stranezza al 49,9%
+22  52  59  76  82  85     stranezza al 49,9%
+39  59  62  80  83  85     stranezza al 50,0%
+```
+
+Il bersaglio è la **mediana, non il minimo**, ed è il punto meno intuitivo: la sestina *meno strana
+di tutte* non è la più plausibile, è **la più finta**. Sarebbe troppo ordinata su 41 tratti insieme,
+e le estrazioni vere non lo sono mai. Somigliare a un'estrazione significa avere anche le sue
+irregolarità, nella misura giusta.
+
+## Che pattern è, esattamente
+
+È un pattern reale e misurato, ma sta **nella forma del caos, non nella sua sequenza**:
+
+- si può prevedere **come sarà fatta** la prossima estrazione — con precisione, su 41 dimensioni;
+- non si può prevedere **quale** sarà.
+
+Le giocate qui sopra non hanno una probabilità maggiore di uscire. Ciò che garantiscono è che una
+giocata prodotta dal sistema non sia **respingibile a colpo d'occhio** — il filtro che ai nove
+impianti precedenti mancava, e che li faceva sbagliare in modo visibile (le macchie compatte, il
+centro del foglio).
