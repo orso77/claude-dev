@@ -17,6 +17,10 @@
 > che chiude la strada dello squilibrio fisico (servirebbero ×36 i dati esistenti):
 > [le-dieci-urne.md](le-dieci-urne.md).
 
+**La catena degli osservatori (20/08/2026)** — `Merlino.exe catena` attraversa tutta la storia dando
+priorità alle dimensioni, predice, confronta, ridefinisce le priorità e corregge il tiro; incrementale,
+riprende da dove era arrivata: [catena.md](catena.md).
+
 **L'Osservatore (19/08/2026)** — la teoria di osservazione richiesta dall'utente:
 `Merlino.exe osserva` giudica se una sestina ha la forma di un'estrazione vera e dice **per quali
 tratti** non ce l'ha, con ogni soglia misurata e nessuna inventata. Prende il difetto che l'occhio
