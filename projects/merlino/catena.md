@@ -272,3 +272,76 @@ la classifica di blocco è più fragile di quella delle 70 singole.
 06  07  20  26  36  64        03  05  19  49  50  57
 43  55  65  70  78  80
 ```
+
+---
+
+# La copertura — la leva che funziona (20/08/2026)
+
+## Il risultato
+
+| su 4.237 concorsi | catena | caso puro | |
+|---|---|---|---|
+| **0 centri** (buco totale) | **304** | 502 | **−39%** |
+| 1 centro | 2.852 | 2.772 | |
+| **2 centri** | **1.002** | 887 | **+13%** |
+| 3 centri | 78 | 74 | |
+| 4 centri | 1 | 2 | |
+
+**Il buco totale passa da 502 concorsi a 304**: su 4.237 concorsi la catena torna a mani vuote
+198 volte in meno del sorteggio.
+
+## Il meccanismo, che è verificabile e non una coincidenza
+
+```
+numeri in comune fra le cinque giocate
+   caso     0,396
+   catena   0,000
+
+numeri distinti coperti dalle cinque
+   caso     26,04
+   catena   30,00   (il massimo possibile)
+```
+
+Cinque sestine senza alcun numero in comune giocano **30 numeri distinti su 90** invece di 26: un
+terzo del tabellone invece di poco più di un quarto. Più tabellone giocato = meno volte il buco
+totale. È aritmetica di copertura, e si vede tutta nella riga «0 centri».
+
+L'aveva indicata l'utente: *«perché nella previsione non ci mettiamo le 5 sparse?»*. Nessuna delle
+70 dimensioni singole poteva vederla, perché nessuna guarda più di una sestina alla volta.
+
+## Come ci si è arrivati, passo per passo
+
+| selezione delle cinque | numeri in comune | copertura | 0 centri |
+|---|---|---|---|
+| mirate allo stesso bersaglio | 0,440 | 25,6 | 505 |
+| sorteggio puro | 0,396 | 26,04 | 502 |
+| sguardi di blocco (tipicità) | 0,313 | 26,9 | 468 |
+| **blocco + copertura massima** | **0,000** | **30,00** | **304** |
+
+## La scelta di progetto, dichiarata
+
+La selezione ora ordina per **numeri nuovi portati** e, a parità, per tipicità del blocco. È una
+scelta deliberata con un costo: cinque estrazioni vere consecutive hanno una sovrapposizione tipica
+di ~0,4, quindi un blocco a sovrapposizione zero è **atipico come blocco**.
+
+Si è preferita la copertura perché è la proprietà che sposta il risultato misurato, e perché
+l'obiettivo dichiarato dall'utente è la resa della previsione, non la somiglianza del blocco.
+
+## Parametri finali
+
+- esclusione: si tiene il **25%** meno implausibile (era il 90%)
+- pool passato agli sguardi di blocco: **120 candidate** per passo
+- candidate generate per passo: **2.000**
+- cammino completo 4.239 estrazioni: **1 minuto 52**
+
+### La giocata
+
+```
+15  21  23  28  45  54
+10  11  25  67  78  82
+16  17  35  62  68  69
+48  51  59  60  70  72
+04  13  30  53  87  89
+```
+
+Trenta numeri distinti, nessuno ripetuto.
