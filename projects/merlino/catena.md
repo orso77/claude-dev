@@ -201,3 +201,74 @@ alla volta*, nessuna guarda *l'insieme delle cinque* — mentre la giocata reale
 07  20  41  42  74  77        03  08  35  56  63  69
 21  52  60  67  75  77
 ```
+
+---
+
+# Gli sguardi di blocco — giudicare l'insieme, non la singola giocata (20/08/2026)
+
+## Il buco che colmano
+
+Tutte e 70 le dimensioni giudicano **una sestina alla volta**. Ma la giocata vera è un **insieme**:
+si giocano cinque sestine, non una. E un insieme può essere sbagliato anche se ogni sestina che lo
+compone è impeccabile — cinque giocate perfettamente plausibili ma ammassate sugli stessi numeri
+coprono meno tabellone di cinque sparse.
+
+Il difetto era stato misurato e nessuna dimensione poteva vederlo, perché nessuna guarda più di una
+sestina. L'ha indicato l'utente: *«perché nella previsione non ci mettiamo le 5 sparse e poi le
+confrontiamo e magari ci costruiamo sopra una qualche dimensione?»*
+
+## Il riferimento: cinque estrazioni vere consecutive
+
+Non un ideale deciso a tavolino. Il catalogo di blocco si costruisce facendo scorrere una **finestra
+di cinque** su tutta la storia — l'unico insieme di cinque sestine di cui si sappia con certezza che
+«è fatto come vanno le cose».
+
+## I dodici sguardi
+
+copertura del blocco · numeri ripetuti nel blocco · il più ripetuto · massimo in comune fra due ·
+somiglianza media · decine coperte · decine scoperte · decina più servita · squilibrio fra le metà ·
+colonne coperte · buco più largo · giocate senza ripetizioni
+
+## Il risultato — il difetto corretto e capovolto
+
+```
+numeri in comune fra le cinque predizioni
+
+   prima (mirate allo stesso bersaglio)   0,440   ammassate
+   cinque sorteggiate a caso              0,402
+   con gli sguardi di blocco              0,313   piu' sparse del caso
+```
+
+**È la prima volta che il sistema batte il sorteggio su una proprietà misurabile.** Non sui centri —
+sulla proprietà che l'utente aveva individuato come quella che conta quando si gioca un insieme.
+
+## La scelta golosa, e perché non si cerca l'ottimo
+
+Si parte da una giocata e ogni volta si aggiunge quella che rende il blocco meno implausibile. Non è
+garantita ottima, **ed è voluto**: cercare l'ottimo produrrebbe l'insieme più regolare possibile, che
+è esattamente ciò che cinque estrazioni vere non sono mai. Stessa ragione per cui la singola giocata
+punta alla stranezza mediana e non alla minima.
+
+## Un limite da tenere presente
+
+L'utente ha osservato: *«più è ampia l'osservazione più riusciamo a classificare bene le
+dimensioni»*. Vero, e qui c'è un limite reale: il catalogo di blocco ha 4.235 finestre contro le
+4.239 estrazioni singole, ma **le finestre si sovrappongono** (scorrono di uno), quindi
+l'osservazione indipendente è molto più piccola di quanto il numero suggerisca. Con dodici sguardi,
+la classifica di blocco è più fragile di quella delle 70 singole.
+
+## Stato finale
+
+- **70 dimensioni** sulla singola giocata + **12 sguardi di blocco** sull'insieme
+- tutte sempre attive, ordinate per presenza ricalcolata durante il cammino
+- doppio vaglio: la sommatoria delle singole esclude le sestine implausibili, quella di blocco sceglie
+  quali cinque formano l'insieme meno implausibile
+- cammino completo su 4.239 estrazioni in **32 secondi**, incrementale verificato
+
+### La previsione corrente
+
+```
+07  37  55  71  79  84        05  11  17  54  72  76
+06  07  20  26  36  64        03  05  19  49  50  57
+43  55  65  70  78  80
+```
