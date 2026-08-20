@@ -106,3 +106,98 @@ l'oggetto contesto li tiene per riferimento e resta valido. Costo per passo: ~80
 15  18  42  62  76  83        24  33  37  46  71  84
 14  18  30  43  53  82
 ```
+
+---
+
+# L'algoritmo per esclusione — 70 dimensioni (20/08/2026)
+
+## La regola fissata dall'utente, e perché è un invariante
+
+> *«le misure, le dimensioni devono esserci sempre tutte. vanno solo ordinate in base al peso che
+> rilevi dall'osservazione. più una dimensione una misura è presente più sale, meno è presente più
+> scende. la sommatoria di tutte le misure ci aiuta a scartare le ipotesi non plausibili. tra quelle
+> che restano ragioniamoci»*
+>
+> *«in pratica creiamo un algoritmo per esclusione»* — *«più dimensioni abbiamo, più ipotesi
+> scartiamo, più ci avviciniamo all'obiettivo»*
+
+**Nessuna dimensione viene mai spenta o rimossa, per nessun motivo** — nemmeno se una misura dice
+che «non paga». Cambia solo il posto in classifica, e il posto lo decide quanto quella dimensione è
+**presente** nelle estrazioni vere.
+
+La regola è scritta come invariante dentro `Catena.cs`, perché correggeva un errore ripetuto: in
+tre giorni il processo dell'utente era stato costruito e smontato **quattro volte**, e ogni volta la
+ragione era una metrica di resa scelta da me. Nessuno aveva chiesto di massimizzare i centri.
+
+## Presenza: cosa significa e come si misura
+
+Quanto i valori di una dimensione **si ripetono**. Una dimensione il cui valore più comune copre
+quasi tutte le estrazioni è fortemente presente e sale; una che si spalma su dieci valori diversi è
+poco presente e scende. Si misura come distanza dall'essere piatta, e **si ricalcola ogni 50
+estrazioni** mentre la catena cammina: la classifica si riordina da sola.
+
+## La classifica (70 dimensioni)
+
+| | dimensione | presenza |
+|---|---|---|
+| 1 | oltre il proprio record | 2,305 |
+| 2 | coppie specchio | 1,912 |
+| 3 | coppie mai viste | 1,838 |
+| 4 | **quanti usciti nelle ultime 50** | **1,809** |
+| 5 | quanti iniziano per 9 | 1,795 |
+| 6 | progressioni | 1,537 |
+| 7 | corsa di consecutivi | 1,485 |
+| … | | |
+| 47 | quanti pari | 0,494 |
+| 48 | passo massimo | 0,316 |
+
+`quanti pari` sta in fondo e **continua a partecipare** con il suo 0,494. È la differenza rispetto a
+prima, quando avrei proposto di eliminarla.
+
+## Il secondo blocco di dimensioni, trovato dal sistema
+
+Da 48 a **70**, con famiglie mai generate prima: coppie con somma o differenza multipla di *m*,
+coppie sulla stessa diagonale della schedina, numeri con cifre consecutive, decine rimaste vuote,
+decine vuote di fila, metà più affollata, quanti usciti nelle ultime 20 e 50, somma dei ritardi,
+più otto fasce numeriche emerse dalla misura.
+
+`quanti usciti nelle ultime 50` è entrata **direttamente al 4° posto**: non era stata prevista.
+
+## La previsione condizionata, e il controllo che l'ha fermata
+
+Formulazione dell'utente: *«a fronte di x y z prevedo z1, e a fronte dell'estrazione posso
+correggere la previsione — con l'osservatore successivo»*. Costruita: per ogni dimensione
+`previsione = A + B × (valore nell'ultima estrazione)`, con A e B corretti a ogni passo dall'errore.
+
+`B` parte da zero e si muove solo se la correzione lo spinge. Risultato: **|B| medio 0,2897**,
+diverso da zero, con `passo minimo` a 1,56 e `coppie mai viste` a −1,16.
+
+Controllo su storia col tempo mescolato, dove il legame fra un'estrazione e la successiva non esiste
+per costruzione: **|B| medio 0,2526**. La stessa cosa. Quel 0,29 non misura una dipendenza — misura
+la procedura di correzione che insegue il proprio rumore.
+
+## La misura della dispersione — un difetto trovato guardando
+
+Le cinque predizioni di ogni passo, quando erano scelte tutte vicine allo stesso bersaglio, **si
+somigliavano fra loro** più di cinque sorteggiate: `0,440` numeri in comune contro `0,403`. Con «la
+migliore di cinque», l'ammassamento è un difetto — cinque sestine simili coprono meno tabellone.
+
+Osservazione dell'utente: la dispersione fra le giocate **è essa stessa una dimensione**, da
+misurare. Ed è una famiglia che non esiste ancora: tutte e 70 le dimensioni giudicano *una sestina
+alla volta*, nessuna guarda *l'insieme delle cinque* — mentre la giocata reale è un insieme.
+
+## Stato
+
+- **70 dimensioni**, tutte sempre attive, ordinate per presenza ricalcolata durante il cammino
+- **sommatoria pesata** di tutte = criterio di esclusione (si scarta il 10% più implausibile)
+- **cammino completo** su 4.239 estrazioni in 25 secondi
+- **incrementale verificato**: al secondo lancio riconosce di essere già arrivata e non ricammina
+- lo stato si rifiuta di essere ripreso se il numero di dimensioni è cambiato
+
+### La previsione corrente
+
+```
+07  37  55  71  79  84        07  31  43  66  81  89
+07  20  41  42  74  77        03  08  35  56  63  69
+21  52  60  67  75  77
+```
