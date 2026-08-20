@@ -214,3 +214,110 @@ Le giocate qui sopra non hanno una probabilità maggiore di uscire. Ciò che gar
 giocata prodotta dal sistema non sia **respingibile a colpo d'occhio** — il filtro che ai nove
 impianti precedenti mancava, e che li faceva sbagliare in modo visibile (le macchie compatte, il
 centro del foglio).
+
+---
+
+# I pesi decisi dai dati, e le dimensioni trovate dal sistema (20/08/2026)
+
+## Il principio, formulato dall'utente
+
+> *«devi dirmelo tu in quale direzione spostarlo e che pesi attribuire alle dimensioni.
+> è il risultato dell'osservazione»*
+> *«misura sempre le osservazioni: servono a dare il giusto peso alle dimensioni e a trovarne di nuove»*
+
+Se i pesi li sceglie chi scrive il codice, l'osservazione non serve a niente. Devono uscire dalla
+misura — ed è la misura stessa a far emergere le dimensioni nuove. Questo è ora il funzionamento
+normale del sistema, non un passaggio fatto una volta.
+
+## A — Le forze, cercate sui dati (`Merlino.exe pesi`)
+
+500 combinazioni di *forza decina* × *forza ritardo* × *forza frequenza* × *finestra*. Per ognuna,
+3.000 giocate generate e misurata la distanza fra i loro istogrammi e quelli delle estrazioni vere,
+su tutte le dimensioni. Misurato **senza** il filtro di plausibilità: acceso, sarebbe lui a
+raddrizzare qualunque pesatura e le forze risulterebbero indifferenti.
+
+| | valore messo a mano | **risposta dei dati** |
+|---|---|---|
+| forza della decina | 1,00 | **0,50** |
+| forza del **ritardo** | 1,00 | **0,00** |
+| forza della frequenza | 0,50 | **0,25** |
+| finestra decine | 100 | 100 (confermata) |
+
+**Il ritardo va a zero, e in modo monotono**: tutte e sei le combinazioni migliori hanno
+`ritardo = 0,00`, tutte e tre le peggiori hanno `ritardo = 2,00`. Spingere sui ritardatari allontana
+le giocate da come sono fatte le estrazioni vere.
+
+## B — La verifica fuori campione (`Merlino.exe misura`)
+
+Pesi ricavati sulle prime 2.119 estrazioni, misura sulle 2.120 successive **mai usate per
+ricavarli** — altrimenti si chiederebbe ai dati di confermare ciò che da quei dati è stato estratto.
+
+| impianto | distanza dalle vere |
+|---|---|
+| **nessun peso** (sorteggio uniforme) | **0,01415** |
+| pesi dai dati (0,50 / 0,00 / 0,25) | 0,01424 |
+| **pesi a mano** (1,00 / 1,00 / 0,50) | **0,03921** |
+
+**I pesi messi a mano erano il triplo peggio del non pesare affatto** (−177%). Erano il difetto, non
+la soluzione. I pesi cercati sui dati li battono nettamente e arrivano appaiati al sorteggio
+uniforme — coerente con `ritardo = 0`: tolta la spinta sbagliata, resta un residuo che non sposta.
+
+**La direzione richiesta è quindi: verso lo zero.** Non «pesa di più» o «di meno» il ritardo:
+toglilo.
+
+## C — Le dimensioni, e il loro peso misurato
+
+Il peso di una dimensione è la sua **informazione**: quanto la distribuzione sulle estrazioni vere è
+lontana dall'essere piatta. Concentrata = un valore fuori dal solito è un segnale forte. Piatta =
+non dice mai niente. È una misura, non un giudizio.
+
+**Le cinque che contano di più — tutte trovate misurando, nessuna era fra le prime scritte a mano:**
+
+| dimensione | peso |
+|---|---|
+| oltre il proprio record | 2,09 |
+| coppie specchio | 1,93 |
+| quanti iniziano per 9 | 1,75 |
+| coppie mai viste | 1,56 |
+| progressioni | 1,55 |
+
+**Le cinque che contano di meno — e sono i tratti più classici che esistano:**
+
+| dimensione | peso |
+|---|---|
+| passo massimo | 0,32 |
+| **quanti pari** | **0,49** |
+| **ampiezza** | 0,52 |
+| **somma** | 0,53 |
+| quanti bassi | 0,55 |
+
+Pari/dispari, ampiezza e somma — le prime tre cose che chiunque guarderebbe — pesano **un quarto**
+delle dimensioni strutturali emerse dalla misura.
+
+## D — Le dimensioni che il sistema si è trovato da solo
+
+78 domande generate meccanicamente variando i parametri di poche famiglie (*quanti fra a e b* per
+decine di fasce, *quanti multipli di d*, *quanti finiscono per c*, *quante coppie distano meno di
+s*, *il k-esimo numero*, *il salto k→k+1*), tutte misurate. Non scelte una per una, altrimenti la
+selezione sarebbe stata solo la conferma di ciò che si aveva già in mente.
+
+Le sette promosse e aggiunte all'osservatore: `quanti iniziano per 9` (0,630) · `coppie a distanza
+1` (0,481) · `quanti multipli di 11` (0,472) · `quanti fra 28 e 36` (0,457) · `quanti fra 82 e 90`
+(0,436) · `quanti multipli di 13` (0,423) · `coppie a distanza 2` (0,415).
+
+Le fasce **28-36** e **82-90** sono emerse da sole: nessuno le aveva messe.
+
+## Stato del sistema
+
+- **48 dimensioni**, ognuna pesata per la propria informazione misurata (prima contavano tutte uguale)
+- **forze del generatore** prese dai dati, non più a mano
+- il ciclo *osserva → misura → ripesa → scopri* è il funzionamento normale
+
+```
+Merlino.exe osserva [sei numeri]   il catalogo, la taratura, il giudizio
+Merlino.exe pesi                   cerca le forze e propone dimensioni nuove
+Merlino.exe misura                 verifica pesi e dimensioni FUORI CAMPIONE
+Merlino.exe genera [n]             le giocate, con i pesi usciti dai dati
+Merlino.exe cammina [n]            l'osservazione applicata al passato, passo per passo
+Merlino.exe ventaglio              di quanto il filtro restringe lo spazio
+```
