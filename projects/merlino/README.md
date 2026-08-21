@@ -17,6 +17,16 @@
 > che chiude la strada dello squilibrio fisico (servirebbero ×36 i dati esistenti):
 > [le-dieci-urne.md](le-dieci-urne.md).
 
+**L'incrementale che mentiva (21/08/2026)** — la ripresa da stato salvato produceva giocate diverse
+dal cammino intero, senza dare errore: lo stato salvava un quinto della memoria, il seme del caso
+dipendeva da come ci si era arrivati, e il catalogo di blocco guardava il futuro. Corretti tutti e
+tre (piu' un quarto, la somma in virgola mobile che non e' associativa) e **verificati su 9 punti di
+rottura**: [incrementale.md](incrementale.md).
+
+**EuroJackpot sulla tavola 1-50 (21/08/2026)** — `Merlino.exe catena ej`: la catena gira anche
+sull'EJ, con una tabella di dimensioni costruita sul suo tabellone (schedina 5x10, fasce rigenerate
+dalla stessa regola meccanica). Le dimensioni del SuperEnalotto non sono state toccate.
+
 **La catena degli osservatori (20/08/2026)** — `Merlino.exe catena` attraversa tutta la storia dando
 priorità alle dimensioni, predice, confronta, ridefinisce le priorità e corregge il tiro; incrementale,
 riprende da dove era arrivata: [catena.md](catena.md).
