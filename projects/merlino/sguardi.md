@@ -205,13 +205,85 @@ Corretto con `MERLINO_ESCLUDI="1,24,38,54,58,73"`, che toglie dal pool le candid
 numeri prima della scelta finale. Sul caso reale: **restano 111 candidate su 120**, e il Jolly
 diventa **61**.
 
+## I comandi, dopo il 24/08/2026
+
+```
+Merlino.exe giocata              la schedina completa: 6+1 e 5+2, tutte e cinque le urne
+Merlino.exe cerca [ej]           cerca sguardi nuovi: separazione contro fondo di rumore
+Merlino.exe catena [urna]        il cammino di una singola urna
+Merlino.exe catena [urna] collaudo   prova che la ripresa e' identica al cammino intero
+```
+
+dove `urna` è `ej`, `jolly`, `superstar`, `euro`, oppure niente per il SuperEnalotto.
+
+### `giocata` — e il vincolo che le catene da sole non potevano vedere
+
+Le cinque urne camminano separate e **non si parlano**. Il 24/08 questo ha prodotto una schedina
+**impossibile**: `01 24 38 54 58 73` con Jolly **58**, che è già uno dei sei — e il Jolly è la
+settima pallina della *stessa* urna, quindi non può mai coincidere con un numero principale.
+
+`Giocata.cs` mette le urne **nell'ordine che serve**: prima i sei, poi il Jolly **sapendo quali sono
+i sei** (`Catena.Esclusi`), poi il resto. E il controllo lo fa il programma, non l'occhio:
+
+```
+SUPERENALOTTO   01  24  38  54  58  73    J 61    SS 36
+EUROJACKPOT     04  12  32  36  43        E 07  10
+
+Controllo: il Jolly non e' fra i sei.
+```
+
+Sul caso reale l'esclusione lascia **111 candidate su 120** e il Jolly passa da 58 a **61**.
+
+La SuperStar invece **non** viene esclusa: è un'urna a parte e può legittimamente coincidere con un
+numero principale. Escluderla sarebbe un vincolo inventato.
+
+### `cerca` — la ricerca è rientrata nell'applicazione
+
+Era uno script Python nella cartella temporanea, cioè destinato a sparire. Ora è `CercaSguardi.cs`,
+gira sui dati della **macchina attuale** e si rifà da sola quando l'archivio cresce.
+
+Rieseguita sui soli 2.617 concorsi dal 2009, la classifica cambia rispetto a quella su tutta la
+storia — ed è il punto:
+
+| sguardo | netto | separa | rumore |
+|---|---|---|---|
+| quanti fra 79 e 83 | 0,0275 | 0,0303 | 0,0028 |
+| **usciti esattamente 6 estrazioni fa** | **0,0203** | 0,0226 | 0,0023 |
+| **usciti esattamente 7 estrazioni fa** | **0,0201** | 0,0253 | 0,0052 |
+| quanti fra 49 e 57 | 0,0190 | 0,0229 | 0,0039 |
+
+La **ripetizione a ritardo esatto** è la famiglia più solida che abbiamo: sale in alto sui dati
+completi, sui soli dati post-2009, sull'EuroJackpot, sul Jolly e sulla SuperStar. Cinque urne
+diverse, cinque volte in cima.
+
+## Un difetto di misura che nascondeva la verità sulle urne piccole
+
+La copertura era calcolata con il **sei fisso**:
+
+```csharp
+double copertura = QuantePredizioni * 6 - 10.0 * s.SovrapCatena / ...;   // sbagliato
+```
+
+Così l'EuroJackpot dichiarava **29,97 numeri distinti** su un massimo possibile di 25, e il Jolly —
+cinque giocate da **un** numero — ne dichiarava 30 su un massimo di 5. Corretto in
+`QuantePredizioni * quanti`.
+
+Non cambia nessuna previsione: cambia il numero stampato, che prima era una sciocchezza su quattro
+giochi su cinque.
+
+## Perché la SuperStar non batte il sorteggio
+
+Non è un difetto: è aritmetica di copertura. La leva che funziona è giocare più tabellone, e con
+**una pallina sola** cinque giocate distinte coprono 5 caselle contro le ~4,9 di cinque sorteggi —
+un margine di un decimo di casella. Non c'è quasi niente da prendere.
+
+I 170 contro 182 misurati stanno dentro una deviazione standard (≈12,6 su 3.326 concorsi): non è
+che la catena faccia peggio, è che **su un'urna da una pallina la copertura non ha spazio**. Sugli
+Euronumeri, che di palline ne hanno due su dodici, la leva torna a funzionare (28 buchi contro 54).
+
 ## Cosa resta da fare
 
-- L'esclusione dei sei dal Jolly va passata **a mano** con una variabile d'ambiente. Dovrebbe farlo
-  l'applicazione da sola: chi produce la giocata 6+1 sa gia' quali sono i sei.
-- La **SuperStar** non batte il sorteggio. Con 3.328 estrazioni e una pallina sola potrebbe non
-  esserci margine di copertura da prendere: va guardata meglio.
-- La ricerca degli sguardi è **fuori dall'applicazione**, in uno script Python. Andrebbe dentro, come
-  `Merlino.exe cerca`, così la si rifà quando l'archivio cresce.
+- Le urne piccole (Jolly, SuperStar) non hanno margine di copertura da prendere. Se si vuole
+  qualcosa da loro serve una leva diversa da quella che funziona sulle sestine.
 - L'EuroJackpot ha 871 estrazioni: il fondo di rumore è alto e le sue fasce misurate sono deboli.
   Vanno rimisurate fra qualche centinaio di concorsi.
