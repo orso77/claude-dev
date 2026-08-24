@@ -1,5 +1,25 @@
 # Merlino
 
+> **«Una volta eliminato l'impossibile, cio' che resta, per quanto improbabile, deve essere la
+> verita'.»** — Arthur Conan Doyle
+>
+> **Leitmotiv del progetto** (24/08/2026). Merlino non cerca la combinazione giusta: **scarta le
+> combinazioni impossibili**. Piu' sguardi si hanno, piu' ipotesi cadono. E' un sistema
+> probabilistico al contrario.
+
+> ## ⛔ DUE FATTI CHIUSI — non vanno piu' ridiscussi ne' ri-dimostrati
+>
+> 1. **La macchina e' cambiata il 01/07/2009.** Prima i numeri venivano dalle ruote del Lotto e
+>    quella macchina **aveva un difetto** (coda alta +12,7%); dal 01/07/2009 l'estrazione e'
+>    dedicata ed e' **neutra** (+3,8%). Il cammino della catena **parte dal 01/07/2009**. Chiuso.
+> 2. **La popolarita' non entra nella previsione.** Misurata, correlazione −0,52. Chiuso.
+
+**Gli sguardi (24/08/2026)** — come si cerca una dimensione nuova (separazione dalle combinazioni
+qualunque, contro un fondo di rumore misurato) e le famiglie trovate: la **macchia** e il suo
+intorno, le statistiche d'ordine, i resti, le coppie complementari. La macchia e' **prima in
+classifica su entrambi i giochi**: [sguardi.md](sguardi.md).
+
+
 > **Ripartenza da zero — 17/08/2026.** Tutti gli algoritmi costruiti fino a questa data sono
 > **deprecati** (non funzionano) e con essi **tutto il metro di misura** che li accompagnava
 > (distribuzione nulla, p-value, sigma, hold-out, walk-forward metrico, canali di controllo a
