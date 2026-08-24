@@ -329,6 +329,66 @@ Quattro dimensioni misurate valgono 26 concorsi a mani vuote in meno. È la prov
 dell'utente — *più sguardi, più ipotesi cadono* — si vede nei numeri, purché gli sguardi siano
 misurati e non immaginati.
 
+## Il controllo che risponde alla domanda «siamo migliorati?» — 24/08/2026
+
+La stessa catena, con le stesse dimensioni, fatta camminare su una storia **col tempo rimescolato**:
+un archivio in cui, per costruzione, **non esiste alcun legame** fra un'estrazione e la successiva.
+Se il margine viene dall'osservazione deve crollare; se viene dall'aritmetica della copertura resta.
+
+| su 2.815 previsioni | storia VERA | storia RIMESCOLATA |
+|---|---|---|
+| centri medi della catena | **1,1737** | **1,1734** |
+| centri medi del caso puro | 1,1247 | 1,1421 |
+| 0 centri, catena | 199 | 220 |
+| 0 centri, caso | 329 | 315 |
+| 3 centri, catena | 42 | 51 |
+| copertura | 30,00 | 30,00 |
+
+**I centri medi coincidono alla terza cifra**: 1,1737 contro 1,1734. La catena si comporta allo
+stesso modo su una storia in cui non c'è niente da imparare.
+
+Conclusione, senza giri di parole: **il margine è copertura, non previsione.** Giocare cinque
+sestine che non si sovrappongono significa giocare 30 numeri distinti invece di ~26, e quello
+riduce i concorsi a mani vuote per aritmetica — anche su dati in cui il passato non dice nulla del
+futuro.
+
+### La conseguenza su ciò che avevo scritto un'ora prima
+
+Avevo riportato il passaggio da 225 a 199 concorsi vuoti come «quattro dimensioni misurate valgono
+26 concorsi a mani vuote in meno». **Non è stabilito.** La storia rimescolata dà 220 con le stesse
+dimensioni: 199, 220 e 225 stanno tutti nella stessa banda (deviazione standard ≈ 14 su un conteggio
+di ~210). Quel miglioramento non è distinguibile dal rumore, e in più era misurato sugli stessi dati
+con cui le dimensioni erano state scelte.
+
+### E le categorie che pagano
+
+Al SuperEnalotto si vince dal **terno** in su. Lì la catena non è avanti:
+
+| | catena | caso |
+|---|---|---|
+| 3 centri | **42** | 47 |
+| 4 centri | **0** | 3 |
+
+La copertura massima **peggiora** le categorie alte, ed è geometria: cinque sestine sparse
+distribuiscono i numeri centrati su schedine diverse invece di concentrarli su una. È lo stesso
+motivo per cui esiste `Merlino.exe concentra`, che fa l'opposto.
+
+### Cosa È migliorato davvero oggi
+
+Non la previsione. Ma:
+
+- l'incrementale non produce più numeri diversi dal cammino intero (prima lo faceva **senza dare
+  errore**);
+- il catalogo di blocco non guarda più il futuro;
+- lo strumento di misura ha un **fondo di rumore**, quindi distingue una scoperta da una
+  coincidenza — senza di esso oggi avrei adottato decine di dimensioni finte;
+- tre difetti di calcolo corretti (`Precedente` a 6 sull'EJ, copertura col sei fisso, Jolly che
+  poteva essere uno dei sei);
+- cinque urne hanno le proprie dimensioni invece di nessuna.
+
+**Sono miglioramenti dello strumento, non del risultato.** La distinzione va tenuta: uno strumento
+onesto che dice «non c'è» vale più di uno che dice «c'è» perché è rotto.
+
 ## Cosa resta da fare
 
 - Le urne piccole (Jolly, SuperStar) non hanno margine di copertura da prendere. Se si vuole
