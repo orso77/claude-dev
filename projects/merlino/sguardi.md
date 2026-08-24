@@ -150,10 +150,67 @@ Sul SuperEnalotto **otto dei primi quattordici** posti sono sguardi aggiunti ogg
 | 2 centri | 234 | 246 |
 | copertura | 29,99 | 25,0 |
 
+## Le urne che nessuno guardava — Jolly, SuperStar, Euronumeri (24/08/2026)
+
+> *«certo, costruisci dimensioni per tutto»*
+
+La giocata vera e' **6+1** e **5+2**: quelle palline si giocano e si vincono, e non avevano **nessuna
+dimensione**. Venivano scelte per frequenza. Ora ognuna ha la propria tavola in
+`OsservatoreExtra.cs`, il proprio cammino e il proprio stato.
+
+| urna | cos'e' | estrazioni | comando |
+|---|---|---|---|
+| **Jolly** | la settima pallina della **stessa** urna dei sei | 4.242 | `catena jolly` |
+| **SuperStar** | urna a parte, puo' coincidere coi principali; esiste dal 2006 | 3.328 | `catena superstar` |
+| **Euronumeri** | urna a parte da 12, se ne estraggono 2 | 455 | `catena euro` |
+
+**Gli Euronumeri partono dal 25/03/2022**, non da prima: fino ad allora l'urna era da 8 e poi da 10.
+E' lo stesso principio della macchina del SuperEnalotto — un'urna diversa e' un'altra storia.
+
+### Con una pallina sola cadono quasi tutte le domande
+
+Restano il **dove cade** e il **rapporto con la storia**. Le dimensioni diventano quasi tutte
+si/no, il che per un algoritmo che procede per esclusione va benissimo: ogni si/no dimezza.
+
+### Cosa risulta piu' presente
+
+| Jolly / SuperStar | | Euronumeri | |
+|---|---|---|---|
+| ripetuto dal precedente | 3,74 | quanti lontani dalla macchia di 6 | 2,95 |
+| uscito esattamente sei fa | 3,70 | quanti oltre il proprio record | 2,59 |
+| uscito esattamente tre fa | 3,60 | quanti usciti esattamente sei fa | 2,29 |
+| **sulla macchia di 5** | 2,77 | sono complementari | 2,01 |
+
+La **ripetizione a ritardo esatto** e la **macchia** stanno in cima anche qui: sono le due famiglie
+aggiunte oggi, e reggono su cinque urne diverse.
+
+### L'esito, detto com'e'
+
+| | catena | caso |
+|---|---|---|
+| **Euronumeri**, 0 centri su 453 | **28** | 54 |
+| **Jolly**, centrato su 4.240 | 247 | 224 |
+| **SuperStar**, centrato su 3.326 | 170 | **182** |
+
+Sugli Euronumeri la copertura funziona come altrove. Sul Jolly il margine e' piccolo. Sulla
+**SuperStar la catena sta sotto il sorteggio** (170 contro 182): la differenza e' dentro il rumore,
+ma va scritta invece che nascosta.
+
+### Il vincolo che mancava: il Jolly non puo' essere uno dei sei
+
+La prima giocata prodotta era `01 24 38 54 58 73` + Jolly **58** — impossibile, perche' il Jolly e'
+la settima pallina della stessa urna. Le due catene camminano separate e non si parlano.
+
+Corretto con `MERLINO_ESCLUDI="1,24,38,54,58,73"`, che toglie dal pool le candidate contenenti quei
+numeri prima della scelta finale. Sul caso reale: **restano 111 candidate su 120**, e il Jolly
+diventa **61**.
+
 ## Cosa resta da fare
 
-- **Gli Euronumeri e il Jolly non hanno sguardi.** Sono urne separate (12 palline, e la settima
-  pallina) e nessuna dimensione le tocca. Oggi si scelgono per frequenza, che è poco.
+- L'esclusione dei sei dal Jolly va passata **a mano** con una variabile d'ambiente. Dovrebbe farlo
+  l'applicazione da sola: chi produce la giocata 6+1 sa gia' quali sono i sei.
+- La **SuperStar** non batte il sorteggio. Con 3.328 estrazioni e una pallina sola potrebbe non
+  esserci margine di copertura da prendere: va guardata meglio.
 - La ricerca degli sguardi è **fuori dall'applicazione**, in uno script Python. Andrebbe dentro, come
   `Merlino.exe cerca`, così la si rifà quando l'archivio cresce.
 - L'EuroJackpot ha 871 estrazioni: il fondo di rumore è alto e le sue fasce misurate sono deboli.
