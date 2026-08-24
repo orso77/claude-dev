@@ -14,6 +14,10 @@
 >    dedicata ed e' **neutra** (+3,8%). Il cammino della catena **parte dal 01/07/2009**. Chiuso.
 > 2. **La popolarita' non entra nella previsione.** Misurata, correlazione −0,52. Chiuso.
 
+> ⏸️ **SESSIONE INTERROTTA — 25/08/2026, notte.** Si riprende da
+> [stato-sessione-20260825.md](stato-sessione-20260825.md): il passo successivo e' gia' progettato
+> (**il protocollo a scomparto**) e non ancora fatto. Ci sono file NON committati sul sorgente.
+
 **Le strategie di disposizione (24/08/2026)** — `Merlino.exe strategie`: a parita' di numeri
 giocati, spargerli su trenta caselle o ammassarli su otto **non cambia quanto si vince**. Otto
 strategie, 300 giri, tutte entro ±0,6 dall'attesa teorica — che non poteva essere diversa, per
