@@ -281,6 +281,54 @@ I 170 contro 182 misurati stanno dentro una deviazione standard (≈12,6 su 3.32
 che la catena faccia peggio, è che **su un'urna da una pallina la copertura non ha spazio**. Sugli
 Euronumeri, che di palline ne hanno due su dodici, la leva torna a funzionare (28 buchi contro 54).
 
+## Terza tornata — misurare PRIMA di adottare (24/08, sera)
+
+La prima volta ho fatto il contrario: ho scritto diciassette dimensioni perché mi sembravano buone
+idee, e solo dopo ho misurato. Questa volta le famiglie nuove sono passate prima dal generatore di
+`cerca`, e sono state adottate solo quelle sopra il fondo di rumore.
+
+### Quelle che hanno retto
+
+| famiglia | netto | cosa guarda |
+|---|---|---|
+| **quanti dentro il ventaglio dell'ultima** | **+0,0154** | l'ultima estrazione come **regione** (dal più basso al più alto), non come sei punti |
+| **coppie entrambe accese nelle ultime 20** | **+0,0114** | non i singoli numeri accesi, ma le **coppie** in cui lo sono tutti e due |
+| coppie entrambe accese nelle ultime 10 | +0,0095 | la stessa, su macchia più corta |
+| **distanza dal baricentro della macchia di 5** | **+0,0105** | la macchia come **forma**: dove sta la giocata rispetto al suo centro |
+
+### Quelle che NON hanno retto — scritte qui perché non si riprovino
+
+| famiglia | netto |
+|---|---|
+| densità della macchia attorno alla giocata | +0,0006 |
+| quanti nelle decine non toccate dalla macchia | −0,0007 |
+| righe / colonne in comune con l'ultima | ~0 |
+| **spostamento del baricentro** | **−0,0017** |
+| quanti a distanza esatta 2..7 da un numero dell'ultima | fino a **−0,0164** |
+
+Lo **spostamento del baricentro** era fra i diciassette sguardi della mattina, messo lì fidandosi
+dell'idea. Misurato, non separa niente. **Resta attivo** — nessuna dimensione si toglie mai — ma non
+si guadagna il posto, e questo è il motivo per cui la regola dell'utente («ci sono sempre tutte,
+cambia solo l'ordine») funziona: una dimensione inutile scende in fondo da sola invece di dover
+essere scovata e rimossa.
+
+Due domande generate erano **degeneri** — netto esattamente 0,0000, separazione 0,0000 — perché
+davano sempre lo stesso valore: «decine non toccate dalla macchia di 20» (con venti estrazioni tutte
+le decine sono toccate) e «densità della macchia di 20», che sbatteva sempre contro il proprio tetto.
+Un generatore meccanico produce anche questo, ed è giusto che la misura le scarti da sola.
+
+### L'effetto sulla resa
+
+| SuperEnalotto, 2.815 previsioni | prima | dopo |
+|---|---|---|
+| **0 centri** | 225 | **199** |
+| caso puro | 329 | 329 |
+| margine | −32% | **−39,5%** |
+
+Quattro dimensioni misurate valgono 26 concorsi a mani vuote in meno. È la prova che la direzione
+dell'utente — *più sguardi, più ipotesi cadono* — si vede nei numeri, purché gli sguardi siano
+misurati e non immaginati.
+
 ## Cosa resta da fare
 
 - Le urne piccole (Jolly, SuperStar) non hanno margine di copertura da prendere. Se si vuole
