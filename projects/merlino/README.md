@@ -14,9 +14,16 @@
 >    dedicata ed e' **neutra** (+3,8%). Il cammino della catena **parte dal 01/07/2009**. Chiuso.
 > 2. **La popolarita' non entra nella previsione.** Misurata, correlazione −0,52. Chiuso.
 
-> ⏸️ **SESSIONE INTERROTTA — 25/08/2026, notte.** Si riprende da
-> [stato-sessione-20260825.md](stato-sessione-20260825.md): il passo successivo e' gia' progettato
-> (**il protocollo a scomparto**) e non ancora fatto. Ci sono file NON committati sul sorgente.
+**Il protocollo a scomparto (25/08/2026)** — `Merlino.exe scomparto`: l'ipotesi si cerca sul primo
+70% della storia, e' UNA sola, e si verifica contro il **neutro teorico** sul tratto mai usato per
+trovarla. Tarato su segnale finto iniettato: certifica un difetto della taglia del 2009 (p empirico
+0,010). Verdetto sui dati veri: **nessuna fascia inclinata certificabile** ne' su SE dal 2009 ne'
+su EJ — il primo «non c'e'» solido del progetto. Lungo la strada e' stata trovata e corretta una
+trappola (verifica contro il pre-rottura = regressione verso la media che conferma anche gli
+abbagli): [scomparto.md](scomparto.md).
+
+> Sessione del 25/08 (notte) documentata in [stato-sessione-20260825.md](stato-sessione-20260825.md).
+> Ci sono file NON committati sul sorgente (serve autorizzazione esplicita).
 
 **Le strategie di disposizione (24/08/2026)** — `Merlino.exe strategie`: a parita' di numeri
 giocati, spargerli su trenta caselle o ammassarli su otto **non cambia quanto si vince**. Otto

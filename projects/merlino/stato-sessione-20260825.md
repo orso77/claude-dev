@@ -1,5 +1,10 @@
 # Stato della sessione — 25/08/2026, notte
 
+> ✅ **AGGIORNAMENTO 25/08/2026, giorno**: il passo successivo descritto in fondo (il protocollo a
+> scomparto) e' stato **fatto**: vedi [scomparto.md](scomparto.md). Verdetto: nessuna fascia
+> inclinata certificabile su SE dal 2009 ne' su EJ. Ai file non committati si aggiungono le
+> modifiche a `Deriva.cs` e `Program.cs` (comando `scomparto`).
+
 > Sessione interrotta dall'utente per riavvio. Questo file serve a riprendere da qui senza
 > ricostruire niente.
 
