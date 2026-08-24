@@ -14,6 +14,11 @@
 >    dedicata ed e' **neutra** (+3,8%). Il cammino della catena **parte dal 01/07/2009**. Chiuso.
 > 2. **La popolarita' non entra nella previsione.** Misurata, correlazione −0,52. Chiuso.
 
+**Le strategie di disposizione (24/08/2026)** — `Merlino.exe strategie`: a parita' di numeri
+giocati, spargerli su trenta caselle o ammassarli su otto **non cambia quanto si vince**. Otto
+strategie, 300 giri, tutte entro ±0,6 dall'attesa teorica — che non poteva essere diversa, per
+linearita'. Cambia solo la varianza: [strategie.md](strategie.md).
+
 **Gli sguardi (24/08/2026)** — come si cerca una dimensione nuova (separazione dalle combinazioni
 qualunque, contro un fondo di rumore misurato) e le famiglie trovate: la **macchia** e il suo
 intorno, le statistiche d'ordine, i resti, le coppie complementari. La macchia e' **prima in
