@@ -29,9 +29,11 @@ SE 0-centri: 230 in questo cammino contro 198 del precedente (caso 329) — l'os
 percorso casuale dentro i plausibili, non le dimensioni. EJ stabile (27 contro 51). Il margine
 resta copertura; il lavoro della giornata è sul **vedere** e sul primo filo temporale certificato.
 
-## Sorgente NON committato (serve autorizzazione esplicita)
+## Sorgente
 
-`C:\src\orso\Merlino`, sull'ultimo commit `7fc13b8` + tutto il lavoro dal 24/08 in poi:
+✅ **Committato e pushato il 25/08 su autorizzazione esplicita dell'utente: `274fded`**
+(10 file, +2.118 righe). `data/lotto/` lasciato fuori (dati, non toccati). Elenco di cosa
+conteneva il commit:
 
 | file | stato | cosa contiene |
 |---|---|---|
