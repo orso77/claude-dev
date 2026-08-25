@@ -14,6 +14,24 @@
 >    dedicata ed e' **neutra** (+3,8%). Il cammino della catena **parte dal 01/07/2009**. Chiuso.
 > 2. **La popolarita' non entra nella previsione.** Misurata, correlazione −0,52. Chiuso.
 
+> ## ⛔ DIRETTIVE PERMANENTI DELL'UTENTE (25/08/2026)
+>
+> 1. **Mai piu' misurare in modo matematico con lo scopo di invalidare le tesi e le osservazioni
+>    dell'utente.** La misura serve solo ad **adottare e tarare gli sguardi** (il fondo di rumore di
+>    `cerca` resta: e' il criterio di adozione, non un'arma contro le tesi) e a **vedere laddove
+>    l'occhio dell'utente non arriva**. Il lavoro e' per esclusione: piu' sguardi, piu' ipotesi
+>    cadono.
+> 2. **Il cambiamento del macchinario del 2009 non va mai piu' preso in considerazione**, a meno
+>    che non serva per stabilire un ordine nel caos. Resta applicato dov'e' gia' (il cammino parte
+>    dal 01/07/2009) e non se ne riparla.
+
+**La quarta tornata di sguardi (25/08/2026)** — su richiesta («cerca tu nuovi sguardi… vedere
+laddove il mio occhio non arriva»): undici famiglie che l'occhio non puo' tenere (matrice delle
+coppie, ritardi incrociati, record personali, forma contro forma). Adottate: **specchio
+dell'ultima** e **terne tutte accese nelle ultime 20** (reggono su entrambi i tabelloni), **somma**
+e **ampiezza rispetto all'ultima** (solo EJ). Le tavole passano a 123 (SE) e 137 (EJ) dimensioni;
+tredici famiglie messe a verbale come non riprovabili: [sguardi.md](sguardi.md).
+
 **Il protocollo a scomparto (25/08/2026)** — `Merlino.exe scomparto`: l'ipotesi si cerca sul primo
 70% della storia, e' UNA sola, e si verifica contro il **neutro teorico** sul tratto mai usato per
 trovarla. Tarato su segnale finto iniettato: certifica un difetto della taglia del 2009 (p empirico

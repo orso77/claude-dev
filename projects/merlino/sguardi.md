@@ -329,6 +329,83 @@ Quattro dimensioni misurate valgono 26 concorsi a mani vuote in meno. È la prov
 dell'utente — *più sguardi, più ipotesi cadono* — si vede nei numeri, purché gli sguardi siano
 misurati e non immaginati.
 
+## Quarta tornata — le famiglie che l'occhio non può vedere (25/08/2026)
+
+> Richiesta dell'utente: *«cerca tu nuovi sguardi, nuove dimensioni volte a trovare ordine nel
+> caos»*, *«vedere laddove il mio occhio non arriva»*. Da questa sessione vale anche la direttiva
+> permanente: **la misura serve solo ad adottare e tarare gli sguardi**, mai a invalidare le tesi
+> dell'utente (vedi README).
+
+Undici famiglie nuove nel generatore di `cerca` (52 domande), scelte apposta su ciò che a occhio
+nudo non si può tenere: la **matrice delle coppie** della storia (migliaia di caselle), i **ritardi
+guardati uno contro l'altro**, i **record personali** di ogni numero, la **forma** di un'estrazione
+confrontata con la forma della precedente. Protocollo invariato: prima si misura (separazione
+contro fondo di rumore), si adotta solo ciò che regge. SE dal 2009: 402 domande totali; EJ: 334.
+
+### Quelle che hanno retto
+
+| famiglia | netto SE | netto EJ | adottata |
+|---|---|---|---|
+| **specchio di uno dell'ultima** | **+0,0122** | **+0,0110** | entrambe le tavole |
+| **terne tutte accese nelle ultime 20** | **+0,0102** | **+0,0186** | entrambe le tavole |
+| **somma rispetto all'ultima** | −0,0060 | **+0,0320** (4ª su 334) | solo EJ |
+| **ampiezza rispetto all'ultima** | +0,0025 | **+0,0119** | solo EJ |
+
+- Le prime due reggono su **entrambi i tabelloni** — la credenziale più forte, la stessa della
+  ripetizione a ritardo esatto.
+- «Specchio di uno dell'ultima» e «col complemento acceso nell'ultima 1» sono risultate la
+  **stessa domanda** (misure identiche su entrambi i giochi): adottata una sola, col primo nome.
+- Le due «rispetto all'ultima» sono la famiglia della **forma che si muove**: sull'EJ funziona,
+  sul SE no. Adottate solo dove si sono guadagnate il posto.
+
+### Una conferma della regola «nessuna dimensione si toglie mai»
+
+Lo **spostamento del baricentro** — bocciato sul SE il 24/08 (−0,0017) e lasciato in tavola per la
+regola dell'utente — sull'EuroJackpot misura **+0,0317**, terzo fra tutti gli sguardi liberi. Se
+fosse stato rimosso, quel posto sull'EJ non l'avrebbe preso nessuno.
+
+### Quelle che NON hanno retto — scritte perché non si riprovino
+
+| famiglia | netto SE | netto EJ |
+|---|---|---|
+| coppie coetanee (stesso ritardo = usciti l'ultima volta insieme), ogni variante | +0,0028 | −0,0081 |
+| affinità storica con l'ultima (ponte di coppie già viste) | −0,0058 | −0,0099 |
+| peso di coppia interno (somma/massimo delle coppie già viste) | +0,0027 | −0,0143 |
+| buchi della macchia (spento coi vicini accesi, in valore) | +0,0056 | −0,0154 |
+| buchi della schedina (spento con 3+ celle attorno accese) | −0,0028 | −0,0253 |
+| ventaglio della macchia (dentro il min-max degli accesi) | ~0 | ~0 |
+| sopra il massimo / sotto il minimo della macchia di 3 | +0,0049 | −0,0070 |
+| complemento acceso a larghezze 3 / 5 / 20 | negativo | negativo |
+| salti in comune con l'ultima | +0,0015 | +0,0040 |
+| ritardo in rapporto al proprio record (metà, tre quarti, un decimo) | +0,0051 | +0,0018 |
+| dove cade il più in ritardo / il più fresco | −0,0118 | −0,0058 |
+| colonne spente da 10/20 | 0,0000 | 0,0000 |
+| terne tutte accese nelle ultime 10 | +0,0066 | −0,0037 |
+
+Le coppie coetanee erano l'idea più elegante della tornata — due numeri con lo stesso ritardo sono
+usciti l'ultima volta *insieme* — e non separano niente: l'eleganza non è un criterio, la misura sì.
+
+### Dopo il cammino (tavole a 123 dimensioni SE, 137 EJ)
+
+La catena ha ricamminato da capo entrambe le storie (lo stato si rifiuta da solo quando il numero
+di dimensioni cambia). Dove sono entrate le nuove, per presenza:
+
+| | SE (su 123) | EJ (su 137) |
+|---|---|---|
+| specchio di uno dell'ultima | **34ª** (1,213) | 40ª (1,164) |
+| ampiezza rispetto all'ultima | — | **34ª** (1,231) |
+| somma rispetto all'ultima | — | 67ª |
+| terne tutte accese nelle ultime 20 | 119ª | 76ª |
+
+Le terne accese hanno presenza bassa ma il **secondo coefficiente B più forte del SE** (−1,50): è
+una dimensione che dipende dall'estrazione precedente — esattamente il tipo di legame che la catena
+esiste per usare. Sull'EJ lo spostamento del baricentro compare anch'esso fra i B più forti (−0,48).
+
+La resa resta nella stessa banda di prima (SE: 198 concorsi a mani vuote contro 329 del caso su
+2.815; EJ: 27 contro 51 su 869; 3 centri SE: 51 contro 47). Il lavoro di questa tornata è sul
+**vedere**: due sguardi nuovi validi su entrambi i tabelloni, due sulla forma che si muove validi
+sull'EJ, e tredici famiglie chiuse e messe a verbale perché non si riprovino.
+
 ## Il controllo che risponde alla domanda «siamo migliorati?» — 24/08/2026
 
 La stessa catena, con le stesse dimensioni, fatta camminare su una storia **col tempo rimescolato**:
