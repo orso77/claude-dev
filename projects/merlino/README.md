@@ -84,7 +84,8 @@ abbagli): [scomparto.md](scomparto.md).
 > Sessione del 25/08 (notte) documentata in [stato-sessione-20260825.md](stato-sessione-20260825.md);
 > sessione autonoma del pomeriggio in
 > [stato-sessione-20260825-autonoma.md](stato-sessione-20260825-autonoma.md).
-> Sorgente committato e pushato il 25/08 su autorizzazione: `274fded`.
+> Sorgente committato e pushato il 25/08 su autorizzazione: `274fded` (sessioni 24-25/08) e
+> `b9a72c1` (tornate 6-9, scatola 3D, rosa, giorni).
 
 **Le strategie di disposizione (24/08/2026)** — `Merlino.exe strategie`: a parita' di numeri
 giocati, spargerli su trenta caselle o ammassarli su otto **non cambia quanto si vince**. Otto
