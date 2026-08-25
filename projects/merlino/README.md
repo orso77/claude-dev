@@ -25,6 +25,16 @@
 >    che non serva per stabilire un ordine nel caos. Resta applicato dov'e' gia' (il cammino parte
 >    dal 01/07/2009) e non se ne riparla.
 
+**Le ipotesi dal nulla e la rosa condizionata (25/08/2026, notte)** — settima tornata su richiesta
+(«ipotizzo dal nulla, fallo anche tu»): sette rappresentazioni inventate da zero; **cinque
+adozioni sul SE** (posto del più fresco, specchio di chi uscì 2 fa — 10º per presenza —, bit
+accesi, bit 16, orologio a 12) e cinque sull'EJ (prima: l'asimmetria, 0,0288). Bit e orologio
+reggono su entrambi i tabelloni; coro delle voci e moto rettilineo su nessuno. Tavole a **129 SE /
+146 EJ**. E l'**esclusione condizionata** («rara *dopo* una come l'ultima»), costruita e tarata:
+vede un rimbalzo iniettato dal 25% in su, sui dati veri **SE 1,00x** (nessun legame utilizzabile),
+EJ oscilla a 1,00–1,03 — il filo certificato è più sottile della soglia dello strumento:
+[rosa.md](rosa.md), [sguardi.md](sguardi.md).
+
 **La scatola 3D e la rosa (25/08/2026, sera)** — su richiesta («schema a 4 dimensioni: 3 per i
 numeri, la 4ª è il tempo... restringere al massimo le papabili»): `Tela3D.cs` (90 → 3×5×6) con 18
 domande nel generatore. Sul SE la vista 3D non supera il rumore; **sull'EJ regge e una parte è

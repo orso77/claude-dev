@@ -57,3 +57,42 @@ forma di una estrazione, ma il legame fra la forma di una e quella della success
 Il prossimo passo naturale è costruire l'esclusione CONDIZIONATA: non «questa forma è rara» ma
 «questa forma è rara *dopo* una forma come l'ultima» — il catalogo delle transizioni, con lo
 stesso protocollo (scomparto, fondo di rumore, taratura su segnale iniettato).
+
+## L'esclusione condizionata — costruita e tarata (25/08/2026, sera)
+
+Fatta: catalogo delle transizioni (valore di ieri → valore di oggi, per ognuna delle dimensioni,
+sul primo 70%), giudizio condizionato al valore dell'estrazione precedente (che alla giocata è
+noto), fallback statico dove il valore di ieri è stato visto meno di 20 volte.
+
+**La taratura ha insegnato due cose prima di dare qualunque verdetto:**
+
+1. Il filo **a ripetizione** iniettato (un numero copiato dalla precedente, anche al 25%) la
+   condizionata NON lo vede: quel legame lo assorbono le dimensioni che già guardano l'ultima,
+   dentro la statica. Questo strumento vede i legami *valore→valore*, non quelli già cablati nel
+   contesto.
+2. Sull'aggregato di 124+ dimensioni il filo di una sola **si diluisce**. La soluzione è il
+   **guadagno d'informazione della transizione** — (stranezza statica − condizionata): la parte
+   statica si semplifica e resta solo il legame. Su quello, taglio a una coda.
+
+Con l'iniezione giusta (un **rimbalzo di forma**: ampiezza costretta ad alternarsi):
+
+| rimbalzo iniettato | concentrazione del filo (tagli 95→50) |
+|---|---|
+| 0,00 | 1,00x piatto (non inventa) ✓ |
+| 0,25 | 1,02x–1,05x (lo sfiora) |
+| 0,50 | **1,06x–1,19x** (lo vede) ✓ |
+
+La soglia di sensibilità è ~un rimbalzo forzato ogni quattro concorsi.
+
+## Il verdetto della condizionata sui dati veri
+
+| | statica | condizionata | filo (guadagno) |
+|---|---|---|---|
+| **SE** (846 vere di verifica) | 1,00x | 1,00–1,01x | **1,00–1,01x** |
+| **EJ** (262) | 0,96–1,01x | 0,95–1,00x | 1,00–1,03x (oscillazione) |
+
+**Sul SE non c'è legame condizionato utilizzabile.** Sull'EJ il filo certificato (r −0,126 su una
+dimensione) è **molto più sottile** della soglia di sensibilità dello strumento: esiste, ma oggi
+non restringe la rosa in modo misurabile. Coerente in tutto: il rimbalzo è vero e piccolo. Si
+rimisura a ogni crescita dell'archivio — se il filo è reale, prima si rafforzerà il suo p, poi
+comparirà nella rosa.

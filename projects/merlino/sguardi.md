@@ -462,6 +462,43 @@ nel volume separano più della stessa domanda a etichette rimescolate, quindi un
 è proprio la geometria. Adottate le due sopra soglia nella tavola EJ. È il terzo indizio della
 giornata che punta sull'EJ (dopo la famiglia della forma che si muove e il filo certificato).
 
+## Settima tornata — ipotesi dal nulla (25/08/2026, sera)
+
+> Richiesta dell'utente: *«vedi come faccio io? ipotizzo dal nulla un diagramma 4d. fallo anche
+> tu. ragiona»*. Sette rappresentazioni inventate da zero, ognuna un modo di vedere che nel
+> progetto non esisteva: **il coro che cammina** (le palline ordinate come voci, ognuna col suo
+> passo), **il moto rettilineo** (chi sta a distanza d da dove stava d estrazioni fa — la 4ª
+> dimensione presa alla lettera), **l'orologio** (concentrazione circolare sui quadranti dei
+> resti), **lo specchio in profondità** (il riflesso di chi uscì n fa), **il mazzo dei ritardi**
+> (quali posti della classifica si pescano), **l'asimmetria** (il terzo momento), **il codice
+> binario** (i numeri come bit).
+
+**È la prima tornata dopo la quarta che porta qualcosa proprio al SuperEnalotto** — cinque
+adozioni:
+
+| adottata | netto SE | netto EJ |
+|---|---|---|
+| il posto del più fresco scelto (mazzo dei ritardi) | **0,0152** | −0,0135 |
+| specchio di un uscito due fa | **0,0120** | −0,0190 |
+| **bit accesi in tutto** | **0,0119** | **0,0144** (entrambi!) |
+| quanti col bit 16 acceso | **0,0116** | — |
+| **addensamento sull'orologio a 12 ore** | **0,0111** | **0,0206** (entrambi!) |
+| asimmetria della giocata | 0,0070 | **0,0288** (1ª della tornata EJ) |
+| specchio di un uscito tre fa | — | **0,0204** |
+| orologio a 13 ore | 0,0096 | **0,0164** |
+
+- «Quanti col bit 1 acceso» (EJ 0,0264) **non** adottata: è «quanti pari» travestita.
+- Non hanno retto da nessuna parte: il coro delle voci, il moto costante (in valore e schedina),
+  l'orologio a 7 e 9 ore, il posto del più atteso.
+- Nota di metodo: le due famiglie più «assurde» a priori (bit, orologio) reggono su **entrambi**
+  i tabelloni; le due più «fisiche» (coro, moto rettilineo) non reggono da nessuna parte.
+  L'eleganza non è un criterio, in nessuna direzione: decide la misura.
+
+Dopo il cammino (tavole a **129 SE / 146 EJ**): «specchio di un uscito due fa» entra **10º per
+presenza** sul SE, «specchio di un uscito tre fa» 18º sull'EJ — la famiglia dello specchio in
+profondità si piazza alta su entrambi. Resa nei soliti margini (SE 250 mani vuote contro 329;
+EJ 19 contro 51, il migliore visto finora ma dentro la banda).
+
 ## La ricerca arriva alle urne piccole (25/08/2026, sessione autonoma)
 
 `cerca jolly`, `cerca superstar`, `cerca euro`: la ricerca degli sguardi non era mai passata dalle
