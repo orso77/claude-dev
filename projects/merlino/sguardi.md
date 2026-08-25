@@ -536,6 +536,23 @@ ritardo esatto **non è guidata dal giorno della settimana**: ipotesi chiusa, no
 presenza** sul SE con la priorità più alta fra le nuove (2,06); «coppie a scala 6 e 7 fa» **6º**
 sull'EJ (priorità 2,14). Resa nella banda solita (SE 234 mani vuote contro 329; EJ 25 contro 51).
 
+## Nona tornata — gli incroci sistematici (25/08/2026, notte, pre-giocata)
+
+Gli incroci fra le famiglie vincenti, misurati al volo prima della giocata. Adottati (2+2):
+
+| | netto SE | netto EJ |
+|---|---|---|
+| **ritardo nella propria colonna** | **0,0127** | −0,0214 |
+| **sfasamento con l'ultima sull'orologio a 8** | **0,0107** | +0,0016 |
+| **quanti col ritardo multiplo di dodici** (l'orologio dei ritardi) | −0,0009 | **0,0191** |
+| **quanti col ritardo multiplo di otto** | −0,0076 | **0,0113** |
+
+A verbale i non-reggenti: gli incroci del «20 fa» (pari +0,0096 ai margini; alti, specchio,
+vicini, scale no), l'addensamento dei ritardi sull'orologio. Da fare con calma: il
+**sub-scomparto sul «20 fa»** (ipotesi trovata cercando: va verificata su un tratto mai usato).
+
+Tavole finali della giornata: **139 (SE) / 154 (EJ)**.
+
 ## La ricerca arriva alle urne piccole (25/08/2026, sessione autonoma)
 
 `cerca jolly`, `cerca superstar`, `cerca euro`: la ricerca degli sguardi non era mai passata dalle
