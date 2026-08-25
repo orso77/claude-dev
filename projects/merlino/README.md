@@ -54,7 +54,9 @@ su EJ — il primo «non c'e'» solido del progetto. Lungo la strada e' stata tr
 trappola (verifica contro il pre-rottura = regressione verso la media che conferma anche gli
 abbagli): [scomparto.md](scomparto.md).
 
-> Sessione del 25/08 (notte) documentata in [stato-sessione-20260825.md](stato-sessione-20260825.md).
+> Sessione del 25/08 (notte) documentata in [stato-sessione-20260825.md](stato-sessione-20260825.md);
+> sessione autonoma del pomeriggio in
+> [stato-sessione-20260825-autonoma.md](stato-sessione-20260825-autonoma.md).
 > Ci sono file NON committati sul sorgente (serve autorizzazione esplicita).
 
 **Le strategie di disposizione (24/08/2026)** — `Merlino.exe strategie`: a parita' di numeri
