@@ -72,6 +72,19 @@ stessa direzione: sull'EJ la forma di un'estrazione e quella della successiva no
 - Sotto la soglia di taratura (filo < 0,25 di equivalente) lo strumento è cieco: un «non
   certificato» non è un «non c'è».
 
+## Le urne piccole
+
+`filo jolly` / `filo superstar` / `filo euro` (stesso protocollo):
+
+| urna | ipotesi dal primo 70% | p sulla verifica | verdetto |
+|---|---|---|---|
+| Jolly (4.242) | la colonna della schedina, meno correlata | 0,657 | non certificato |
+| SuperStar (3.328) | metà del tabellone, meno correlata | 0,657 | non certificato |
+| Euronumeri (455) | quanti lontani dalla macchia di 6, più correlata | **0,065** | non certificato, ma da riguardare |
+
+L'Euronumeri sfiora la soglia — e sta sulla **stessa macchina dell'EuroJackpot**, l'unico gioco col
+filo certificato. Con 455 estrazioni non si può dire di più: si rimisura quando l'urna cresce.
+
 ## Cosa se ne fa la catena
 
 Niente da cambiare oggi: la catena **già usa** i B (è il suo meccanismo di correzione del tiro), e

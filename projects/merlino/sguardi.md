@@ -424,7 +424,39 @@ terne/quaterne ad altre larghezze, il resto della famiglia «forma che si muove�
 - La «distanza dal baricentro della macchia di **5**», adottata il 24/08, si riconferma su
   entrambi (SE +0,0105, EJ +0,0221): la taglia era giusta; la variante a 10 vale solo sull'EJ.
 - **Il tema che si ripete**: sull'EJ la famiglia della forma che si muove ha ormai tre membri
-  (somma, ampiezza, salto massimo) — e converge col certificato del [filo](filo.md).
+  (somma, ampiezza, salto massimo) — e converge col certificato del [filo](filo.md). Nella catena
+  EJ il «salto massimo rispetto all'ultima» entra subito coi B più forti (−0,46, segno negativo:
+  ancora il rimbalzo).
+
+### Il cammino dopo la quinta, e una nota onesta sulla resa
+
+Tavole a **124 (SE) e 139 (EJ)**. La catena ricamminata dà SE **230** mani vuote contro 329 del
+caso (il cammino della quarta aveva dato 198, quello della terza 199) ed EJ **27** contro 51.
+L'oscillazione 198↔230 a parità di margine sul caso è il percorso casuale dentro i plausibili, non
+le dimensioni: la banda è quella, e va letta come tale — il margine resta copertura.
+
+## La ricerca arriva alle urne piccole (25/08/2026, sessione autonoma)
+
+`cerca jolly`, `cerca superstar`, `cerca euro`: la ricerca degli sguardi non era mai passata dalle
+tre urne minori (venivano servite con dimensioni scritte a mano il 24/08). Esiti e adozioni in
+`OsservatoreExtra.cs`:
+
+| urna | vincitori (netto) | nota |
+|---|---|---|
+| **Jolly** (4.242) | fra il 31 e il 50 (0,0139) · **dentro il ventaglio della macchia di 5** (0,0124) · resto su 8 (0,0121) · entro tre dalla macchia di 3 (0,0114) | rumore bassissimo (~0,001): netti solidi |
+| **SuperStar** (3.328) | la decina dove cade (0,0202 — già in tavola, si riconferma) · resto su 4 (0,0176) · fra il 43 e il 54 (0,0168) | |
+| **Euronumeri** (455) | **usciti esattamente cinque fa (0,0506, 1º su 279)** · resto 4 su 7 (0,0415) · somma modulo 9 (0,0394) · ventaglio della macchia di 5 (0,0232) | |
+
+Due cose da segnare:
+
+- **La ripetizione a ritardo esatto è in cima anche qui: sesta urna su sei.** È la famiglia più
+  robusta dell'intero progetto, senza eccezioni.
+- **Il ventaglio della macchia**, bocciato sui tabelloni grandi nella quinta tornata, regge su
+  Jolly ed Euronumeri: una domanda può valere su un'urna e niente su un'altra, ed è il motivo per
+  cui ogni urna ha la sua tavola e la sua classifica.
+
+Il `filo` sulle urne piccole non certifica nulla (Jolly p 0,657, SuperStar p 0,657, Euronumeri
+p 0,065 — quest'ultimo da riguardare quando l'urna da 12 avrà più storia).
 
 ## Il controllo che risponde alla domanda «siamo migliorati?» — 24/08/2026
 
