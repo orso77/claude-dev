@@ -25,6 +25,14 @@
 >    che non serva per stabilire un ordine nel caos. Resta applicato dov'e' gia' (il cammino parte
 >    dal 01/07/2009) e non se ne riparla.
 
+**L'ottava tornata e il percorso dei giorni (25/08/2026, notte)** — inventare lungo i filoni
+fertili (ricodifiche strane, ritardi esatti) e nei loro incroci: **14 adozioni** (8 SE, 6 EJ);
+su entrambi i tabelloni reggono lo **sfasamento sull'orologio a 12** e il **ritardo nella propria
+decina**; «usciti esattamente 20 fa» entra **5º per presenza** sul SE, «coppie a scala 6-7» 6º
+sull'EJ. Tavole a **137 SE / 152 EJ**. `Merlino.exe giorni` chiude un'ipotesi: la ripetizione a
+ritardo esatto **non** è guidata dal giorno della settimana (max 2,4 scarti su 24 ritardi = caso):
+[sguardi.md](sguardi.md).
+
 **Le ipotesi dal nulla e la rosa condizionata (25/08/2026, notte)** — settima tornata su richiesta
 («ipotizzo dal nulla, fallo anche tu»): sette rappresentazioni inventate da zero; **cinque
 adozioni sul SE** (posto del più fresco, specchio di chi uscì 2 fa — 10º per presenza —, bit

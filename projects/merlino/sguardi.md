@@ -499,6 +499,43 @@ presenza** sul SE, «specchio di un uscito tre fa» 18º sull'EJ — la famiglia
 profondità si piazza alta su entrambi. Resa nei soliti margini (SE 250 mani vuote contro 329;
 EJ 19 contro 51, il migliore visto finora ma dentro la banda).
 
+## Ottava tornata — inventare lungo i filoni che hanno retto (25/08/2026, notte)
+
+> Richiesta dell'utente: *«trova altri sguardi e affina sempre di più, trova altri percorsi che
+> diano risultati, inventa inventa inventa»*. Ragionamento: i filoni fertili delle sette tornate
+> sono due — le **ricodifiche strane** (bit, orologio) e i **riferimenti temporali esatti**. Si è
+> inventato lungo quegli assi, nei loro **incroci**, e con ipotesi assurde di proposito.
+
+**14 adozioni** (8 SE, 6 EJ) — su entrambi i tabelloni reggono:
+
+| | netto SE | netto EJ |
+|---|---|---|
+| **sfasamento con l'ultima sull'orologio a 12** (orologio × tempo) | **0,0213** (18ª assoluta) | **0,0104** |
+| **ritardo nella propria decina** (l'ipotesi assurda di proposito) | **0,0147** | **0,0245** |
+
+Solo SE: prodotto delle cifre pari (0,0179) · orologio a 8 ore (0,0164) · **usciti esattamente 20
+fa** (0,0160 — a 4 concorsi/settimana è *lo stesso giorno di 5 settimane fa*) · usciti 6 fa e
+alti (0,0141) / e pari (0,0140) · progressioni sul cerchio (0,0101).
+
+Solo EJ: Fibonacci (0,0194) · vicini binari di un acceso delle ultime 5 (0,0188 — Hamming ×
+macchia) · specchio di un uscito 4 fa (0,0154) · coppie a scala 6 e 7 fa (0,0136).
+
+Non hanno retto da nessuna parte: quadrati e triangolari, stesso popcount dell'ultima, ritardi
+esatti 17-19 e 21-24, orologi a 6/10/11 (l'8 sì!), coppie a scala basse.
+
+**Il percorso nuovo aperto da questa tornata**: i picchi della famiglia regina (6, 7, e ora 20)
+cadono su ritardi che, ai ritmi settimanali dei concorsi, corrispondono spesso **allo stesso
+giorno della settimana**. `Merlino.exe giorni` misura se la ripetizione preferisce le coppie di
+concorsi dello stesso giorno oltre la struttura del calendario.
+
+**Esito di `giorni`: un «non c'è» pulito.** SE: su 24 ritardi il massimo scarto è 2,4 (ritardo
+12) — esattamente ciò che il caso produce su 24 prove; EJ: tutto sotto |1,7|. La ripetizione a
+ritardo esatto **non è guidata dal giorno della settimana**: ipotesi chiusa, non si riprova.
+
+**Dopo il cammino** (tavole a **137 SE / 152 EJ**): «usciti esattamente 20 fa» entra **5º per
+presenza** sul SE con la priorità più alta fra le nuove (2,06); «coppie a scala 6 e 7 fa» **6º**
+sull'EJ (priorità 2,14). Resa nella banda solita (SE 234 mani vuote contro 329; EJ 25 contro 51).
+
 ## La ricerca arriva alle urne piccole (25/08/2026, sessione autonoma)
 
 `cerca jolly`, `cerca superstar`, `cerca euro`: la ricerca degli sguardi non era mai passata dalle
