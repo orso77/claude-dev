@@ -48,3 +48,8 @@ resta copertura; il lavoro della giornata è sul **vedere** e sul primo filo tem
 - Euronumeri: filo p 0,065 con 455 estrazioni — stessa macchina dell'EJ, rivedere quando cresce.
 - La sovradispersione EJ (p 0,075 dalla sessione precedente) resta in osservazione.
 - I 3-centri SE oscillano attorno al caso (51 poi 43 contro 47): nessun segnale, non inseguirli.
+- **Idea per la prossima sessione — il Jolly come contesto dei sei.** Il Jolly è la settima
+  pallina della STESSA urna, ma per gli osservatori del SuperEnalotto è invisibile: `Precedente`
+  porta solo i sei. Dimensioni tipo «vicino al jolly dell'ultima» vedrebbero un pezzo di
+  estrazione che oggi nessuno guarda. Richiede di allargare il contesto (Catena/CercaSguardi):
+  da fare a mente fresca, non in coda a una sessione.
