@@ -19,6 +19,9 @@
    vale su Jolly/Euronumeri e niente sui tabelloni grandi: ogni urna ha la sua classifica.
 4. **Cammini rifatti** per tutte e cinque le urne con le tavole nuove, su dati veri; `giocata`
    end-to-end collaudata (vincolo Jolly verificato). Stati sul disco puliti e aggiornati.
+5. **Collaudo dell'incrementale con le tavole nuove**: su SE ed EJ *«la ripresa e'
+   indistinguibile dal cammino intero»* — la ripresa da stato salvato resta identica byte per
+   byte anche a 124/139 dimensioni.
 
 ## Nota onesta sulla resa
 
