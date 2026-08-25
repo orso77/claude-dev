@@ -25,6 +25,15 @@
 >    che non serva per stabilire un ordine nel caos. Resta applicato dov'e' gia' (il cammino parte
 >    dal 01/07/2009) e non se ne riparla.
 
+**La scatola 3D e la rosa (25/08/2026, sera)** — su richiesta («schema a 4 dimensioni: 3 per i
+numeri, la 4ª è il tempo... restringere al massimo le papabili»): `Tela3D.cs` (90 → 3×5×6) con 18
+domande nel generatore. Sul SE la vista 3D non supera il rumore; **sull'EJ regge e una parte è
+geometria vera** (coppie attigue nel volume 0,0227 contro il rimescolato −0,0164; adottate 2
+dimensioni). E `Merlino.exe rosa` misura il restringimento onesto: **la rosa si stringe quanto si
+vuole ma la concentrazione resta 1,00x** — scartare il 20% dello spazio costa il 20% delle vere.
+La strada che i dati indicano è l'esclusione **condizionata** all'ultima estrazione, sull'EJ:
+[rosa.md](rosa.md).
+
 **Il filo (25/08/2026, sessione autonoma)** — `Merlino.exe filo [ej|prova]`: il coefficiente B
 della catena messo nello scomparto, contro storie rimescolate che tolgono la meccanica delle
 finestre. Strumento tarato (non certifica il rumore, vede un filo iniettato da 0,25 in su). SE:

@@ -435,6 +435,33 @@ caso (il cammino della quarta aveva dato 198, quello della terza 199) ed EJ **27
 L'oscillazione 198↔230 a parità di margine sul caso è il percorso casuale dentro i plausibili, non
 le dimensioni: la banda è quella, e va letta come tale — il margine resta copertura.
 
+## Sesta tornata — la scatola 3D, col tempo come quarta dimensione (25/08/2026)
+
+> Richiesta dell'utente: *«metter i numeri in uno schema a 4 dimensioni dove le 3 dimensioni
+> rappresentano i numeri da 1 a 90 e la 4ª dimensione è il tempo... vedere se da questa visione
+> esce un pattern grafico... l'obiettivo è restringere al massimo le papabili»*.
+
+Costruita `Tela3D.cs`: i 90 numeri in una scatola **3×5×6** (EJ 2×5×5), il tempo come contesto
+(macchie, ritardi — la 4ª dimensione). 18 domande 3D nel generatore: vicinanza nel volume, macchia
+3D, la scatola dell'ultima (il ventaglio portato in 3D), «vicino in 3D a un uscito esattamente n
+fa» (la quarta dimensione esplicita), baricentro/compattezza/diametro/volume, progressioni
+vettoriali. Le famiglie forti hanno il paragone **a etichette rimescolate**: separa la geometria
+della scatola dal semplice insieme dei numeri.
+
+| | SE | EJ |
+|---|---|---|
+| **coppie attigue nella scatola 3D** | +0,0077 | **+0,0227** ✓ adottata |
+| la stessa, a etichette rimescolate | −0,0036 | −0,0164 (separa 0,0327 contro 0,0425: **è geometria**) |
+| **dentro la scatola dell'ultima** | −0,0006 | **+0,0102** ✓ adottata |
+| vicino in 3D a un uscito esattamente 3 fa | +0,0090 (il migliore SE, sotto la soglia) | +0,0024 |
+| tutte le altre (macchia 3D, baricentro, diametro, volume, progressioni…) | sotto il rumore | sotto il rumore |
+
+**Verdetto**: sul SuperEnalotto la vista 3D non porta nulla sopra il rumore — coerente con le 177
+disposizioni 2D del 17/08. **Sull'EuroJackpot invece la scatola legge qualcosa**: le coppie attigue
+nel volume separano più della stessa domanda a etichette rimescolate, quindi una parte del segnale
+è proprio la geometria. Adottate le due sopra soglia nella tavola EJ. È il terzo indizio della
+giornata che punta sull'EJ (dopo la famiglia della forma che si muove e il filo certificato).
+
 ## La ricerca arriva alle urne piccole (25/08/2026, sessione autonoma)
 
 `cerca jolly`, `cerca superstar`, `cerca euro`: la ricerca degli sguardi non era mai passata dalle
