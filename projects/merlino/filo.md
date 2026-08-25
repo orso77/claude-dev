@@ -60,6 +60,23 @@ Converge con un indizio **indipendente** della quarta tornata: la famiglia «for
 all'ultima» (somma, ampiezza) regge in `cerca` **solo sull'EuroJackpot**. Due strumenti diversi,
 stessa direzione: sull'EJ la forma di un'estrazione e quella della successiva non sono estranee.
 
+## La robustezza al taglio (aggiunta a fine sessione)
+
+Stesso protocollo con lo scomparto spostato:
+
+| taglio | ipotesi scelta sul primo tratto | verifica | p |
+|---|---|---|---|
+| 60% | **decine attaccate, meno correlata** (la stessa) | 348 estrazioni mai usate | **0,020** |
+| 70% | **decine attaccate, meno correlata** | 261 | **0,025** |
+| 80% | *attorno alla macchia di 10, più correlata* (un'altra) | 174 | 0,925 |
+
+Lettura onesta: al 60% e al 70% la ricerca converge **sulla stessa ipotesi** e la verifica la
+conferma due volte (i due tratti di verifica però si sovrappongono: non sono conferme
+indipendenti). All'80% il blocco di ricerca sceglie un'ipotesi diversa, che si rivela spuria: con
+137 dimensioni e segnali marginali la selezione non è stabile, e quel taglio **non ha mai messo
+alla prova il rimbalzo** — non lo conferma né lo contraddice. Il quadro resta: certificato
+marginale, coerente su due tagli, da rimisurare con l'archivio che cresce.
+
 ## I limiti, scritti subito
 
 - Il tratto di verifica EJ è di **261 estrazioni**: p 0,025 è ≈2σ, un certificato **marginale**.
