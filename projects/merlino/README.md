@@ -25,6 +25,20 @@
 >    che non serva per stabilire un ordine nel caos. Resta applicato dov'e' gia' (il cammino parte
 >    dal 01/07/2009) e non se ne riparla.
 
+**Il filo (25/08/2026, sessione autonoma)** — `Merlino.exe filo [ej|prova]`: il coefficiente B
+della catena messo nello scomparto, contro storie rimescolate che tolgono la meccanica delle
+finestre. Strumento tarato (non certifica il rumore, vede un filo iniettato da 0,25 in su). SE:
+niente certificabile (p 0,104). **EuroJackpot: CERTIFICATO il rimbalzo della forma** — «decine
+attaccate» anti-correlata nel tempo, p 0,025 sul tratto mai usato: un'estrazione compatta tende a
+essere seguita da una sparsa. Marginale (≈2σ su 261 estrazioni), da rimisurare quando l'archivio
+cresce; converge con la famiglia «forma rispetto all'ultima» che regge solo sull'EJ:
+[filo.md](filo.md).
+
+**La quinta tornata di sguardi (25/08/2026, sessione autonoma)** — varianti attorno ai vincitori
+della quarta: adottate **quaterne accese nelle ultime 30** (SE), **salto massimo rispetto
+all'ultima** e **baricentro della macchia di 10** (EJ). Tavole a 124 (SE) e 139 (EJ) dimensioni.
+`cerca` esteso anche alle urne piccole (jolly, superstar, euro): [sguardi.md](sguardi.md).
+
 **La quarta tornata di sguardi (25/08/2026)** — su richiesta («cerca tu nuovi sguardi… vedere
 laddove il mio occhio non arriva»): undici famiglie che l'occhio non puo' tenere (matrice delle
 coppie, ritardi incrociati, record personali, forma contro forma). Adottate: **specchio

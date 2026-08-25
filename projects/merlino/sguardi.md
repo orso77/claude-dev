@@ -406,6 +406,26 @@ La resa resta nella stessa banda di prima (SE: 198 concorsi a mani vuote contro 
 **vedere**: due sguardi nuovi validi su entrambi i tabelloni, due sulla forma che si muove validi
 sull'EJ, e tredici famiglie chiuse e messe a verbale perché non si riprovino.
 
+## Quinta tornata — l'intorno dei vincitori (25/08/2026, sessione autonoma)
+
+Varianti generate attorno a ciò che la quarta aveva promosso (16 domande nuove: quasi-specchio,
+terne/quaterne ad altre larghezze, il resto della famiglia «forma che si muove»). Stesso protocollo.
+
+| famiglia | netto SE | netto EJ | adottata |
+|---|---|---|---|
+| **quaterne tutte accese nelle ultime 30** | **+0,0103** | −0,0015 | solo SE |
+| **salto massimo rispetto all'ultima** | −0,0109 | **+0,0193** | solo EJ |
+| **distanza dal baricentro della macchia di 10** | −0,0099 | **+0,0355** (3ª su 348) | solo EJ |
+
+- Ai margini, non adottate ma a verbale: terne nelle ultime 30 (SE +0,0095), quaterne nelle
+  ultime 20 (SE +0,0094, EJ +0,0097).
+- Non hanno retto: quasi-specchio (entro 1 e 2), dispersione / pari / dove comincia / dove
+  finisce rispetto all'ultima.
+- La «distanza dal baricentro della macchia di **5**», adottata il 24/08, si riconferma su
+  entrambi (SE +0,0105, EJ +0,0221): la taglia era giusta; la variante a 10 vale solo sull'EJ.
+- **Il tema che si ripete**: sull'EJ la famiglia della forma che si muove ha ormai tre membri
+  (somma, ampiezza, salto massimo) — e converge col certificato del [filo](filo.md).
+
 ## Il controllo che risponde alla domanda «siamo migliorati?» — 24/08/2026
 
 La stessa catena, con le stesse dimensioni, fatta camminare su una storia **col tempo rimescolato**:
