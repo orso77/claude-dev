@@ -25,6 +25,15 @@
 >    che non serva per stabilire un ordine nel caos. Resta applicato dov'e' gia' (il cammino parte
 >    dal 01/07/2009) e non se ne riparla.
 
+**L'esito della giocata del 25/08 (27/08/2026)** — estrazioni del 25/08 scaricate: SE
+`15 36 62 67 69 70` J 32 SS 15, EJ `04 05 07 48 50` E 04 05. La giocata della nona tornata era
+SE `03 32 40 71 74 83` SS 27 · EJ `12 24 31 40 43` E 07 09: **zero centri su entrambi i
+tabelloni** (il 32 giocato è uscito solo come Jolly, che senza centri sui sei non conta).
+Nessuna sorpresa nel metro del progetto: a 6 numeri su 90 e 5 su 50, il doppio zero è l'esito
+singolo più probabile (~36%).
+Nuova giocata prodotta con le tavole a 139/154 per i concorsi successivi (SE 27/08, EJ 28/08):
+SE `03 24 33 38 52 81` J 58 SS 04 · EJ `12 26 30 41 49` E 03 08.
+
 **L'ottava tornata e il percorso dei giorni (25/08/2026, notte)** — inventare lungo i filoni
 fertili (ricodifiche strane, ritardi esatti) e nei loro incroci: **14 adozioni** (8 SE, 6 EJ);
 su entrambi i tabelloni reggono lo **sfasamento sull'orologio a 12** e il **ritardo nella propria
