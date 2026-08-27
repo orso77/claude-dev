@@ -25,6 +25,14 @@
 >    che non serva per stabilire un ordine nel caos. Resta applicato dov'e' gia' (il cammino parte
 >    dal 01/07/2009) e non se ne riparla.
 
+**L'affinamento a colpo sicuro (27/08/2026)** — la procedura proposta dall'utente dopo lo zero
+del 25/08, eseguita alla lettera: si osserva il primo anno dal 2009, poi su ogni estrazione si
+ritocca il sistema **finché non becca un 4**, e si avanza portandosi dietro tutte le correzioni
+(2.661 passi). Il 4 sul passato arriva sempre (per costruzione); il **primo colpo** — la
+predizione prima del ritocco — resta piatto a 0,39 per sedici anni (caso: 0,40) e i ritocchi
+necessari non calano mai (~1.200 costanti). La predizione finale contiene il 4 dell'ultima
+estrazione ritoccata: la funzione che emerge memorizza, non predice: [affina.md](affina.md).
+
 **L'esito della giocata del 25/08 (27/08/2026)** — estrazioni del 25/08 scaricate: SE
 `15 36 62 67 69 70` J 32 SS 15, EJ `04 05 07 48 50` E 04 05. La giocata della nona tornata era
 SE `03 32 40 71 74 83` SS 27 · EJ `12 24 31 40 43` E 07 09: **zero centri su entrambi i
