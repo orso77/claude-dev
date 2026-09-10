@@ -30,6 +30,25 @@
 >    positivo. La misura del 17/08 resta dov'e', nell'archivio storico, e li' finisce. Il TODO
 >    aperto («la giocata del modello e' piu' popolare dei compleanni») e' **chiuso: non si fa**.
 
+**La catena batte il controllo più severo (10/09/2026)** — fino a oggi il paragone era il **caso
+puro**: cinque sestine sorteggiate indipendenti, che però si sovrappongono e coprono 26 caselle su
+90 invece delle 30 della catena. Con più tabellone coperto si azzecca di più meccanicamente, senza
+prevedere nulla. Il metro giusto è il **caso sparso** — cinque sestine a caso ma **disgiunte**,
+stessa copertura, zero intelligenza. Esito, appaiato: **sul SuperEnalotto la catena vince
++0,0343 ± 0,0157 = +2,18 σ** — *sta scegliendo quali numeri, non solo evitando di ripeterli*. È la
+prima volta che qualcosa nel progetto supera un controllo di questo tipo. Sull'EuroJackpot invece è
+pari (−0,13 σ). Da qui in poi il numero da battere è **1,1569 sul SE**, non 1,1239:
+[caso-sparso.md](caso-sparso.md).
+
+**La deriva — tredicesima tornata (10/09/2026)** — un asse che la tavola non aveva: non «da quanto
+manchi» né «chi ti segue», ma **se il tuo passato sta cambiando**. Un numero che usciva ogni 40 e
+ora esce ogni 15 non è in ritardo né in orario: è un numero diverso. Aggiunti al contesto la
+frequenza nelle ultime 200 estrazioni e l'ultimo intervallo completato. Su 13 domande ne regge una
+per gioco; adottata **solo sull'EuroJackpot**, dove porta la catena al suo massimo (1,3432 →
+**1,3524**), mentre sul SuperEnalotto il braccio appaiato la dà a −0,21 σ e non entra. La
+dodicesima tornata (grafo delle coppie, moto a tre tempi) non ha prodotto nulla sopra la soglia:
+[sguardi.md](sguardi.md).
+
 **La quinta causa dell'incrementale (10/09/2026)** — `Riprendi` accettava lo stato salvato se il
 **numero** di dimensioni corrispondeva; ma sostituendone una con un'altra il numero non cambia, e la
 catena riprendeva con una memoria costruita guardando **altro**, senza dare errore. E' successo

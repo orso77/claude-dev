@@ -812,6 +812,60 @@ completo, con la regola che ne esce, sta in [ridondanza.md](ridondanza.md). In b
 > decide il braccio appaiato. Una variante di uno sguardo già in tavola si **sostituisce**, non si
 > aggiunge. E la ricerca va portata **lontano** da ciò che c'è già.
 
+## Dodicesima tornata — tre assi nuovi, tutti a vuoto (10/09/2026)
+
+Dopo il muro della ridondanza, la ricerca è stata portata **lontano** da ciò che c'è, come dice la
+regola nuova. Tre assi che la tavola non tocca affatto, 14 domande:
+
+- **il grafo delle coppie** — la sestina come rete: coppie mai viste, orfani, in quanti gruppi si
+  spezza, quanto è fitta, terne con tutte e tre le coppie già viste;
+- **il legame a tre** — le terne, che «coppie mai viste» non copre;
+- **il moto a tre tempi** — con `Penultima` si può finalmente chiedere *dove sta andando* la figura:
+  il baricentro continua nello stesso verso, accelera, l'ampiezza cresce, il prolungamento del moto.
+
+**Nessuna passa.** Il massimo è +0,0052 («di quanto accelera il baricentro»), contro una soglia di
+adozione di +0,0095. Il moto a tre tempi va sotto zero quasi ovunque sull'EJ (fino a −0,0376).
+
+## Tredicesima tornata — la deriva (10/09/2026)
+
+L'osservazione che l'ha fatta nascere: **tutto ciò che ha retto guarda il numero rispetto al proprio
+passato** (il ritardo in unità di passo, chi lo segue) — e nessuna dimensione chiede **se quel
+passato sta cambiando**. Un numero che per anni usciva ogni 40 concorsi e negli ultimi mesi esce
+ogni 15 non è «in ritardo» né «in orario»: è un numero diverso da quello che era.
+
+Per formularlo è servito allargare ancora il contesto: `FrequenzaRecente` (le ultime 200 estrazioni)
+e `UltimoPasso` (l'ultimo intervallo completato di ogni numero). Da lì la **deriva**: quanto un
+numero sta uscendo più o meno spesso di quanto gli spetterebbe.
+
+| sguardo | netto SE | netto EJ |
+|---|---|---|
+| **la deriva media della sestina** | **+0,0139** | +0,0015 |
+| **quanti stanno uscendo più spesso del solito** | −0,0063 | **+0,0172** |
+| quanti hanno rallentato all'ultimo giro | +0,0069 | **+0,0161** |
+| la deriva più forte della sestina | +0,0064 | −0,0045 |
+| quanti stanno uscendo molto più spesso del solito | +0,0060 | +0,0009 |
+| quanti stanno uscendo meno spesso del solito | +0,0056 | −0,0003 |
+| quanti stanno uscendo molto meno spesso del solito | +0,0018 | −0,0002 |
+| quanti aspettano già più dell'ultima volta | +0,0016 | −0,0264 |
+| quanti sono oltre metà del passo E in deriva su | −0,0001 | −0,0038 |
+| quanto sono diverse fra loro le derive | −0,0006 | +0,0008 |
+| il ritardo contro l'ultimo passo | −0,0038 | −0,0012 |
+| quanti hanno accelerato all'ultimo giro | −0,0059 | +0,0022 |
+| quanti sono oltre metà del passo E in deriva giù | −0,0209 | +0,0089 |
+
+**Adottata una sola per gioco**, come impone la regola nuova. E il braccio appaiato ha deciso:
+
+| | senza deriva | con deriva | contributo appaiato | esito |
+|---|---|---|---|---|
+| SuperEnalotto | **1,1944** | 1,1912 | −0,0032 ± 0,0149 = −0,21 σ | **non entra** |
+| EuroJackpot | 1,3432 | **1,3524** | +0,0092 ± 0,0207 = +0,44 σ | **entra** (massimo misurato) |
+
+Sull'EJ il contributo non arriva ai due sigma — quindi non è *provato* — ma è positivo e porta la
+catena al valore più alto mai raggiunto su quel tabellone: si tiene, dichiarando che non è provato.
+Sul SE la misura di `cerca` diceva +0,0139 e la catena dice −0,21 σ: **è di nuovo la differenza fra
+separare da soli e aggiungere agli altri**, la lezione dell'undicesima tornata, questa volta usata
+in tempo per non adottare.
+
 ## Cosa resta da fare
 
 - Le urne piccole (Jolly, SuperStar) non hanno margine di copertura da prendere. Se si vuole
