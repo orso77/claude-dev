@@ -30,6 +30,31 @@
 >    positivo. La misura del 17/08 resta dov'e', nell'archivio storico, e li' finisce. Il TODO
 >    aperto («la giocata del modello e' piu' popolare dei compleanni») e' **chiuso: non si fa**.
 
+**La quinta causa dell'incrementale (10/09/2026)** — `Riprendi` accettava lo stato salvato se il
+**numero** di dimensioni corrispondeva; ma sostituendone una con un'altra il numero non cambia, e la
+catena riprendeva con una memoria costruita guardando **altro**, senza dare errore. E' successo
+davvero: un «ripristino» ha riportato 1,1785 senza aver ricamminato nulla. Lo stato porta adesso
+un'**impronta della tavola** (nomi e descrizioni di tutte le dimensioni) e viene rifiutato se non
+coincide: [incrementale.md](incrementale.md).
+
+**Il muro della ridondanza (10/09/2026)** — la lezione più utile della giornata, e viene da un
+errore preso in tempo. L'undicesima tornata ha cercato **nell'intorno dei vincitori** della decima e
+ha trovato sette sguardi con netti tutti buoni (fino a +0,0333). Adottati, la catena è **peggiorata**:
+SE da 1,1944 a 1,1625, EJ da 1,3432 a 1,3215, e il braccio appaiato ha dato **−2,08 σ**, cioè un
+peggioramento *provato*. Il motivo: **il netto di `cerca` misura quanto uno sguardo separa DA SOLO,
+non quanto aggiunge a quelli già in tavola** — e quattro modi di scrivere la stessa classifica fanno
+pesare quell'unico indizio quanto quattro. Da qui la regola nuova: `cerca` è un filtro di ammissione,
+il **braccio appaiato** è il criterio di adozione; una variante di uno sguardo presente si
+**sostituisce**, non si aggiunge; la ricerca va portata **lontano** da ciò che c'è già:
+[ridondanza.md](ridondanza.md).
+
+**La prova appaiata (10/09/2026)** — `Catena` ha un braccio che sorteggia le candidate **una volta
+sola** e le giudica **due**: con tutte le dimensioni e senza quelle in prova, pescando dallo stesso
+punto del caso. La differenza è per costruzione il contributo di quelle dimensioni, e ha una sigma
+onesta — cosa che il confronto fra due cammini fatti in momenti diversi non ha. Verdetto sulle tre
+della decima tornata: **+0,0305 ± 0,0151 = +2,02 σ sul SuperEnalotto** (EJ +0,0355 ± 0,0268, non
+ancora provato). Si punta su altre dimensioni con `MERLINO_SENZA="nome;nome"`.
+
 **La decima tornata di sguardi (10/09/2026)** — su richiesta («devi trovare nuovi sguardi per
 predire efficacemente se»): sette famiglie mai provate, 34 domande, e per due di esse il contesto
 dell'osservatore è stato allargato perché prima non erano nemmeno formulabili — il **ritmo proprio

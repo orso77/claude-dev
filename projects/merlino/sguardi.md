@@ -747,6 +747,71 @@ preso per quello che è — una tavola da 50 con 676 estrazioni e un fondo di ru
 Da notare che **il più fresco non dice niente e il più atteso sì**: la stessa domanda, cambiando
 l'estremo, passa da +0,0006 a +0,0113 sul SE. Non era prevedibile e non era stato ipotizzato.
 
+## Undicesima tornata — l'intorno dei vincitori, e il muro che ci ha fermati (10/09/2026)
+
+> Mandato: *«fai tutto ciò che serve per avere una predizione il più efficace possibile»*.
+
+**29 domande** costruite attorno ai tre sguardi che la decima aveva fatto passare — il seguito, il
+posto del più atteso, il ritmo proprio — con il metodo della quinta tornata («l'intorno dei
+vincitori»). Più il **seguito a due passi**, che ha richiesto un altro allargamento del contesto
+(`Dopo2` e `Penultima`).
+
+### Cosa ha trovato la misura
+
+| sguardo | netto SE | netto EJ |
+|---|---|---|
+| quanti fra i più seguiti dell'ultima, **in proporzione** | **+0,0174** | **+0,0214** |
+| quanti dei primi tre posti sono sopra il proprio passo | **+0,0141** | −0,0059 |
+| quanti sono **seguiti E** oltre metà del proprio passo | **+0,0105** | **+0,0148** |
+| quanti fra i **sei** più seguiti dell'ultima | +0,0032 | **+0,0333** |
+| in che posto della sestina sta il passo più lungo | −0,0052 | **+0,0186** |
+| quanti fra i più seguiti delle **ultime due** | −0,0064 | **+0,0167** |
+| quanti sono seguiti **E freschi** | +0,0007 | **+0,0150** |
+| quanti fra i 18 MENO seguiti dell'ultima | +0,0088 | +0,0056 |
+| in che posto sta il più atteso PER SE STESSO | +0,0074 | +0,0031 |
+| quanti fra i più seguiti a due passi dalla penultima | +0,0058 | +0,0035 |
+| il ritardo del più atteso in unità di passo proprio | +0,0058 | +0,0136 |
+| quanti oltre tre quarti del proprio passo | +0,0052 | +0,0100 |
+| in che posto della sestina sta il passo più corto | +0,0050 | +0,0126 |
+| quanti fra i 24 più seguiti | +0,0045 | +0,0060 |
+| quanti dei più seguiti stanno nella prima metà della sestina | +0,0038 | +0,0059 |
+| posto medio in classifica di seguito | +0,0021 | −0,0016 |
+| quanti oltre un quarto del proprio passo | +0,0002 | −0,0006 |
+| quanti col passo proprio più corto della media di tabellone | 0,0000 | 0,0000 |
+| il passo medio della sestina | −0,0004 | +0,0016 |
+| quanto sono diversi fra loro i passi della sestina | −0,0006 | −0,0074 |
+| quanti fra i 12 più seguiti | −0,0009 | +0,0152 |
+| in che posto sta il più frequente | −0,0018 | −0,0015 |
+| in che posto sta il più seguito | −0,0031 | −0,0137 |
+| quanti sono di solito **seguiti da** uno dell'ultima (all'indietro) | −0,0046 | −0,0124 |
+| quanti fra i 45 più seguiti | −0,0051 | +0,0136 |
+| in che posto sta il meno frequente | −0,0054 | +0,0064 |
+| quanti fra i 36 più seguiti | −0,0102 | +0,0147 |
+| quanti fra i più seguiti della penultima (a un passo) | −0,0109 | +0,0032 |
+| quanti oltre un quarto in più del proprio passo | −0,0175 | +0,0008 |
+
+Tre osservazioni che restano valide comunque sia andata poi:
+
+- **Il seguito pesato batte quello grezzo** su entrambi i tabelloni (+0,0174 contro +0,0161 sul SE,
+  +0,0214 contro +0,0039 sull'EJ). Dividere per la frequenza di chi precede toglie il vantaggio
+  artificiale dei numeri che escono spesso: quel che resta è legame, non abbondanza.
+- **Il seguito all'indietro non funziona** (−0,0046 / −0,0124). Il legame, se c'è, ha un verso.
+- Sull'EJ il seguito dà il massimo con la **testa strettissima** (sei: +0,0333; diciotto: +0,0039);
+  sul SE è il contrario. Due tabelloni, due comportamenti.
+
+### E poi il muro
+
+Adottate le sette migliori, la catena è **peggiorata** — SE da 1,1944 a 1,1625, EJ da 1,3432 a
+1,3215 — e il braccio appaiato ha dato **−2,08 σ sul SuperEnalotto**: un peggioramento *provato*.
+
+La causa è la **ridondanza**: cercando nell'intorno dei vincitori si producono varianti della stessa
+cosa, e la somma di implausibilità della catena conta più volte lo stesso indizio. Il resoconto
+completo, con la regola che ne esce, sta in [ridondanza.md](ridondanza.md). In breve:
+
+> **Il netto di `cerca` è un filtro di ammissione, non un criterio di adozione.** L'adozione la
+> decide il braccio appaiato. Una variante di uno sguardo già in tavola si **sostituisce**, non si
+> aggiunge. E la ricerca va portata **lontano** da ciò che c'è già.
+
 ## Cosa resta da fare
 
 - Le urne piccole (Jolly, SuperStar) non hanno margine di copertura da prendere. Se si vuole

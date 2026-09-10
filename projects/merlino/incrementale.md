@@ -150,6 +150,36 @@ SuperEnalotto e `06 10 26 32 41` all'EuroJackpot uscivano identiche prima e dopo
 | `Catena.cs` | `Salva`/`Riprendi` con memoria completa e rifiuto degli stati parziali; `SemeDelPasso`; presenza ricalcolata solo su `i % 50` più una volta in `Mostra`; catalogo di blocco fatto crescere nel cammino; `MERLINO_FERMA`; somma dell'entropia in ordine di chiave |
 | `Blocco.cs` | `CatalogoFinoA`, `Aggiungi`, `Presenze`; entropia in ordine di chiave; `K` per la taglia del tabellone |
 
+## La quinta causa, trovata il 10/09/2026 — la tavola cambiata a parita' di numero
+
+Le quattro cause chiuse il 21/08 riguardavano tutte la **memoria**: cosa si salvava, con che seme, e
+quali dati guardava il catalogo. Ne restava una, dello stesso tipo, che nessuno dei nove punti di
+rottura poteva scoprire — perche' non dipende da DOVE ci si ferma, ma da COSA c'e' in tavola quando
+si riprende.
+
+`Riprendi` accettava lo stato se il **numero** di dimensioni corrispondeva. Ma sostituendo una
+dimensione con un'altra il numero **non cambia**: la catena riprendeva con una memoria — catalogo,
+bersagli, coefficienti A e B — costruita guardando **altro**. Nessun errore, nessun avviso: solo un
+risultato falso.
+
+**Come si e' visto.** Scambiando il seguito grezzo con quello pesato (entrambe 142 dimensioni sul SE)
+e poi tornando indietro, il cammino ha riportato **1,1785** dichiarandolo un ripristino. Non aveva
+ricamminato niente: aveva riletto la memoria del test precedente. Il valore vero era 1,1944, e la
+differenza si e' vista solo perche' mancava a schermo la riga «In prova» che un cammino vero stampa.
+
+**Il rimedio.** Lo stato porta ora un'**impronta della tavola** — nomi e descrizioni di tutte le
+dimensioni ridotti a un numero — e viene rifiutato se l'impronta non coincide:
+
+```
+  Le dimensioni sono lo stesso numero ma non sono le stesse di quando lo
+  stato e' stato salvato: la memoria riguarda altro. Si ricammina da capo.
+```
+
+**Il limite, dichiarato.** L'impronta vede nome e descrizione, **non il codice**. Chi cambiasse solo
+il calcolo lasciando intatte le due stringhe non verrebbe intercettato. In questo progetto la
+descrizione porta sempre il netto misurato — quindi cambia insieme al calcolo — ma e' una
+convenzione, non una garanzia: **nel dubbio si cancella il file di stato**.
+
 ## Cosa resta aperto
 
 - **Il collaudo non è automatico.** `MERLINO_FERMA` esiste, ma il confronto fra i due cammini lo si
