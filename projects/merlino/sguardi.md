@@ -636,6 +636,117 @@ Non la previsione. Ma:
 **Sono miglioramenti dello strumento, non del risultato.** La distinzione va tenuta: uno strumento
 onesto che dice «non c'è» vale più di uno che dice «c'è» perché è rotto.
 
+## Decima tornata — il ritmo, il seguito, la curvatura (10/09/2026)
+
+> Richiesta dell'utente, dopo una serie di giocate a zero: *«devi trovare nuovi sguardi per predire
+> efficacemente se»*.
+
+**Sette famiglie inventate da zero, 34 domande**, nessuna già provata nelle nove tornate precedenti.
+Due di esse non erano nemmeno *formulabili* prima: il contesto dell'osservatore non conteneva i dati
+necessari, e per costruirle è stato allargato (`Osservatore.Contesto` + `Catena.Vivo`, che va tenuto
+in pari a mano — se diverge, la catena vede un contesto diverso da `cerca` e non lo segnala nessuno).
+
+| famiglia | l'idea | cosa non c'era prima |
+|---|---|---|
+| **A — il ritmo proprio** | il ritardo *rapportato al passo medio di quel numero*: 20 è tanto per chi esce ogni 12, poco per chi esce ogni 40 | `PassiSomma/Quadri/Conta`: gli intervalli fra due uscite dello stesso numero |
+| **B — il seguito** | chi esce nell'estrazione **subito dopo** una che conteneva un dato numero (legame sfasato di un passo) | `Dopo[m,n]`: la matrice delle transizioni, gemella sfasata di `Insieme` |
+| **C — l'accelerazione** | le **differenze seconde** dei salti: la curvatura della sestina, non la pendenza | — |
+| **D — la figura come area** | rettangolo contenitore, quanto è pieno, perimetro, angoli accesi | — |
+| **E — la firma delle decine** | il **profilo ordinato** (2-1-1-1-1 ≠ 3-1-1-1-0), non solo il massimo | — |
+| **F — aritmetica con l'ultima** | la sestina nuova come *risultato di un conto* su quella vecchia: somme, differenze, doppi, metà | — |
+| **G — i ritardi in ordine** | non quanto valgono, ma **come sono disposti** lungo la sestina ordinata | — |
+
+Il ritmo (A) è deliberatamente diverso dal **record**, provato e bocciato in quarta tornata: il
+record è un estremo, il passo medio è il centro della distribuzione di quel numero.
+
+### Quelle che hanno retto
+
+| famiglia | netto SE | netto EJ | adottata |
+|---|---|---|---|
+| **quanti sono fra i più seguiti dell'ultima** | **+0,0161** (9ª su 541) | +0,0039 | solo SE |
+| **in che posto della sestina sta il più atteso** | **+0,0113** | −0,0130 | solo SE |
+| **quanti oltre metà del proprio passo** | **+0,0102** | **+0,0122** | **entrambe** |
+| cambi di verso dei salti | −0,0075 | **+0,0205** | solo EJ |
+| quanti oltre il doppio del proprio passo | −0,0050 | **+0,0175** | solo EJ |
+| perimetro della figura | −0,0030 | **+0,0164** | solo EJ |
+| quanti col ritmo più irregolare del proprio passo | −0,0010 | **+0,0145** | solo EJ |
+| quanti sono il doppio o la metà di uno dell'ultima | −0,0042 | **+0,0140** | solo EJ |
+
+I netti stanno dentro la fascia di quelle già adottate nelle tornate precedenti (+0,0095 .. +0,0154):
+non è una soglia inventata adesso, è la stessa di agosto.
+
+**«Quanti oltre metà del proprio passo» regge su entrambi i tabelloni** — la credenziale più forte,
+la stessa di «specchio di uno dell'ultima» e della ripetizione a ritardo esatto. È anche la più
+interessante come idea: dice che il ritardo *da solo* mette a confronto numeri con ritmi diversi, e
+che rapportarlo al ritmo di ciascuno separa meglio.
+
+Il **seguito** (B) è il risultato più curioso della tornata: la forma aggregata («quanti sono fra i
+diciotto più seguiti dell'ultima») regge bene sul SE, mentre le forme per singolo numero («già
+usciti almeno 1/2/3 volte dopo uno dell'ultima») danno **netto 0,0000-0,0018**, cioè nulla. Il
+legame, se c'è, sta nella *classifica* dei candidati, non nel conteggio grezzo di una coppia.
+
+### Quelle che NON hanno retto — scritte perché non si riprovino
+
+| domanda | netto SE | netto EJ |
+|---|---|---|
+| già usciti almeno 1 / 2 / 3 volte subito dopo uno dell'ultima | +0,0008 / +0,0018 / −0,0002 | ~0,0000 |
+| somma dei seguiti dell'ultima, in fasce da cinque | −0,0019 | −0,0026 |
+| quanti oltre il proprio passo (soglia 1,0) | +0,0011 | +0,0125 |
+| quanti oltre una volta e mezzo il proprio passo | −0,0067 | +0,0066 |
+| quanti in orario col proprio passo (entro un quarto) | −0,0075 | −0,0209 |
+| somma dei ritardi in unità di passo proprio | +0,0040 | −0,0099 |
+| quanti col ritmo regolare (scarto sotto metà passo) | +0,0007 | +0,0001 |
+| salti in accelerazione | −0,0026 | +0,0053 |
+| differenza seconda massima | +0,0029 | −0,0104 |
+| somma delle differenze seconde | −0,0105 | +0,0116 |
+| lato lungo del rettangolo contenitore | −0,0048 | −0,0169 |
+| quanto è pieno il rettangolo contenitore | −0,0093 | −0,0149 |
+| quanti angoli del rettangolo contenitore accesi | −0,0019 | +0,0046 |
+| distanza di schedina fra i due più lontani | −0,0029 | −0,0088 |
+| firma delle decine (profilo ordinato) | +0,0018 | +0,0097 |
+| la seconda decina più affollata | −0,0075 | +0,0091 |
+| quante decine con esattamente un numero | −0,0005 | +0,0105 |
+| distanza fra la decina più bassa e la più alta occupata | −0,0039 | +0,0067 |
+| quanti sono somma di due dell'ultima | +0,0013 | −0,0093 |
+| quanti sono differenza di due dell'ultima | +0,0059 | −0,0291 |
+| quanti distano da uno dell'ultima quanto la sua somma di cifre | +0,0040 | −0,0200 |
+| quante volte il ritardo sale lungo la sestina | −0,0020 | +0,0025 |
+| in che posto della sestina sta il più fresco | +0,0006 | +0,0010 |
+| il ritardo più alto e quello più basso sono attaccati | +0,0059 | −0,0089 |
+
+### L'effetto sul cammino (tavola SE a 142 dimensioni)
+
+| SuperEnalotto, 2.824 previsioni | prima (139) | dopo (142) |
+|---|---|---|
+| centri medi della catena | 1,1640 | **1,1944** |
+| concorsi a **zero centri** | 230 | **211** |
+| concorsi a **due centri** | 587 | **664** |
+| caso puro (invariato) | 1,1239 | 1,1239 |
+
+**+86 numeri azzeccati** e 19 concorsi a mani vuote in meno. La taglia è dell'ordine dei **due
+sigma**: è un indizio buono, non una prova — la prova sarebbe un confronto **appaiato** dentro lo
+stesso cammino (due bracci con e senza le tre nuove), che si può costruire come è stato fatto per il
+rimbalzo.
+
+Il fatto più istruttivo è dove sono finite in classifica di **presenza**: **73ª, 117ª e 142ª su
+142**, cioè in fondo. E la catena migliora lo stesso. **Presenza e capacità di escludere sono due
+criteri diversi**, ed è la dimostrazione più netta finora del cambio di criterio del 24/08: una
+dimensione può avere una distribuzione piatta sulle estrazioni vere e nondimeno separarle bene dalle
+combinazioni qualunque.
+
+Effetto collaterale utile: con la tavola cambiata il braccio del rimbalzo (vedi
+[rimbalzo.md](rimbalzo.md)) è passato da **+1,25 σ a −1,95 σ**. Un guadagno che cambia segno quando
+si cambiano le dimensioni attorno non era un segnale: conferma il verdetto.
+
+**La famiglia D (la figura come area) è quella che è caduta peggio sul SuperEnalotto**: rettangolo
+contenitore, riempimento, perimetro, distanza fra i due più lontani — tutte sotto zero. Converge con
+il verdetto del 17/08 sul modello grafico: *la posizione di un numero su una griglia è una
+convenzione tipografica, non una proprietà dell'urna*. Il perimetro regge sull'EJ (+0,0164) e va
+preso per quello che è — una tavola da 50 con 676 estrazioni e un fondo di rumore alto.
+
+Da notare che **il più fresco non dice niente e il più atteso sì**: la stessa domanda, cambiando
+l'estremo, passa da +0,0006 a +0,0113 sul SE. Non era prevedibile e non era stato ipotizzato.
+
 ## Cosa resta da fare
 
 - Le urne piccole (Jolly, SuperStar) non hanno margine di copertura da prendere. Se si vuole

@@ -24,6 +24,32 @@
 > 2. **Il cambiamento del macchinario del 2009 non va mai piu' preso in considerazione**, a meno
 >    che non serva per stabilire un ordine nel caos. Resta applicato dov'e' gia' (il cammino parte
 >    dal 01/07/2009) e non se ne riparla.
+> 3. **La popolarita' dei numeri e' FUORI dal progetto (10/09/2026).** *«io della popolarita' non
+>    ne voglio mai piu' sentir parlare»*, *«me ne frego della popolarita'»*. Non si misura, non si
+>    propone, non si usa per scegliere la giocata, non la si cita nemmeno di sfuggita come lato
+>    positivo. La misura del 17/08 resta dov'e', nell'archivio storico, e li' finisce. Il TODO
+>    aperto («la giocata del modello e' piu' popolare dei compleanni») e' **chiuso: non si fa**.
+
+**La decima tornata di sguardi (10/09/2026)** — su richiesta («devi trovare nuovi sguardi per
+predire efficacemente se»): sette famiglie mai provate, 34 domande, e per due di esse il contesto
+dell'osservatore è stato allargato perché prima non erano nemmeno formulabili — il **ritmo proprio
+di ogni numero** (gli intervalli fra due sue uscite) e il **seguito** (la matrice di chi esce
+nell'estrazione *dopo* una che conteneva un dato numero, gemella sfasata di «insieme»). Hanno retto
+**tre sguardi sul SuperEnalotto** — «quanti sono fra i più seguiti dell'ultima» (+0,0161, **9ª su
+541**), «in che posto della sestina sta il più atteso» (+0,0113), «quanti oltre metà del proprio
+passo» (+0,0102) — e altri **cinque sull'EuroJackpot**. Il terzo regge su **entrambi i tabelloni**
+(+0,0122 EJ): la credenziale più forte. Le altre 26 sono a verbale perché non si riprovino, e la
+famiglia caduta peggio sul SE è «la figura come area» — che converge col verdetto del 17/08 sul
+modello grafico: [sguardi.md](sguardi.md).
+
+**Il rimbalzo della forma, provato e bocciato dal proprio controllo (10/09/2026)** — l'unica cosa
+certificata del progetto (sull'EJ «decine attaccate» è anti-correlata nel tempo, p 0,025) messa a
+lavorare come **filtro sulle candidate**, con un quarto braccio dentro la catena e la differenza
+misurata **appaiata** (stesso passo, stesso pool, stesso seme). Guadagna su entrambi i giochi, ma
+mai oltre 1,25 σ — e soprattutto **sull'EuroJackpot il verso SBAGLIATO guadagna cinque volte più di
+quello certificato** (+0,0229 contro +0,0046). Quindi non è il rimbalzo: è il filtrare in sé, cioè
+la solita leva della copertura. Il certificato resta vero come misura e inutilizzabile come
+previsione: [rimbalzo.md](rimbalzo.md).
 
 **L'affinamento a colpo sicuro (27/08/2026)** — la procedura proposta dall'utente dopo lo zero
 del 25/08, eseguita alla lettera: si osserva il primo anno dal 2009, poi su ogni estrazione si

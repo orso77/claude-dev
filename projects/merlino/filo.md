@@ -108,3 +108,15 @@ Niente da cambiare oggi: la catena **già usa** i B (è il suo meccanismo di cor
 le dimensioni restano tutte. Il certificato dice che sull'EJ quel meccanismo ha almeno un filo vero
 da seguire. Se il rimbalzo regge alla crescita dell'archivio, il passo successivo è dargli più
 peso in modo esplicito sull'EJ.
+
+## Aggiornamento 10/09/2026 — il passo successivo è stato fatto, e non ha funzionato
+
+Il rimbalzo è stato messo a lavorare come **filtro esplicito sulle candidate**, su entrambi i giochi,
+con la differenza misurata appaiata e il **controllo al verso opposto**. Guadagna sempre e mai oltre
+1,25 σ; ma sull'EuroJackpot — il tabellone del certificato — **il verso sbagliato guadagna cinque
+volte più di quello giusto**. Non è il rimbalzo a guadagnare: è il filtrare in sé.
+
+**Il certificato di questo file resta valido come misura.** Non è stato smentito: è stato provato
+come *previsione* e a quella taglia non sposta i centri. Una correlazione di −0,126 su 261
+estrazioni è reale e insieme troppo sottile per uno strumento che conta numeri azzeccati. Dettagli e
+tabelle in [rimbalzo.md](rimbalzo.md).
