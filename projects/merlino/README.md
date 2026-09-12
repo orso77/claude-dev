@@ -30,6 +30,26 @@
 >    positivo. La misura del 17/08 resta dov'e', nell'archivio storico, e li' finisce. Il TODO
 >    aperto («la giocata del modello e' piu' popolare dei compleanni») e' **chiuso: non si fa**.
 
+**La giocata per il concorso SE del 12/09/2026 (12/09/2026)** — su richiesta («dammi 6 numeri
+vincenti per l'estrazione di stasera»), premesso una volta che nessuno prevede un'estrazione.
+Archivio aggiornato all'**11/09** (2 estrazioni SE, 1 EJ) con il binario **ricompilato** — la
+trappola del binario stantio resta la prima cosa da escludere. Lo stato salvato è stato **rifiutato
+dall'impronta della tavola** (le dimensioni non erano le stesse di quando fu scritto): cammino
+intero da capo, 2.828 passi dal 01/07/2009, 6,4 minuti, tavola a **142 dimensioni** di cui 3 nel
+braccio di prova.
+
+Misure di questo cammino: catena **1,1943**, caso sparso 1,1568, caso puro 1,1235; la catena batte
+il caso sparso di **+0,0375 ± 0,0156 = +2,40 σ** (il 10/09 era +2,18 σ) e le 3 dimensioni in prova
+valgono **+0,0304 ± 0,0151 = +2,02 σ**. Il filtro del rimbalzo resta sotto soglia (−1,95 σ), come
+già stabilito in [rimbalzo.md](rimbalzo.md). In cima alle priorità «quanti lontani dalla macchia di
+10» (3,79), poi «quanti iniziano per 9» e «attorno alla macchia di 10».
+
+Giocata consegnata — cinque sestine disgiunte, 30 numeri distinti:
+`04 14 25 34 56 59` · `03 42 58 71 78 90` · `21 36 53 66 69 77` · `22 29 37 57 67 88` ·
+`17 20 24 61 75 87`; **sestina singola, la meno respinta dall'osservazione: `01 28 33 36 53 85`**
+(non è una delle cinque: la scelta singola è un'altra uscita del programma). Niente Jolly né
+Superstar: questa esecuzione non li propone. Esito da verificare col concorso del 12/09.
+
 **La catena batte il controllo più severo (10/09/2026)** — fino a oggi il paragone era il **caso
 puro**: cinque sestine sorteggiate indipendenti, che però si sovrappongono e coprono 26 caselle su
 90 invece delle 30 della catena. Con più tabellone coperto si azzecca di più meccanicamente, senza
