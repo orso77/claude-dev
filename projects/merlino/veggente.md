@@ -119,6 +119,26 @@ che non hanno nulla in comune — cifra finale nelle ultime 20 (1.002 estrazioni
 - 150 metodi, 3 giri, 2 giochi, 11 ruote: nessuno indovina le estrazioni passate più del caso in
   modo che si ripeta su dati non guardati.
 
+## Ritorni — strutture che tornano in più estrazioni (criterio scritto PRIMA di lanciare)
+
+Richiesta (14/09/2026): *«continua a cercare qualcosa che ritorni in più estrazioni»*.
+
+Non un numero da giocare ma una **struttura**: se in una parte della storia compare più (o meno) del
+dovuto, deve farlo anche nell'altra. `Veggente.exe ritorni`:
+
+- **11 famiglie**: ogni pallina, coppie, terne, chi segue chi a distanza 1/2/3, distanze fra i numeri,
+  valore del 1°..K° numero, forma (pari × consecutivi × decine), numeri in comune con le due
+  estrazioni dopo, somma;
+- **2 modi di dividere**: metà contro metà; blocchi alterni da 50 (per ciò che dura poco);
+- **13 serie**: SE, EJ, 11 ruote del Lotto; + fra le ruote lo stesso giorno e il giorno dopo;
+- ogni misura contro **100 storie a caso** delle stesse dimensioni → sigma;
+- **tarature**: storia finta con 9 palline più pesanti del 25%, storia finta con il 7 che trascina
+  l'8 nella metà dei casi. Devono accendere «numeri» e «coppie»; se non lo fanno lo strumento è rotto.
+
+**Criterio**: una famiglia **torna** se (a) la sigma combinata delle 11 ruote è ≥ +3 in entrambi i
+modi, oppure (b) SE ≥ +2, EJ ≥ +2 e Lotto combinato ≥ +2 nello stesso modo. Fra le ruote: ≥ +3.
+Chi torna diventa un metodo e passa dal banco del passato; chi non torna va a verbale.
+
 ## File
 
 | File | Ruolo |
