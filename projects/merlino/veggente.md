@@ -174,6 +174,29 @@ Criterio invariato: Lotto combinato ≥ +3 in entrambi i modi, oppure SE, EJ e L
 modo; incroci SE-Lotto ≥ +3. Le famiglie del primo giro si rimisurano ma non contano come prova
 nuova.
 
+### Esito del secondo giro: NESSUNA famiglia torna (commit del criterio `c709c89`)
+
+Le famiglie del primo giro sono uscite identiche al primo lancio (stessi semi): il conto è
+riproducibile. Tarature ancora accese.
+
+| famiglia nuova | SE metà | EJ metà | Lotto comb. metà | SE blocchi | EJ blocchi | Lotto comb. blocchi |
+|---|---|---|---|---|---|---|
+| segue a distanza 4-10 | −0,12 | +0,34 | −0,83 | −0,03 | −0,59 | −0,01 |
+| segue a distanza 11-50 | −0,07 | +0,34 | −0,88 | +0,51 | −1,33 | −0,09 |
+| dopo quante estrazioni torna un numero | +0,29 | −0,01 | +0,58 | −0,24 | −1,52 | **+2,08** (9 su 11) |
+| pallina × giorno della settimana | +0,74 | −0,95 | −0,31 | +0,45 | −2,12 | +0,07 |
+| pallina × mese | −0,74 | −0,61 | +0,50 | −1,94 | −0,71 | +1,13 |
+
+SuperEnalotto contro le 11 ruote (2.751 giorni in comune): stesso giorno −0,71 σ (10.008 numeri in
+comune contro 10.072 attesi); SE oggi e Lotto dopo −1,67 σ; Lotto oggi e SE dopo −0,80 σ.
+
+Il valore più alto, «dopo quante estrazioni torna un numero» sul Lotto a blocchi (+2,08, 9 ruote
+positive su 11), non regge a metà contro metà (+0,58) né su SE (−0,24) ed EJ (−1,52): sotto criterio.
+
+**Bilancio dei ritorni**: 16 famiglie, 2 modi, 13 serie, più gli incroci fra ruote e fra giochi. Con
+tarature che vedono 9 palline più pesanti del 25% a +4,6 σ e una coppia legata a +7,3 σ, nelle
+estrazioni vere **nessuna struttura torna** da una parte all'altra della storia.
+
 ## File
 
 | File | Ruolo |
