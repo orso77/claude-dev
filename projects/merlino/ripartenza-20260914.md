@@ -20,7 +20,7 @@ si puo' promettere di trovarlo. La promessa che si puo' mantenere e' un'altra: *
 | SE dal 01/07/2009: estrazione propria, ADM + Sisal, piazza Mastai a Roma; **due macchine a mescolamento pneumatico**, una per sestina e Jolly, una per il SuperStar | [sisal.com](https://www.sisal.com/offerta/giochi/lotterie/superenalotto/estrazione) |
 | EJ: Helsinki, macchina **Venus** per i 5 numeri e **Opale** per gli Euro, ad aria; macchine controllate da VTT | [casinohelsinki.fi](https://casinohelsinki.fi/en/games/eurojackpot-eng/), [Wikipedia](https://en.wikipedia.org/wiki/Lottery_machine) |
 | Oggi il SE si estrae **4 volte a settimana** (mar, gio, ven, sab; nel 2026: 34-36 per giorno fino a settembre) | archivio locale `data/2024-2026.txt` |
-| Archivio locale: **2.881 estrazioni SE dal 01/07/2009**, **877 EJ** | conteggio sui file |
+| Archivio locale: **2.828 estrazioni SE dal 01/07/2009** (la prima è del 02/07/2009), **877 EJ dal 28/03/2014** (l'archivio EJ parte da lì, non dal 2012). In chat era stato detto 2.881: sbagliato, il conteggio includeva le righe d'intestazione dei file | conteggio sui file, verificato con due metodi |
 | **Ordine di estrazione del SE**: nessuna fonte ufficiale trovata. La pagina ADM `enalotto_estr` restituisce solo navigazione; franknet.altervista.org pubblica le sestine **ordinate**; l'unico file «in ordine di estrazione» (forum LottoCED) e' dichiarato dall'autore **generato con AI** e non affidabile | verificato il 14/09 |
 
 ## L'esito della giocata del 12/09

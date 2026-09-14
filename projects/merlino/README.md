@@ -24,11 +24,25 @@
 > 2. **Il cambiamento del macchinario del 2009 non va mai piu' preso in considerazione**, a meno
 >    che non serva per stabilire un ordine nel caos. Resta applicato dov'e' gia' (il cammino parte
 >    dal 01/07/2009) e non se ne riparla.
+> 4. **Il banco di prova e' SOLO IL PASSATO (14/09/2026).** *«devi basarti solo sul passato. devi
+>    simulare le estrazioni sul passato e trovare un metodo che indovini le estrazioni passate. e'
+>    quello il vero banco di prova. nessuna estrazione futura»*. Niente registro in avanti, niente
+>    attese di concorsi: per ogni estrazione passata il metodo vede solo quelle prima e la indovina.
+>    Un tratto finale del passato resta sigillato durante la ricerca e si usa una volta sola per la
+>    conferma (e' passato, non futuro): senza, un metodo scelto guardando tutto indovina perche'
+>    ha gia' visto, come in [affina.md](affina.md).
 > 3. **La popolarita' dei numeri e' FUORI dal progetto (10/09/2026).** *«io della popolarita' non
 >    ne voglio mai piu' sentir parlare»*, *«me ne frego della popolarita'»*. Non si misura, non si
 >    propone, non si usa per scegliere la giocata, non la si cita nemmeno di sfuggita come lato
 >    positivo. La misura del 17/08 resta dov'e', nell'archivio storico, e li' finisce. Il TODO
 >    aperto («la giocata del modello e' piu' popolare dei compleanni») e' **chiuso: non si fa**.
+
+**Veggente, il banco del passato (14/09/2026)** — programma nuovo `C:\src\orso\Veggente`: ogni
+estrazione passata simulata vedendo solo le precedenti, 150 metodi, ricerca sul 70% e sigillato sul
+30%, tarato su storia finta e verificato su 400 storie casuali. Candidato: «segui il metodo migliore
+finora» sulla giocata grande, +2,61 σ SE e +2,71 σ EJ su tutto il tratto (il caso ci arriva 2 e 0
+volte su 200). Taglia piccola (+2,8% di centri); replica sul Lotto con criterio scritto prima:
+[veggente.md](veggente.md).
 
 **Ripartenza da capo (14/09/2026)** — richiesta: «devi ricominciare tutto da capo, devi
 assolutamente trovare un modo per predire le estrazioni, fai come ti pare». Fatti verificati prima
