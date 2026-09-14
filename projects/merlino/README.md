@@ -41,8 +41,9 @@
 estrazione passata simulata vedendo solo le precedenti, 150 metodi, ricerca sul 70% e sigillato sul
 30%, tarato su storia finta e verificato su 400 storie casuali. Candidato: «segui il metodo migliore
 finora» sulla giocata grande, +2,61 σ SE e +2,71 σ EJ su tutto il tratto (il caso ci arriva 2 e 0
-volte su 200). Taglia piccola (+2,8% di centri); replica sul Lotto con criterio scritto prima:
-[veggente.md](veggente.md).
+volte su 200). Taglia piccola (+2,8% di centri). **Replica sulle 11 ruote del Lotto, criterio
+scritto e committato prima: smentita** (sigma combinata +0,21, positive 6 su 11): quel candidato era
+caso. Il banco resta, tarato e pulito: [veggente.md](veggente.md).
 
 **Ripartenza da capo (14/09/2026)** — richiesta: «devi ricominciare tutto da capo, devi
 assolutamente trovare un modo per predire le estrazioni, fai come ti pare». Fatti verificati prima

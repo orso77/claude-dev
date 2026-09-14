@@ -84,6 +84,41 @@ Criterio fissato prima di vedere un solo numero del Lotto (14/09/2026):
   caso, e si dice.
 - Tutto il resto (coro, altri metodi, giocata piccola) si riporta come osservazione, non come prova.
 
+### Esito della replica: SMENTITA (14/09/2026, dopo il commit `cd08091` che fissava il criterio)
+
+11 ruote, 2.793 estrazioni ciascuna (02/07/2009 → 20/06/2026), banco e metodi invariati.
+
+| ruota | ricerca | sigillato | **tutto** |
+|---|---|---|---|
+| BA | +0,49 | +0,67 | +0,78 |
+| CA | +0,85 | −0,15 | +0,62 |
+| FI | −0,02 | −0,15 | −0,10 |
+| GE | −0,50 | −0,40 | −0,64 |
+| MI | −0,35 | −0,01 | −0,30 |
+| NA | −0,40 | +0,89 | +0,15 |
+| PA | −0,35 | −0,87 | −0,77 |
+| RM | −0,52 | +1,39 | +0,33 |
+| RN | −0,57 | +0,96 | +0,05 |
+| TO | +1,39 | −0,01 | +1,16 |
+| VE | +0,14 | −1,30 | −0,60 |
+
+**Sigma combinata +0,21, positive 6 su 11** → sotto +1: per il criterio scritto prima, il +2,6 σ del
+SuperEnalotto e il +2,7 σ dell'EuroJackpot vanno letti come **caso**.
+Osservazioni (non prove): giocata piccola combinata −1,71; coro logistica +0,76; coro fasce +0,17;
+segui le ultime 500 +0,14.
+
+**Chi seguiva, e perché non c'era un meccanismo**: sul SE a 30 numeri il capo è cambiato fra famiglie
+che non hanno nulla in comune — cifra finale nelle ultime 20 (1.002 estrazioni), ritorno a passo 9
+(899), frequenza nelle ultime 1000 (600); sull'EJ a 25 numeri quasi sempre ritorno a passo 10 ↓
+(655). Un vantaggio della macchina avrebbe portato a una famiglia sola e ricorrente nei giochi.
+
+### Cosa resta di questa giornata
+
+- Un banco del passato **tarato** (vede una regola nascosta nel 25% delle estrazioni) e **pulito**
+  (sul caso tutti a zero): è lo strumento, e resta.
+- 150 metodi, 3 giri, 2 giochi, 11 ruote: nessuno indovina le estrazioni passate più del caso in
+  modo che si ripeta su dati non guardati.
+
 ## File
 
 | File | Ruolo |
