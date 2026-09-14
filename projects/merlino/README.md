@@ -30,6 +30,13 @@
 >    positivo. La misura del 17/08 resta dov'e', nell'archivio storico, e li' finisce. Il TODO
 >    aperto («la giocata del modello e' piu' popolare dei compleanni») e' **chiuso: non si fa**.
 
+**Ripartenza da capo (14/09/2026)** — richiesta: «devi ricominciare tutto da capo, devi
+assolutamente trovare un modo per predire le estrazioni, fai come ti pare». Fatti verificati prima
+di ripartire (due macchine ad aria per il SE, Venus e Opale per l'EJ, 4 estrazioni SE a settimana,
+nessuna fonte affidabile dell'ordine di estrazione del SE) ed esito della giocata del 12/09
+(`03 07 14 40 78 81`: 3 dei 6 usciti nei 30 coperti, 2 centri sulla seconda sestina):
+[ripartenza-20260914.md](ripartenza-20260914.md).
+
 **La giocata per il concorso SE del 12/09/2026 (12/09/2026)** — su richiesta («dammi 6 numeri
 vincenti per l'estrazione di stasera»), premesso una volta che nessuno prevede un'estrazione.
 Archivio aggiornato all'**11/09** (2 estrazioni SE, 1 EJ) con il binario **ricompilato** — la
