@@ -45,6 +45,9 @@ SE `09 12 48 62 68 70` · `16 25 38 59 71 85` · `14 24 55 63 67 76` · `03 05 2
 `06 19 41 73 81 84`, singola **`08 11 17 45 58 62`**, SuperStar **72**.
 EJ `19 24 26 34 49` · `10 23 29 33 40` · `11 17 22 45 46` · `16 20 30 36 43` · `18 28 42 47 50`,
 singola **`06 17 19 36 40`**, Euronumeri **03 08**. Esito da verificare coi concorsi del 15/09.
+Poi richiesto «un unico pronostico per ej e per se»: consegnate le **giocate singole** del programma,
+SE `08 11 17 45 58 62` SuperStar 72 · EJ `06 17 19 36 40` Euro 03 08.
+Corretta anche la **settima causa** (Euronumeri e SuperStar non riprendevano mai).
 Lungo la strada trovata la **sesta causa dell'incrementale** — l'impronta della tavola cambiava a
 ogni avvio (`string.GetHashCode` casuale per processo), quindi ogni lancio ricamminava da capo:
 corretta con FNV-1a, [incrementale.md](incrementale.md).

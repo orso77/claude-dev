@@ -202,12 +202,12 @@ numeri e le stesse misure** del cammino intero (SE 1,1942 / +2,38 σ, EJ 1,3520 
 singole identiche). Non ri-verificata qui la ripresa con un'estrazione nuova in mezzo: e' il collaudo
 di `MERLINO_FERMA` del 21/08, che la correzione non tocca.
 
-**Difetto residuo trovato nella stessa verifica (non corretto).** Euronumeri e SuperStar non
-riprendono mai: `Riprendi` pretende `PassiSenza > 0` (`Catena.cs:657`), ma su quelle urne non ci sono
-dimensioni in prova, il braccio «senza» non gira (`Catena.cs:916`) e lo stato risulta sempre
-«incompleto». L'impronta viene accettata; costa 0,1-0,5 minuti di cammino, i numeri non cambiano
-(verificati identici sui due lanci). Correzione proposta: pretendere `PassiSenza > 0` solo quando il
-braccio e' acceso.
+**La settima causa, trovata nella stessa verifica e corretta il 15/09/2026.** Euronumeri e SuperStar
+non riprendevano mai: `Riprendi` pretendeva `PassiSenza > 0` (`Catena.cs:657`), ma su quelle urne non
+ci sono dimensioni in prova, il braccio «senza» non gira (`Catena.cs:916`) e lo stato risultava
+sempre «incompleto». Ora `PassiSenza > 0` si pretende solo se `IndiciInProva()` non e' vuoto.
+Verificato: tutti e quattro i giochi (SE, EJ, Euronumeri, SuperStar) al lancio successivo rispondono
+«Gia' arrivata all'ultima estrazione» con numeri e misure identici al cammino intero.
 
 ## Cosa resta aperto
 
