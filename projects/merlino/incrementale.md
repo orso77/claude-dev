@@ -180,6 +180,35 @@ il calcolo lasciando intatte le due stringhe non verrebbe intercettato. In quest
 descrizione porta sempre il netto misurato — quindi cambia insieme al calcolo — ma e' una
 convenzione, non una garanzia: **nel dubbio si cancella il file di stato**.
 
+## La sesta causa, trovata il 15/09/2026 — l'impronta che cambiava a ogni avvio
+
+Il rimedio della quinta causa aveva un difetto suo: l'impronta era `string.GetHashCode`, che in .NET
+(Core e successivi) e' **casuale per processo**. L'impronta salvata non coincideva mai con quella del
+lancio successivo, e **ogni esecuzione ricamminava da capo** stampando «le dimensioni non sono le
+stesse» anche con la tavola intatta. Si era visto il 12/09 (stato rifiutato, 6,4 minuti di cammino)
+e letto come un cambio di tavola; il 15/09 e' ricapitato identico e si e' cercata la causa.
+
+**Effetto sui risultati: nessuno.** Il cammino intero e' il riferimento, la ripresa deve solo
+eguagliarlo; il difetto costava tempo, non numeri.
+
+**Il rimedio.** `ImprontaTavola` usa un FNV-1a a 32 bit sui caratteri della stessa stringa (nomi e
+descrizioni): stesso ingresso, stesso numero, su ogni processo. Gli stati salvati prima del fix
+portano l'impronta vecchia e vengono rifiutati **una volta**; dal lancio successivo la ripresa
+funziona.
+
+**Verificato il 15/09/2026**, due lanci per gioco col binario corretto: il primo ricammina (impronta
+vecchia), il secondo su SE ed EJ risponde «Gia' arrivata all'ultima estrazione» e stampa **gli stessi
+numeri e le stesse misure** del cammino intero (SE 1,1942 / +2,38 σ, EJ 1,3520 / −0,17 σ, sestine e
+singole identiche). Non ri-verificata qui la ripresa con un'estrazione nuova in mezzo: e' il collaudo
+di `MERLINO_FERMA` del 21/08, che la correzione non tocca.
+
+**Difetto residuo trovato nella stessa verifica (non corretto).** Euronumeri e SuperStar non
+riprendono mai: `Riprendi` pretende `PassiSenza > 0` (`Catena.cs:657`), ma su quelle urne non ci sono
+dimensioni in prova, il braccio «senza» non gira (`Catena.cs:916`) e lo stato risulta sempre
+«incompleto». L'impronta viene accettata; costa 0,1-0,5 minuti di cammino, i numeri non cambiano
+(verificati identici sui due lanci). Correzione proposta: pretendere `PassiSenza > 0` solo quando il
+braccio e' acceso.
+
 ## Cosa resta aperto
 
 - **Il collaudo non è automatico.** `MERLINO_FERMA` esiste, ma il confronto fra i due cammini lo si

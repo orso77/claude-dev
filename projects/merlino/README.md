@@ -37,6 +37,18 @@
 >    positivo. La misura del 17/08 resta dov'e', nell'archivio storico, e li' finisce. Il TODO
 >    aperto («la giocata del modello e' piu' popolare dei compleanni») e' **chiuso: non si fa**.
 
+**La giocata per i concorsi SE ed EJ del 15/09/2026 (15/09/2026)** — su richiesta («io voglio una
+buona predizione per stasera sia se che ej»). Archivio al 12/09 (SE) e 11/09 (EJ), catena ricamminata
+da capo con la tavola invariata (142 SE / 161 EJ). SE: catena 1,1942, caso sparso 1,1571, **+2,38 σ**
+sul caso sparso; EJ −0,17 σ, Euronumeri −1,53 σ, SuperStar −1,47 σ (pari o sotto il caso).
+SE `09 12 48 62 68 70` · `16 25 38 59 71 85` · `14 24 55 63 67 76` · `03 05 28 42 75 77` ·
+`06 19 41 73 81 84`, singola **`08 11 17 45 58 62`**, SuperStar **72**.
+EJ `19 24 26 34 49` · `10 23 29 33 40` · `11 17 22 45 46` · `16 20 30 36 43` · `18 28 42 47 50`,
+singola **`06 17 19 36 40`**, Euronumeri **03 08**. Esito da verificare coi concorsi del 15/09.
+Lungo la strada trovata la **sesta causa dell'incrementale** — l'impronta della tavola cambiava a
+ogni avvio (`string.GetHashCode` casuale per processo), quindi ogni lancio ricamminava da capo:
+corretta con FNV-1a, [incrementale.md](incrementale.md).
+
 **Veggente, il banco del passato (14/09/2026)** — programma nuovo `C:\src\orso\Veggente`: ogni
 estrazione passata simulata vedendo solo le precedenti, 150 metodi, ricerca sul 70% e sigillato sul
 30%, tarato su storia finta e verificato su 400 storie casuali. Candidato: «segui il metodo migliore
